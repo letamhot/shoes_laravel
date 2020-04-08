@@ -19,9 +19,15 @@ Route::get('/shop', 'ShoesController@shop')->name('shop');
 // Route::get('/loginshoes', 'ShoesController@login')->name('loginshoes');
 Route::get('/blog', 'ShoesController@blog')->name('blog');
 Route::get('/checkout', 'ShoesController@checkout')->name('checkout');
-Route::get('/productdetail', 'ShoesController@productdetail')->name('productdetail');
+
+Route::get('/product/detail/{id}', 'ShoesController@productdetail')->name('productdetail');
+
 Route::get('/contact', 'ShoesController@contact')->name('contact');
 Route::get('/error', 'ShoesController@error')->name('error');
+
+//Add cart
+Route::get('/add/cart/{id}', 'CartController@addCart')->name('addCart');
+Route::get('/remove/cart/{id}', 'CartController@deleteCart')->name('deleteCart');
 
 //login-shoes
 Route::get('/loginshoes',  'Auth\LoginController@showLogin');

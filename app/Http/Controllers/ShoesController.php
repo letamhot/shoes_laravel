@@ -6,14 +6,27 @@ use App\Type;
 use App\Product;
 use App\Producer;
 use App\slide;
+use App\Posts;
+use App\User;
+
+
+use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Facades\Cart;
+
 
 use Illuminate\Http\Request;
 
 
 class ShoesController extends Controller
 {
+    // public function __construct()
+    // {
+    //     Auth::user();
+    // }
     public function home(Request $request)
     {
+        // Cart::destroy();
+        // dd(Cart::content());
         $types = Type::all();
         $products = Product::all();
         $product1 = Product::take(3)->get();
@@ -21,6 +34,7 @@ class ShoesController extends Controller
         $producers = Producer::all();
         $slides = slide::first();
         $slides1 = slide::where('id', '>', 1)->get();
+        // $users = user::all();
 
 
 
@@ -29,34 +43,57 @@ class ShoesController extends Controller
 
     public function cart()
     {
-        return view('shoes.cart');
+        $products = Product::all();
+        $types = Type::all();
+        return view('shoes.cart', compact('types', 'products'));
     }
     public function blogsingle()
     {
-        return view('shoes.blog-single');
+        $products = Product::all();
+        $types = Type::all();
+        $posts = Posts::all();
+        return view('shoes.blog-single', compact('types', 'products', 'posts'));
     }
     public function shop()
+
     {
-        return view('shoes.shop');
+        $products = Product::all();
+        $types = Type::all();
+        return view('shoes.shop', compact('types', 'products'));
     }
     public function blog()
     {
-        return view('shoes.blog');
+        $posts = Posts::all();
+        $products = Product::all();
+        $types = Type::all();
+        return view('shoes.blog', compact('types', 'products', 'posts'));
     }
     public function checkout()
     {
-        return view('shoes.checkout');
+        $products = Product::all();
+        $types = Type::all();
+        return view('shoes.checkout', compact('types', 'products'));
     }
-    public function productdetail()
+    public function productdetail($id)
     {
-        return view('shoes.product-detail');
+        $id_product = Product::findOrfail($id);
+        // dd($product->name);
+        $products = Product::all();
+        $types = Type::all();
+        $product1 = Product::first();
+        $product2 = Product::where('id', '>', 1)->get();
+        return view('shoes.product-detail', compact('id_product', 'types', 'products', 'product1', 'product2'));
     }
     public function contact()
     {
-        return view('shoes.contact-us');
+        $products = Product::all();
+        $types = Type::all();
+        return view('shoes.contact-us', compact('types', 'products'));
     }
     public function error()
     {
-        return view('shoes.404');
+        $products = Product::all();
+        $types = Type::all();
+        return view('shoes.404', compact('types', 'products'));
     }
 }

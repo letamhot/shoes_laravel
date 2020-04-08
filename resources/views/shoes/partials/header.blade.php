@@ -36,7 +36,7 @@
                         <div class="contactinfo">
                             <ul class="nav nav-pills">
                                 <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-                                <li><a href=""><i class="fa fa-home"></i>{{ Auth::user()->name }}</a></li>
+                                {{-- <li><a href=""><i class="fa fa-home"></i>{{ Auth::user()->name }}</a></li> --}}
                             </ul>
                         </div>
                     </div>
@@ -128,21 +128,21 @@
                                             class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="{{ route('shop') }}">Products</a></li>
-                                        <li><a href="{{ route('productdetail') }}">Product Details</a>
-                                        </li>
-                                        <li><a href="{{ url('logoutshoes') }}">Logout</a></li>
-                                        <li><a href="{{ route('cart') }}">Cart</a></li>
-                                        <li><a href="{{ url('loginshoes') }}">Login</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="{{ route('blog') }}">Blog List</a></li>
-                                        <li><a href="{{ route('blog-single') }}">Blog Single</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="404.html">404</a></li>
-                                <li><a href="{{ route('contact') }}">Contact</a></li>
+                                        {{--  <li><a href="{{ route('productdetail') }}">Product Details</a>
+                                </li> --}}
+                                <li><a href="{{ url('logoutshoes') }}">Logout</a></li>
+                                <li><a href="{{ route('cart') }}">Cart</a></li>
+                                <li><a href="{{ url('loginshoes') }}">Login</a></li>
+                            </ul>
+                            </li>
+                            <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+                                <ul role="menu" class="sub-menu">
+                                    <li><a href="{{ route('blog') }}">Blog List</a></li>
+                                    <li><a href="{{ route('blog-single') }}">Blog Single</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="404.html">404</a></li>
+                            <li><a href="{{ route('contact') }}">Contact</a></li>
                             </ul>
                         </div>
                     </div>

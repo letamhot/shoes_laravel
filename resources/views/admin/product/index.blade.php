@@ -60,7 +60,8 @@
 
                             <td>{{$value->updated_at}}</td>
                             <td>
-                                <a href="{{ route('product.show', $value->id) }}" class="btn btn-primary">Show</a>
+                                {{-- <a href="{{ route('product.show', $value->id) }}" class="btn btn-primary">Show</a>
+                                --}}
                                 <a href="{{ route('product.edit', $value->id) }}" class="btn btn-warning">Edit</a>
                                 <form action="{{ route('product.destroy', $value->id) }}" method="POST">
                                     @csrf

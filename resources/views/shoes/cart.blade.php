@@ -8,16 +8,17 @@
     <div class="container">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li class="active">Shopping Cart</li>
+                <li><a href="{{ route('shoesHome') }}">Home</a></li>
+                <li class="active">Shopping Cart at {{ auth::user()->name }}</li>
             </ol>
         </div>
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
                 <thead>
                     <tr class="cart_menu">
+                        <td class="id">#</td>
                         <td class="image">Item</td>
-                        <td class="description">Product</td>
+                        <td class="product">Product</td>
                         <td class="price">Price</td>
                         <td class="quantity">Quantity</td>
                         <td class="total">Total</td>
@@ -25,27 +26,33 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php $i = 1; ?>
 
                     @foreach (Cart::content() as $key => $item)
 
                     <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="data:image;base64, {{ $item->options->img }}" alt="" width="150px"></a>
+                        <td class="id">{{ $i }}</td>
+                        <td class="cart_image">
+                            <a href="{{ route('productdetail', $item->id) }}"><img
+                                    src="data:image;base64, {{ $item->options->img }}" alt="{{ $item->name }}"
+                                    width="100px"></a>
                         </td>
-                        <td class=" cart_description">
-                            <h4><a href="">{{ $item->name }}</a></h4>
-                            <p>Web ID: 1089772</p>
+                        <td class=" cart_product">
+                            <h4><a href="{{ route('productdetail', $item->id) }}">{{ $item->name }}</a></h4>
+                            {{-- <p>{{ $product->type->name  }}</p> --}}
                         </td>
                         <td class="cart_price">
                             <p>{{ number_format($item->price) }} vnd</p>
                         </td>
                         <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1"
-                                    autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
+
+                            <div class="quantity">
+                                <div class="form-group">
+                                    <input type="number" name="qty" class="form-control qty" value="{{ $item->qty }}"
+                                        min='1' data-id="{{ $item->rowId }}">
+                                </div>
                             </div>
+
                         </td>
                         <td class="cart_total">
                             <p class="cart_total_price">{{ number_format($item->total) }}</p>
@@ -55,9 +62,9 @@
                                     class="fa fa-times"></i></a>
                         </td>
                     </tr>
+                    <?php $i++; ?>
 
                     @endforeach
-
                 </tbody>
             </table>
         </div>
@@ -130,10 +137,10 @@
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
-                        <li>Cart Sub Total <span>$59</span></li>
+                        <li>Cart Sub Total <span>{{ (Cart::total()) }} VND</span></li>
                         <li>Eco Tax <span>$2</span></li>
                         <li>Shipping Cost <span>Free</span></li>
-                        <li>Total <span>{{ (Cart::total()) }}</span></li>
+                        <li>Total <span>{{ (Cart::total()) }} VND</span></li>
                     </ul>
                     <a class="btn btn-default update" href="">Update</a>
                     <a class="btn btn-default check_out" href="">Check Out</a>
@@ -145,3 +152,41 @@
 <!--/#do_action-->
 
 @endsection
+
+@push('update_cart')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<script>
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+    $(document).ready(function() {
+        $('.qty').blur(function() {
+            let rowid = $(this).data('id');
+            $.ajax({
+                url: 'cartt/' + rowid,
+                type: 'put',
+                dataType: 'json',
+                data: {
+                    qty: $(this).val(),
+                },
+                success: function(data) {
+                    if (data.error) {
+                        toastr.error(data.error, 'Error!!!', {
+                            timeOut: 5000
+                        });
+                    } else {
+                        toastr.success(data.result, 'Success', {
+                            timeOut: 5000
+                        });
+                        location.reload();
+
+                    }
+                }
+            });
+        });
+    });
+</script>
+@endpush

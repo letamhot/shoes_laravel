@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Product;
 use App\Producer;
 use App\Type;
+use App\Size;
+
 // use Session;
 // use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +19,7 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:ROLE_ADMIN');
+        // $this->middleware('role:ROLE_ADMIN');
         // $this->middleware('role:ROLE_SUPERADMIN');
     }
     /**
@@ -27,8 +29,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::all();
-        return view('admin.product.index', compact('product'));
+        $products = Product::all();
+        return view('admin.product.index', compact('products'));
     }
 
     /**
@@ -40,7 +42,8 @@ class ProductController extends Controller
     {
         $type = Type::all();
         $producer = Producer::all();
-        return view('admin.product.create', compact('type', 'producer'));
+        $size = Size::all();
+        return view('admin.product.create', compact('type', 'producer', 'size'));
     }
 
     /**
@@ -52,25 +55,35 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required | min:3 | string',
             'type' => 'required',
             'producer' => 'required',
-            'amount' => 'required',
+            'amount' => 'required | numeric | min:0',
             'image' => 'image | mimes:png,jpg,jpeg',
-            'price_input' => 'required',
-            'description' => 'required'
+            'price_input' => 'required | numeric | min:0',
+            'description' => 'required | string'
 
         ]);
+        if (request('promotion_price') > request('price_input')) {
+            return back()->with('delete', "Promotion price must be smaller than unit price!");
+        }
+
         $product = new Product();
         $product->id = $request->id;
         $product->name = $request->name;
         $product->id_type = $request->type;
         $product->id_producer = $request->producer;
         $product->amount = $request->amount;
-        $product->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
+        if (request('image')) {
+            $product->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
+        }
         $product->price_input = $request->price_input;
+        $product->promotion_price = $request->promotion_price;
         $product->description = $request->description;
         $product->save();
+        if (request('size')) {
+            $product->size()->attach(request('size'));
+        }
         return redirect()->route('product.index')->with('success', 'Product Created successfully');
     }
 
@@ -96,10 +109,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
+        $product = Product::withTrashed()->find($id);
         $type = Type::all();
         $producer = Producer::all();
-        return view('admin.product.edit', compact('product', 'type', 'producer'));
+        $sizes = Size::all();
+
+        return view('admin.product.edit', compact('product', 'type', 'producer', 'sizes'));
     }
 
     /**
@@ -112,17 +127,17 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required | min:3 | string',
             'type' => 'required',
             'producer' => 'required',
-            'amount' => 'required',
+            'amount' => 'required | numeric | min:0',
             'image' => 'image | mimes:png,jpg,jpeg',
-            'price_input' => 'required',
-            'description' => 'required'
+            'price_input' => 'required | numeric | min:0',
+            'description' => 'required | string'
 
 
         ]);
-        $product = Product::findOrfail($id);
+        $product = Product::withTrashed()->findOrfail($id);
         $product->name = $request->name;
         $product->id_type = $request->type;
         $product->id_producer = $request->producer;
@@ -131,9 +146,12 @@ class ProductController extends Controller
             $product->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
         }
         $product->price_input = $request->price_input;
+        $product->promotion_price = $request->promotion_price;
+
         $product->description = $request->description;
 
         $product->save();
+        $product->size()->sync($request->size);
         return redirect()->route('product.index')->with('success', 'Product Created successfully');
     }
 
@@ -147,59 +165,57 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
-        return redirect()->back();
+        return back()->with('success', "Product $product->name delete!");
     }
 
     public function trashed(Request $request)
     {
         $products = Product::onlyTrashed()->get();
-        return view('admin.product.trash', compact('product'));
+        return view('admin.product.trash', compact('products'));
     }
     public function restore($id)
     {
         $product = Product::onlyTrashed()->findOrFail($id);
         $product->restore();
 
-        return redirect()->route('product.trash')->with('success', "Product $product->name restored!");
+        return back()->with('success', "Product $product->name restored!");
     }
 
     public function restoreAll()
     {
         $product = Product::onlyTrashed()->get();
         if (count($product) == 0) {
-            return redirect()->route('product.trash')->with('success', "Clean trash, nothing to restore!");
+            return back()->with('success', "Clean trash, nothing to restore!");
         } else {
             Product::onlyTrashed()->restore();
-            return redirect()->route('product.trash')->with('success', "All data restored!");
+            return back()->with('success', "All data restored!");
         }
     }
 
     public function delete($id)
     {
         $product = Product::onlyTrashed()->findOrFail($id);
-        // if (!empty($product->image)) {
-        //     unlink("img/products/" . $product->image);
-        // }
 
         $product->forceDelete();
-        return redirect()->route('product.trash')->with('delete', "Product $product->name destroyed!");
+        return back()->with('delete', "Product $product->name destroyed!");
     }
 
     public function deleteAll()
     {
         $product = Product::onlyTrashed()->get();
 
-        // foreach ($product as $value) {
-        //     // if (!empty($value->image)) {
-        //     //     unlink("img/products/" . $value->image);
-        //     // }
-        // }
-
         if (count($product) == 0) {
-            return redirect()->route('product.trash')->with('delete', "Clean trash, nothing to delete!");
+            return back()->with('delete', "Clean trash, nothing to delete!");
         } else {
             Product::onlyTrashed()->forceDelete();
-            return redirect()->route('product.trash')->with('delete', "All data destroyed!");
+            return back()->with('delete', "All data destroyed!");
         }
+    }
+    public function news($id)
+    {
+        $product = Product::withTrashed()->findOrFail($id);
+        $product->new = !$product->new;
+        $product->save();
+        return redirect()->back()->with('success', "Product $product->name changed column new");
     }
 }

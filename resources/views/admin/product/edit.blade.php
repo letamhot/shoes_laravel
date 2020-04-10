@@ -21,7 +21,8 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group{{$errors->has('name')?' has-error':''}}">
                 <strong>Name:</strong>
-                <input type="text" name="name" value="{{ $product->name }}" class="form-control" placeholder="name">
+                <input type="text" name="name" value="{{ $product->name }}"
+                    class="form-control @error('name') is-invalid @enderror" placeholder="name">
                 <span class="text-danger">{{$errors->first('name')}}</span>
             </div>
         </div>
@@ -54,9 +55,31 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group{{$errors->has('amount')?' has-error':''}}">
+
+            <div class="form-group @error('size') has-error has-feedback @enderror">
+
+                <label>Size products</label>
+
+                <select name="size[]" multiple id="size" class="form-control @error('size') is-invalid @enderror">
+                    @foreach ($sizes as $key => $size)
+                    @if(count($product->size) > 0)
+                    @foreach ($product->size as $item)
+                    <option value="{{ $size->id }}" {{ $size->id === $item->id ? 'selected' : '' }}>
+                        {{ $size->name }}</option>
+                    @endforeach
+                    @else
+                    <option value="{{ $size->id }}">{{ $size->name }}</option>
+                    @endif
+                    @endforeach
+                </select>
+
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <strong>Amount:</strong>
-                <textarea class="form-control" rows="10" name="amount"
+                <textarea class="form-control @error('amount') is-invalid @enderror" rows="10" name="amount"
                     placeholder="amount">{{ $product->amount }}</textarea>
                 <span class="text-danger">{{$errors->first('amount')}}</span>
             </div>
@@ -78,6 +101,30 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
+
+            <div class="form-group @error('promotion_price') has-error has-feedback @enderror">
+
+                <label>Discount (Option)</label>
+
+                <input type="text" class="form-control @error('promotion_price') is-invalid @enderror"
+                    name="promotion_price" value="{{ $product->promotion_price }}">
+
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+
+            <div class="form-group @error('new') has-error has-feedback @enderror">
+
+                <label>News</label>
+
+                <select name="new" id="" class="form-control @error('new') is-invalid @enderror">
+                    <option value="0" @if($product->new==0) {{ "selected" }} @endif>No
+                    </option>
+                    <option value="1" @if($product->new==1) {{ "selected" }} @endif>Yes</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group{{$errors->has('description')?' has-error':''}}">
                 <strong>Description:</strong>
                 <textarea class="form-control" rows="10" name="description" id="description"
@@ -85,6 +132,7 @@
                 <span class="text-danger">{{$errors->first('description')}}</span>
             </div>
         </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <button type="submit" class="btn btn-primary">Update</button>
         </div>

@@ -103,10 +103,10 @@
                         </span>
                     </div>
                     <a href="">
-                        <img src="data:image;base64, {{ $post->image }}" width="300px" height="300px"
-                            style="text-center" alt="">
+                        <img src="data:image;base64, {{ $post->image }}" width="845px" height="390px"
+                            style=" width: 100%" alt="">
                     </a>
-                    <p>{{ $post->content }}</p>
+                    {{-- <p>{!! $post->content !!}</p> --}}
                     <a class="btn btn-primary" href="">Read More</a>
                 </div>
                 @endforeach

@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Type;
+use App\Product;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Validation\Validator::validate
 
 class TypeController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:ROLE_ADMIN');
+        // $this->middleware('role:ROLE_ADMIN');
     }
     /**
      * Display a listing of the resource.
@@ -51,9 +51,14 @@ class TypeController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'image' => 'image | mimes:png,jpg,jpeg',
+
+        ]);
         $type = new Type();
-        $type->name = request('name');
-        if (request('image')) {
+        $type->name = $request->name;
+        if ($request->image) {
             $type->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
         }
         $type->save();
@@ -69,7 +74,7 @@ class TypeController extends Controller
 
     public function show($id)
     {
-        $type = Type::findOrFail($id);
+        $type = Type::withTrashed()->findOrFail($id);
         return view('admin.type.show', compact('type'));
     }
 
@@ -82,7 +87,7 @@ class TypeController extends Controller
 
     public function edit($id)
     {
-        $type = Type::findOrFail($id);
+        $type = Type::withTrashed()->findOrFail($id);
         return view('admin.type.edit', compact('type'));
     }
 
@@ -96,9 +101,16 @@ class TypeController extends Controller
 
     public function update(Request $request, $id)
     {
-        $type = Type::findOrfail($id);
+        $request->validate([
+            'name' => 'required',
+            'image' => 'image | mimes:png,jpg,jpeg',
+
+        ]);
+        $type = Type::withTrashed()->findOrfail($id);
         $type->name = $request->name;
-        $type->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
+        if ($request->image) {
+            $type->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
+        }
         $type->save();
         return redirect()->route('type.index')->with('success', 'Type Updated successfully');
     }
@@ -112,11 +124,62 @@ class TypeController extends Controller
 
     public function destroy($id)
     {
-        Type::find($id)->delete();
+        $type = Type::findOrfail($id);
 
-        //store status message
-        Session::flash('success_msg', 'Type deleted successfully!');
+        $type->product()->delete();
+        $type->delete();
+        return back()->with('success', "Type $type->name delete!");
+    }
 
-        return redirect()->route('type.index');
+    public function trashed(Request $request)
+    {
+        $type = Type::onlyTrashed()->get();
+        return view('admin.type.trash', compact('type'));
+    }
+
+    public function restore($id)
+    {
+        $type = Type::onlyTrashed()->findOrFail($id);
+        $type->product()->restore();
+        $type->restore();
+
+        return back()->with('success', "type $type->name restored!");
+    }
+
+    public function restoreAll()
+    {
+        $type = Type::onlyTrashed()->get();
+        if (count($type) == 0) {
+            return back()->with('success', "Clean trash, nothing to restore!");
+        } else {
+            foreach ($type as $item) {
+                $item->product()->restore();
+            }
+            Type::onlyTrashed()->restore();
+            return back()->with('success', "All data restored!");
+        }
+    }
+
+    public function delete($id)
+    {
+        $type = Type::onlyTrashed()->findOrFail($id);
+        $type->product()->forceDelete();
+        $type->forceDelete();
+        return back()->with('delete', "type $type->name destroyed!");
+    }
+
+    public function deleteAll()
+    {
+        $type = Type::onlyTrashed()->get();
+
+        if (count($type) == 0) {
+            return back()->with('delete', "Clean trash, nothing to delete!");
+        } else {
+            foreach ($type as $item) {
+                $item->product()->forceDelete();
+            }
+            Type::onlyTrashed()->forceDelete();
+            return back()->with('delete', "All data destroyed!");
+        }
     }
 }

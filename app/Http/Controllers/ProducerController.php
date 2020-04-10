@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Producer;
+use App\Product;
+
+
 use Session;
 
 
@@ -13,7 +16,7 @@ class ProducerController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:ROLE_ADMIN');
+        // $this->middleware('role:ROLE_ADMIN');
     }
     /**
      * Display a listing of the resource.
@@ -120,11 +123,62 @@ class ProducerController extends Controller
      */
     public function destroy($id)
     {
-        Producer::find($id)->delete();
+        $producer = Producer::findOrfail($id);
 
-        //store status message
-        Session::flash('success_msg', 'Type deleted successfully!');
+        $producer->product()->delete();
+        $producer->delete();
+        return back()->with('success', "Producer $producer->name delete!");
+    }
 
-        return redirect()->route('producer.index');
+    public function trashed(Request $request)
+    {
+        $producer = producer::onlyTrashed()->get();
+        return view('admin.producer.trash', compact('producer'));
+    }
+
+    public function restore($id)
+    {
+        $producer = producer::onlyTrashed()->findOrFail($id);
+        $producer->product()->restore();
+        $producer->restore();
+
+        return back()->with('success', "producer $producer->name restored!");
+    }
+
+    public function restoreAll()
+    {
+        $producer = producer::onlyTrashed()->get();
+        if (count($producer) == 0) {
+            return back()->with('success', "Clean trash, nothing to restore!");
+        } else {
+            foreach ($producer as $item) {
+                $item->product()->restore();
+            }
+            producer::onlyTrashed()->restore();
+            return back()->with('success', "All data restored!");
+        }
+    }
+
+    public function delete($id)
+    {
+        $producer = producer::onlyTrashed()->findOrFail($id);
+        $producer->product()->forceDelete();
+        $producer->forceDelete();
+        return back()->with('delete', "producer $producer->name destroyed!");
+    }
+
+    public function deleteAll()
+    {
+        $producer = producer::onlyTrashed()->get();
+
+        if (count($producer) == 0) {
+            return back()->with('delete', "Clean trash, nothing to delete!");
+        } else {
+            foreach ($producer as $item) {
+                $item->product()->forceDelete();
+            }
+            producer::onlyTrashed()->forceDelete();
+            return back()->with('delete', "All data destroyed!");
+        }
     }
 }

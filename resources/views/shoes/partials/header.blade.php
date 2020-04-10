@@ -16,6 +16,7 @@
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
@@ -36,7 +37,8 @@
                         <div class="contactinfo">
                             <ul class="nav nav-pills">
                                 <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-                                {{-- <li><a href=""><i class="fa fa-home"></i>{{ Auth::user()->name }}</a></li> --}}
+                                <li><a href="{{ route('shoesHome') }}"><i
+                                            class="fa fa-home">{{ Auth::user()->name }}</i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -97,7 +99,9 @@
                                 <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                                 <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                                 <li><a href="{{ route('checkout') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                <li><a href="{{ route('cart') }}"
+                                        title="Giở hàng bạn có {{ Cart::count() }} mặt hàng"><i
+                                            class="fa fa-shopping-cart"></i> Cart</a></li>
                                 <li><a href="{{ url('loginshoes') }}"><i class="fa fa-lock"></i> Login</a></li>
                             </ul>
                         </div>
@@ -138,8 +142,9 @@
                             <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a href="{{ route('blog') }}">Blog List</a></li>
-                                    <li><a href="{{ route('blog-single') }}">Blog Single</a></li>
-                                </ul>
+                                    {{-- <li><a href="{{ route('blog-single') }}">Blog Single</a>
+                            </li> --}}
+                            </ul>
                             </li>
                             <li><a href="404.html">404</a></li>
                             <li><a href="{{ route('contact') }}">Contact</a></li>

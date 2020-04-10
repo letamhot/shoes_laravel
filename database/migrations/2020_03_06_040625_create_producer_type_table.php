@@ -15,9 +15,9 @@ class CreateProducerTypeTable extends Migration
     {
         Schema::create('producer_type', function (Blueprint $table) {
             $table->integer('id_producer')->unsigned();
-            $table->foreign('id_producer')->references('id')->on('producer');
+            $table->foreign('id_producer')->references('id')->on('producer')->onDelete('cascade');
             $table->integer('id_type')->unsigned();
-            $table->foreign('id_type')->references('id')->on('type');
+            $table->foreign('id_type')->references('id')->on('type')->onDelete('cascade');
             $table->primary(array('id_producer', 'id_type'));
             $table->integer('amount');
             $table->timestamps();

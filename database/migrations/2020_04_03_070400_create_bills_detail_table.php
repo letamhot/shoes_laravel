@@ -16,9 +16,9 @@ class CreateBillsDetailTable extends Migration
         Schema::create('bills_detail', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_bill')->unsigned();
-            $table->foreign('id_bill')->references('id')->on('bills');
+            $table->foreign('id_bill')->references('id')->on('bills')->onDelete('cascade');
             $table->integer('id_product')->unsigned();
-            $table->foreign('id_product')->references('id')->on('product');
+            $table->foreign('id_product')->references('id')->on('product')->onDelete('cascade');
             $table->integer('quantity')->comment('Số lượng');
             $table->double('unit_price');
             $table->string('user_created')->nullable();

@@ -141,6 +141,11 @@
                     <span>Tables</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('customer.index') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Customer</span></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('posts.index') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Post</span></a>

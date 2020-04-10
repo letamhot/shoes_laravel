@@ -15,11 +15,11 @@ class CreateProducerTable extends Migration
     {
         Schema::create('producer', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('address');
-            $table->string('phone');
-            $table->bigInteger('tax_code');
-            $table->text('image')->nullable();
+            $table->string('name')->nullable();
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->bigInteger('tax_code')->nullable();
+            $table->longtext('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

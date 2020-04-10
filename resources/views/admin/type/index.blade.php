@@ -14,8 +14,10 @@
     <h1 class="h3 mb-2 text-gray-800 ">List Type</h1>
     <div class="col-lg-12 margin-tb" style="margin-top: 20px;">
         <div class="pull-right">
-            <a href="{{route('type.create')}}" class="btn btn-success float-right">Create New type</a>
-            <a href="{{url('dashboard')}}" class="btn btn-primary ">Back</a>
+            <a href="{{route('type.create')}}" class="btn btn-success ">Create New type</a>
+            {{-- <a href="{{url('dashboard')}}" class="btn btn-primary ">Back</a> --}}
+            <a href="{{ route('type.trash') }}" class="btn btn-danger" style="float:right">Garbage can</a>
+
 
         </div>
         <br />
@@ -42,8 +44,8 @@
                             <td>{{$value->name}}</td>
                             <td><img src="data:image;base64, {{ $value->image }}" width="60px" height="60px"></td>
 
-                            <td href="{{ route('type.show', $value->id) }}" class="btn btn-primary">Show</td>
-                            <td href="{{ route('type.edit', $value->id) }}" class="btn btn-warning">Edit</td>
+                            <td><a href="{{ route('type.show', $value->id) }}" class="btn btn-primary">Show</a></td>
+                            <td><a href="{{ route('type.edit', $value->id) }}" class="btn btn-warning">Edit</a></td>
                             <td>
                                 <form action="{{ route('type.destroy', $value->id) }}" method="POST">
                                     @csrf

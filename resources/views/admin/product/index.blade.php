@@ -3,55 +3,77 @@
 @section('title', 'Product')
 
 @section('content')
-@if($message=Session::get('success'))
-<div class="alert alert-success">
-    <p>{{$message}}</p>
-</div>
-@endif
+
 <div class="container-fluid">
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800 ">List Product</h1>
     <div class="col-lg-12 margin-tb" style="margin-top: 20px;">
         <div class="pull-right">
-            <a href="{{route('product.create')}}" class="btn btn-success float-right">Create New Product</a>
-            <a href="{{url('dashboard')}}" class="btn btn-primary ">Back</a>
+            <a href="{{route('product.create')}}" class="btn btn-success">Create New Product</a>
+            <a href="{{ route('product.trash') }}" class="btn btn-danger" style="float:right">Garbage can</a>
 
         </div>
         <br />
     </div>
+    <div class="col-sm-12">@include('partials.message')</div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Type </h6>
+            <h6 class="m-0 font-weight-bold text-primary">Product </h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Name</th>
                             <th>Type</th>
                             <th>Producer</th>
+                            <th>Size</th>
                             <th>Amount</th>
                             <th>Image</th>
                             <th>Price_input</th>
+                            <th>Price_sale</th>
+                            <th>New</th>
                             <th>Description</th>
-                            <th>Created_at</th>
-                            <th>Updated_at</th>
+                            <th>Created at</th>
+                            <th>Updated at</th>
 
                             <th colspan="3 ">Action</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        @foreach($product as $value)
+                        @foreach($products as $key => $value)
 
                         <tr>
+                            <td>{{ ++$key }}</td>
                             <td>{{$value->name}}</td>
                             <td>{{$value->type->name}}</td>
                             <td>{{$value->producer->name}}</td>
+                            <td>
+                                @foreach ($value->size as $size)
+                                {{ $size->name }},
+                                @endforeach
+                            </td>
                             <td>{{$value->amount}}</td>
                             <td><img src="data:image;base64, {{$value->image}}" width="60px" height="60px"></td>
-                            <td>{{$value->price_input}}</td>
+                            <td>{{number_format($value->price_input)}}</td>
+                            <td>{{ $value->promotion_price }}</td>
+                            @if($value->new == 1)
+                            <td><a href="{{ route('product.new', $value->id) }}"
+                                    style="color:#32CD32; font-weight: bold"
+                                    onclick="return confirm('Do you want change news column of this product?')">Yes</a>
+                            </td>
+
+                            @else
+
+                            <td><a href="{{ route('product.new', $value->id) }}" style="color:red; font-weight: bold"
+                                    onclick="return confirm('Do you want change news column of this product?')">No</a>
+                            </td>
+
+                            @endif
                             <td><button data-url="{{ route('product.show',$value->id) }}" ​ type="button"
                                     data-target="#show" data-toggle="modal"
                                     class="btn btn-info btn-show btn-sm">Detail</button></td>

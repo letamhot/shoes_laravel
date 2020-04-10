@@ -19,7 +19,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group{{$errors->has('name')?' has-error':''}}">
                 <strong>Name:</strong>
-                <input type="text" name="name" class="form-control" placeholder="name">
+                <input type="text" name="name" class="form-control" placeholder="name" value="{{ old('name') }}">
                 <span class="text-danger">{{$errors->first('name')}}</span>
             </div>
         </div>
@@ -58,6 +58,18 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group @error('size') has-error has-feedback @enderror">
+
+                <label>Size products</label>
+
+                <select name="size[]" multiple id="size" class="form-control @error('size') is-invalid @enderror">
+                    @foreach ($size as $size)
+                    <option value="{{ $size->id }}">{{ $size->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group{{$errors->has('amount')?' has-error':''}}">
                 <strong>amount :</strong>
                 <input type="number" name="amount" id="amount" value="{{ old('amount') }}" class="form-control">
@@ -79,6 +91,28 @@
                 <span class="text-danger">{{$errors->first('price_input')}}</span>
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group @error('promotion_price') has-error has-feedback @enderror">
+
+                <label>Discount (Option)</label>
+
+                <input type="text" class="form-control @error('promotion_price') is-invalid @enderror"
+                    name="promotion_price" @if(old('promotion_price')) value="{{ old('promotion_price') }}" @else
+                    value="0" @endif placeholder="Promotion price">
+
+            </div>
+        </div>
+        <div class="form-group @error('new') has-error has-feedback @enderror">
+
+            <label>News</label>
+
+            <select name="new" id="" class="form-control @error('new') is-invalid @enderror">
+                <option value="0" @if(old('new')==0) {{ "selected" }} @endif>No</option>
+                <option value="1" @if(old('new')==1) {{ "selected" }} @endif>Yes</option>
+            </select>
+
+        </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group @error('description') has-error has-feedback @enderror">
 

@@ -14,8 +14,10 @@
     <h1 class="h3 mb-2 text-gray-800 ">List Producer</h1>
     <div class="col-lg-12 margin-tb" style="margin-top: 20px;">
         <div class="pull-right">
-            <a href="{{route('producer.create')}}" class="btn btn-success float-right">Create New Producer</a>
-            <a href="{{url('dashboard')}}" class="btn btn-primary ">Back</a>
+            <a href="{{route('producer.create')}}" class="btn btn-success">Create New Producer</a>
+            {{-- <a href="{{url('dashboard')}}" class="btn btn-primary ">Back</a> --}}
+            <a href="{{ route('producer.trash') }}" class="btn btn-danger" style="float:right">Garbage can</a>
+
 
         </div>
         <br />
@@ -29,6 +31,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Name</th>
                             <th>Address</th>
                             <th>Phone</th>
@@ -38,9 +41,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($producer as $value)
+                        @foreach($producer as $key => $value)
 
                         <tr>
+                            <td>{{++$key}}</td>
                             <td>{{$value->name}}</td>
                             <td>{{$value->address}}</td>
                             <td>{{$value->phone}}</td>

@@ -5,6 +5,9 @@
 @section('content')
 <section>
     <div class="container">
+
+        @include('partials.message')
+
         <div class="row">
             <div class="col-sm-3">
                 <div class="left-sidebar">
@@ -121,52 +124,59 @@
             </div>
             <div class="col-sm-7">
 
-                <form action="" method="POST">
+                <form action="{{ route('addCartPost', $id_product->id) }}" method="POST">
+                    @csrf
+                    <input type="hidden" value="{{ $id_product->amount }}" name="check_stock">
+
                     <div class="product-information">
                         <!--/product-information-->
                         <img src="images/product-details/new.jpg" class="newarrival" alt="" />
-                        {{--  <img src="data:image;base64, {{ $product->image }}" alt="" class="newarrival" /> --}}
-                        <h2>{{ $id_product->name }}</h2>
-                        <p>Web ID: 1089772</p>
-                        <img src="images/product-details/rating.png" alt="" />
 
-                        @if($id_product->promotion_price > 0)
+                        @if($id_product->amount < 1) <h2
+                            style='color: white; font-size: 30px; font-weight: bold; border: solid red; max-width: 230px; text-align: center; background: red;'>
+                            Out of stock</h2>
 
-                        <span>
-                            <span>{{ number_format($id_product->promotion_price) }} vnđ</span>
-                            <span style="text-decoration: line-through">{{ number_format($id_product->price_input) }}
-                                vnđ</span><br>
-                            <label>Quantity:</label>
-                            <input type="text" value="1" min="1" max="{{ $id_product->amount }}" />
-                            <button type="submit" class="btn btn-fefault cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                Add to cart
-                            </button>
+                            <h2>{{ $id_product->name }}</h2>
+                            <p><b>Type:</b> {{ $id_product->type->name }}</p>
+                            <span>
+                                <span
+                                    style="text-decoration: line-through; color: #b2b2b2">{{ number_format($id_product->price_input) }}
+                                    vnđ</span>
+                            </span>
+                            @else
+                            <h2>{{ $id_product->name }}</h2>
+                            <p><b>Type:</b> {{ $id_product->type->name }}</p>
 
-                        </span>
 
-                        @else
-                        <span>
-                            <span>{{ number_format($id_product->price_input) }} vnđ</span>
-                            <label>Quantity:</label>
-                            <input type="text" value="1" min="1" max="{{ $id_product->amount }}" />
-                            <button type="submit" class="btn btn-fefault cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                Add to cart
-                            </button>
-                        </span>
+                            <span>
+                                @if($id_product->promotion_price > 0)
+                                <span>{{ number_format($id_product->promotion_price) }} vnđ</span>
 
-                        @endif
-                        <p><b>Availability:</b> {{ $id_product->amount }} In Stock</p>
-                        <p><b>Status:
-                                @if( $id_product->new == 1)
-                            </b> New</p>
-                        @else
-                        </b> Current</p>
-                        @endif
-                        <p><b>Brand:</b> E-SHOPPER</p>
-                        <a href=""><img src="images/product-details/share.png" class="share img-responsive"
-                                alt="" /></a>
+                                <span
+                                    style="text-decoration: line-through">{{ number_format($id_product->price_input) }}
+                                    vnđ</span>
+                                @else
+                                <span>{{ number_format($id_product->price_input) }} vnđ</span>
+                                @endif
+                                <label>Quantity:</label>
+                                <input type="number" value="1" min="1" max="{{ $id_product->amount }}" name="qty" />
+                                <input type="submit" class="fa fa-shopping-cart" value="Add to cart"
+                                    style="width: 200px; margin-top: 10px;">
+
+                            </span>
+
+                            <p><b>Amount:</b> {{ $id_product->amount }} product</p>
+                            <p><b>Status:
+                                    @if( $id_product->new == 1)
+                                </b> New</p>
+                            @else
+                            </b> Current</p>
+                            @endif
+                            <p><b>Brand:</b> {{ $id_product->producer->name }}</p>
+                            {{-- <a href=""><img src="images/product-details/share.png" class="share img-responsive"
+                                alt="" /></a> --}}
+
+                            @endif
                     </div>
                 </form>
 
@@ -194,7 +204,6 @@
                                 <div class="productinfo text-center">
                                     <img src="data:image;base64, {{ $product->image }}" alt="" />
                                     <h2>{{ $product->price_input }}</h2>
-                                    {{-- <p>{{!! $product->description !!}}</p> --}}
                                     <button type="button" class="btn btn-default add-to-cart"><i
                                             class="fa fa-shopping-cart"></i>Add to cart</button>
                                 </div>

@@ -8,8 +8,6 @@ use App\Producer;
 use App\slide;
 use App\Posts;
 use App\User;
-
-
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -28,17 +26,17 @@ class ShoesController extends Controller
         // Cart::destroy();
         // dd(Cart::content());
         $types = Type::all();
+        $type = slide::first();
+        $type1 = slide::where('id', '>', 1)->get();
         $products = Product::all();
         $product1 = Product::take(3)->get();
         $product2 = Product::where('id', '>', 4)->get();
         $producers = Producer::all();
         $slides = slide::first();
         $slides1 = slide::where('id', '>', 1)->get();
-        // $users = user::all();
 
 
-
-        return view('shoes.home', compact('types', 'slides1', 'product1', 'product2', 'products', 'producers', 'slides'));
+        return view('shoes.home', compact('types', 'type', 'type1', 'slides1', 'product1', 'product2', 'products', 'producers', 'slides'));
     }
 
     public function cart()

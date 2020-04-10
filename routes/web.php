@@ -14,7 +14,7 @@
 Route::get('/', 'ShoesController@home')->name('shoesHome');
 Route::get('/shoesHome', 'ShoesController@home')->name('shoesHome');
 Route::get('/cart', 'ShoesController@cart')->name('cart');
-Route::get('/blog-single', 'ShoesController@blogsingle')->name('blog-single');
+Route::get('/blog/{id}', 'ShoesController@blogsingle')->name('blog-single');
 Route::get('/shop', 'ShoesController@shop')->name('shop');
 // Route::get('/loginshoes', 'ShoesController@login')->name('loginshoes');
 Route::get('/blog', 'ShoesController@blog')->name('blog');
@@ -24,10 +24,14 @@ Route::get('/product/detail/{id}', 'ShoesController@productdetail')->name('produ
 
 Route::get('/contact', 'ShoesController@contact')->name('contact');
 Route::get('/error', 'ShoesController@error')->name('error');
-
 //Add cart
+Route::resource('/cartt', 'CartController');
 Route::get('/add/cart/{id}', 'CartController@addCart')->name('addCart');
+Route::post('/add/cart/{id}', 'CartController@addCart')->name('addCartPost');
 Route::get('/remove/cart/{id}', 'CartController@deleteCart')->name('deleteCart');
+// Route::get('checkout','CartController@checkout')->name('cart.ckeckout');
+
+
 
 //login-shoes
 Route::get('/loginshoes',  'Auth\LoginController@showLogin');
@@ -40,11 +44,24 @@ Route::get('logoutshoes', 'Auth\LoginController@logoutshoes');
 Route::get('/home', 'HomeController@index')->name('home');
 //product
 Route::resource('/product', 'ProductController');
+Route::get('/trash-product', 'ProductController@trashed')->name('product.trash');
+Route::get('/product/{id}/restore', 'ProductController@restore')->name('product.restore');
+Route::get('/product-restore-all', 'ProductController@restoreAll')->name('product.restore-all');
+Route::get('/product/{id}/delete', 'ProductController@delete')->name('product.delete');
+Route::get('/product-delete-all', 'ProductController@deleteAll')->name('product.delete-all');
+Route::get('/new/{id}', 'ProductController@news')->name('product.new');
+
 Auth::routes();
 
 
 //producer
 Route::resource('/producer', 'ProducerController');
+Route::get('/trash-producer', 'ProducerController@trashed')->name('producer.trash');
+Route::get('/producer/{id}/restore', 'ProducerController@restore')->name('producer.restore');
+Route::get('/producer-restore-all', 'ProducerController@restoreAll')->name('producer.restore-all');
+Route::get('/producer/{id}/delete', 'ProducerController@delete')->name('producer.delete');
+Route::get('/producer-delete-all', 'ProducerController@deleteAll')->name('producer.delete-all');
+Auth::routes();
 Auth::routes();
 
 //user
@@ -53,7 +70,42 @@ Route::resource('/users', 'UsersController');
 
 //type
 Route::resource('/type', 'TypeController');
+Route::get('/trash-type', 'TypeController@trashed')->name('type.trash');
+Route::get('/type/{id}/restore', 'TypeController@restore')->name('type.restore');
+Route::get('/type-restore-all', 'TypeController@restoreAll')->name('type.restore-all');
+Route::get('/type/{id}/delete', 'TypeController@delete')->name('type.delete');
+Route::get('/type-delete-all', 'TypeController@deleteAll')->name('type.delete-all');
 Auth::routes();
+
+//Customer
+Route::resource('/customer', 'CustomerController');
+Route::get('/trash-customer', 'CustomerController@trashed')->name('customer.trash');
+Route::get('/customer/{id}/restore', 'CustomerController@restore')->name('customer.restore');
+Route::get('/customer-restore-all', 'CustomerController@restoreAll')->name('customer.restore-all');
+Route::get('/customer/{id}/delete', 'CustomerController@delete')->name('customer.delete');
+Route::get('/customer-delete-all', 'CustomerController@deleteAll')->name('customer.delete-all');
+Route::get('/active-customer/{id}', 'CustomerController@active')->name('customer.active');
+
+//Bills
+Route::resource('/bills', 'BillsController');
+Route::get('/trash-bills', 'BillsController@trashed')->name('bills.trash');
+Route::get('/bills/{id}/restore', 'BillsController@restore')->name('bills.restore');
+Route::get('/bills-restore-all', 'BillsController@restoreAll')->name('bills.restore-all');
+Route::get('/bills/{id}/delete', 'BillsController@delete')->name('bills.delete');
+Route::get('/bills-delete-all', 'BillsController@deleteAll')->name('bills.delete-all');
+Route::get('/bills/paymoney/{id}', 'BillsController@pay_money')->name('bills.pay_money');
+Route::get('/bills/status/{id}', 'BillsController@status')->name('bills.status');
+Route::get('/bills/detail/status/{id}', 'BillsController@statusDetailBills')->name('bills.statusDetailBills');
+Route::get('/bills/detail/{id}', 'BillsController@detailBills')->name('bills.details');
+
+//Bill detail
+Route::resource('/billDetail', 'BillDetailController');
+Route::get('/trash/billDetail/{id}', 'BillDetailController@trashed')->name('billDetail.trash');
+Route::get('/billDetail/restore/{id}', 'BillDetailController@restore')->name('billDetail.restore');
+Route::get('/billDetail-restore-all', 'BillDetailController@restoreAll')->name('billDetail.restore-all');
+Route::get('/billDetail/delete/{id}', 'BillDetailController@delete')->name('billDetail.delete');
+Route::get('/billDetail-delete-all', 'BillDetailController@deleteAll')->name('billDetail.delete-all');
+
 
 //post
 Route::resource('/posts', 'PostsControllers');

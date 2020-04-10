@@ -75,7 +75,6 @@ class ShoesController extends Controller
     public function productdetail($id)
     {
         $id_product = Product::findOrfail($id);
-        // dd($product->name);
         $products = Product::all();
         $types = Type::all();
         $product1 = Product::first();

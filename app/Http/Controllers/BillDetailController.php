@@ -138,9 +138,9 @@ class BillDetailController extends Controller
     public function destroy($id)
     {
         $bill = Bill_detail::findOrFail($id);
-        Bill_detail::find($id)->update(['user_deleted' => Auth::user()->username]);
-
+        Bill_detail::find($id)->update(['user_deleted' => Auth::user()->name]);
         $code_bill = Bills::withTrashed()->findOrFail($bill->id_bill);
+        $bill->product()->delete();
         $bill->delete();
         $total = 0;
         $amountBill = Bill_detail::where('id_bill', $bill->id_bill)->get();

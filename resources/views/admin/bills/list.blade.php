@@ -65,12 +65,12 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $bills->id }}</td>
-                            <td>{{ $bills->customers->id }} - {{ $bills->customers->name }}</td>
+                            <td>{{ $bills->customer->id }} - {{ $bills->customer->name }}</td>
                             <td><button data-url="{{ route('bills.show',$bills->id) }}" ​ type="button"
                                     data-target="#showbills" data-toggle="modal"
                                     class="btn btn-info btn-show btn-sm">Detail</button></td>
                             <td>{{ $bills->date_order }}</td>
-                            <td>${{ number_format($bills->total, 2) }}</td>
+                            <td>${{ $bills->total }}</td>
                             <td>{{ $bills->payment }}</td>
                             {{-- <td><a href="{{ route('bills.show', $bills->id) }}">Details</a></td> --}}
 
@@ -97,7 +97,7 @@
                             </td>
                             @endif
 
-                            <td align="center"><a href="{{ route('bills.details', $bills->id) }}"
+                            <td><a href="{{ route('bills.details', $bills->id) }}"
                                     style="color:blue; font-weight: bold; font-size:20px;">{{ count($bills->bill_detail) }}</a>
                             </td>
 
@@ -157,7 +157,6 @@
                     $('span#address').html("Address: " + response.data.address)
                     $('span#postcode').html("Post code: " + response.data.postcode)
                     $('span#city').html("City: " + response.data.city)
-                    $('span#country').html("Country: " + response.data.country)
                     $('span#phone').html("Phone: +84 " + response.data.phone)
 
                     $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))

@@ -4,187 +4,316 @@
 
 @section('content')
 <section id="cart_items">
-    <div class="page-head_agile_info_w3l">
-    </div>
-    <!-- //banner-2 -->
-    <!-- page -->
-    <div class="services-breadcrumb">
-        <div class="agile_inner_breadcrumb">
-            <div class="container">
-                <ul class="w3_short">
-                    <li>
-                        <a href="/">Trang Chủ</a>
-                        <i>|</i>
-                    </li>
-                    <li>Đặt Hàng</li>
-                </ul>
-            </div>
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="{{ route('shoesHome') }}">Home</a></li>
+                <li class="active"><a href="{{ route('checkoutGet') }}">Check out</li>
+            </ol>
         </div>
-    </div>
-    <br />
-    <form method="post">
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="resp-tabs-container hor_1" style="border-color: rgb(193, 193, 193);">
-                    <div class="resp-tab-content hor_1 resp-tab-content-active" aria-labelledby="hor_1_tab_item-0"
-                        style="display:block">
-                        <div class="vertical_post check_box_agile">
-                            <h5 style="float: left;"><i class="fas fa-map-marker-alt"></i> Địa chỉ nhận hàng</h5>
-                            <a href="#address" style="float: right;" data-toggle="modal">Thay đổi >></a>
-                            <div class="checkbox" style=" clear: both;">
-                                <div class="check_box_one cashon_delivery">
-                                    <label class="anim">
-                                        @if( count($user->customer) >0 )
-                                        <ul style="list-style: none;">
-                                            @foreach( $user->customer as $key => $cus )
-                                            <li>
-                                                <input type="radio" class="rdoAddress" name="rdoaddress"
-                                                    @if($cus->active == 1) checked @endif value="{{$cus->email}}"
-                                                style="float: left;">
-                                                <span style="float: left;">
-                                                    <i class="name{{ $key }}">{{ $user->name }}</i> | <i
-                                                        class="phone{{$key}}">{{ $cus->phone }}</i>
-                                                    <p class="address{{$key}}">{{ $cus->address }}</p>
-                                                </span>
-                                            </li>
-                                            @endforeach
-                                        </ul>
-                                        @else
-                                        {{ 'Bạn chưa thêm địa chỉ nhận hàng' }}
-                                        @endif
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="resp-tabs-container hor_1" style="border-color: rgb(193, 193, 193);margin-top: 10px;">
-                    <div class="resp-tab-content hor_1 resp-tab-content-active" aria-labelledby="hor_1_tab_item-0"
-                        style="display:block">
-                        <div class="vertical_post check_box_agile">
-                            <h5><i class="far fa-truck"></i> Phương thức vận chuyển</h5>
-                            <div class="checkbox">
-                                <div class="check_box_one cashon_delivery">
-                                    <label class="anim">
-                                        <input type="checkbox" class="checkbox" checked style="float: left;">
-                                        <span style="float: left;">
-                                            Chuyển phát tiêu chuẩn
-                                            <p>Dự kiến giao hàng sau 3-4 ngày</p>
-                                        </span>
-                                        <span style="float: right; margin-left: 240px;">{{ number_format('20000') }}
-                                            VNĐ</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="resp-tabs-container hor_1" style="border-color: rgb(193, 193, 193);">
-                    <div class="resp-tab-content hor_1 resp-tab-content-active" aria-labelledby="hor_1_tab_item-0"
-                        style="display:block">
-                        <div class="vertical_post check_box_agile">
-                            <h5 style="text-align: center;"><i class="fas fa-shopping-cart"></i> Thông tin đơn hàng</h5>
-                            <div class="checkbox">
-                                <div class="check_box_one cashon_delivery">
-                                    <label class="anim">
-                                        <p style="float: left;font-weight: bold;">Tổng Tiền</p>
-                                        <p style="margin-left: 10px;float: left;">{{ number_format($price) }} VNĐ</p>
-                                    </label>
-                                    <label class="anim">
-                                        <p style="float: left;font-weight: bold;">Phí vận chuyển</p>
-                                        <p style="margin-left: 10px;float: left;">{{ number_format(20000) }} VNĐ</p>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="resp-tabs-container hor_1" style="border-color: rgb(193, 193, 193); margin-top: 10px;">
-                    <div class="resp-tab-content hor_1 resp-tab-content-active" aria-labelledby="hor_1_tab_item-0"
-                        style="display:block">
-                        <div class="vertical_post check_box_agile">
-                            <div class="checkbox">
-                                <div class="check_box_one cashon_delivery">
-                                    <label class="anim">
-                                        <h5 class="modal-title text-center"><i class="fas fa-comments"></i> Ghi Chú</h5>
-                                        <div class="form-group">
-                                            <textarea style="width: 247px;" class="note"
-                                                placeholder="Bạn có nhắn gì tới shop không?" rows="4"
-                                                maxlength="1000"></textarea>
-                                        </div>
+        <!--/breadcrums-->
 
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="resp-tabs-container hor_1" style="border-color: rgb(193, 193, 193); margin-top: 10px;">
-                    <div class="resp-tab-content hor_1 resp-tab-content-active" aria-labelledby="hor_1_tab_item-0"
-                        style="display:block">
-                        <div class="vertical_post check_box_agile">
-                            <div class="checkbox">
-                                <div class="check_box_one cashon_delivery">
-                                    <label class="anim">
-                                        <p style="float: left;font-weight: bold;">Tổng thanh toán</p>
-                                        <p style="margin-left: 3px;float: left;" class="paytotal">
-                                            {{ number_format($price + 20000) }} VNĐ</p>
-                                    </label>
-                                    <label class="anim">
-                                        <button type="button" class="btn submit check_out payment">Tiến hành thanh
-                                            toán</button>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="step-one">
+            <h2 class="heading">Step1</h2>
         </div>
-    </form>
-    <div class="modal fade" id="address" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center">Thay đổi địa chỉ giao hàng</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="">
-                        <div class="form-group">
-                            <label class="col-form-label">Địa Chỉ Email</label>
-                            <input type="text" class="form-control email" value="{{ $user->email ?? '' }}"
-                                placeholder="Nhập địa chỉ email" name="email" required="">
-                            <label class="col-form-label errorEmail" style="color: red;"></label>
+        {{-- <div class="checkout-options">
+            <h3>New User</h3>
+            <p>Checkout options</p>
+            <ul class="nav">
+                <li>
+                    <label><input type="checkbox"> Register Account</label>
+                </li>
+                <li>
+                    <label><input type="checkbox"> Guest Checkout</label>
+                </li>
+                <li>
+                    <a href=""><i class="fa fa-times"></i>Cancel</a>
+                </li>
+            </ul>
+        </div> --}}
+        <!--/checkout-options-->
+
+        <div class="register-req">
+            <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
+        </div>
+        <!--/register-req-->
+
+        <form action=" checkoutPost">
+            <div class="shopper-informations">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="shopper-info">
+                            <p>Shopper Information</p>
+                            <input type="text" placeholder="Display Name" class="form-control">
+                            <input type="text" placeholder="User Name" class="form-control">
+                            <input type="password" placeholder="Password" class="form-control">
+                            <input type="password" placeholder="Confirm password" class="form-control">
+                            <a class="btn btn-primary" href="">Get Quotes</a>
+                            <button type="submit" class="btn btn-primary">Continue</a>
                         </div>
-                        <div class="form-group">
-                            <label class="col-form-label">Số điện thoại</label>
-                            <input type="text" class="form-control phone" placeholder="Nhập số điện thoại" name="phone"
-                                required="">
-                            <label class="col-form-label errorPhone" style="color: red;"></label>
+                    </div>
+                    <div class="col-sm-5 clearfix">
+                        <div class="bill-to">
+                            <p>Bill To</p>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label for="fir">Full Name<span>*</span></label>
+                                    <input type="text" id="fir" name="name" style="margin-bottom: 5px"
+                                        class="form-control @error('name') is-invalid @enderror"
+                                        value="{{ old('name') }}">
+                                    @error('name')
+                                    <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                {{-- <div class="col-lg-6">
+                                    <label for="last">Last Name<span>*</span></label>
+                                    <input type="text" id="last">
+                                </div> --}}
+                                <div class="col-lg-12">
+                                    <label for="cun-name">Email<span>*</span></label>
+                                    <input type="text" id="cun-name" name="email" style="margin-bottom: 5px"
+                                        class="form-control @error('email') is-invalid @enderror"
+                                        value="{{ old('email') }}">
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-12">
+                                    <label for="cun">Country<span>*</span></label>
+                                    <input type="text" id="cun" name="country" style="margin-bottom: 5px"
+                                        class="form-control @error('country') is-invalid @enderror"
+                                        value="{{ old('country') }}">
+                                    @error('country')
+                                    <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-12">
+                                    <label for="street">Street Address<span>*</span></label>
+                                    <input type="text" id="street" name="address" style="margin-bottom: 5px"
+                                        class="form-control @error('address') is-invalid @enderror"
+                                        value="{{ old('address') }}">
+                                    @error('address')
+                                    <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-12">
+                                    <label for="zip">Postcode / ZIP (optional)</label>
+                                    <input type="text" id="zip" name="postcode" style="margin-bottom: 5px"
+                                        class="form-control @error('postcode') is-invalid @enderror"
+                                        value="{{ old('postcode') }}">
+                                    @error('postcode')
+                                    <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-12">
+                                    <label for="town">Town / City<span>*</span></label>
+                                    <input type="text" id="town" name="city" style="margin-bottom: 5px"
+                                        class="form-control @error('city') is-invalid @enderror"
+                                        value="{{ old('city') }}">
+                                    @error('city')
+                                    <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-12">
+                                    <label for="phone">Phone<span>*</span></label>
+                                    <input type="text" id="phone" name="phone" style="margin-bottom: 5px"
+                                        class="form-control @error('phone') is-invalid @enderror"
+                                        value="{{ old('phone') }}">
+                                    @error('phone')
+                                    <span class="invalid-feedback" role="alert" style="margin-bottom: 15px">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                {{-- <div class="col-lg-12">
+                                    <div class="create-item">
+                                        <label for="acc-create">
+                                            Create an account?
+                                            <input type="checkbox" id="acc-create">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div> --}}
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-form-label">Địa Chỉ</label>
-                            <input type="text" class="form-control address" placeholder="Nhập địa chỉ nhận hàng"
-                                name="address" required="">
-                            <label class="col-form-label errorAddress" style="color: red;"></label>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="order-message">
+                            <p>Shipping Order</p>
+                            <textarea name="message" placeholder="Notes about your order, Special Notes for Delivery"
+                                rows="16"></textarea>
+                            <label><input type="checkbox"> Shipping to bill address</label>
                         </div>
-                        <div class="form-group">
-                            <input type="checkbox" class="actives" name="active" checked>
-                            <label class="" for="customControlAutosizing">Dùng địa chỉ này cho các đơn hàng sau</label>
-                        </div>
-                        <div class="right-w3l">
-                            <button type="button" class="btn btn-primary form-control addAdress">Save</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
+
+        </form>
+
+        <div class="review-payment">
+            <h2>Review & Payment</h2>
+        </div>
+
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description"></td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img src="images/cart/one.png" alt=""></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">Colorblock Scuba</a></h4>
+                            <p>Web ID: 1089772</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>$59</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <a class="cart_quantity_up" href=""> + </a>
+                                <input class="cart_quantity_input" type="text" name="quantity" value="1"
+                                    autocomplete="off" size="2">
+                                <a class="cart_quantity_down" href=""> - </a>
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">$59</p>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img src="images/cart/two.png" alt=""></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">Colorblock Scuba</a></h4>
+                            <p>Web ID: 1089772</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>$59</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <a class="cart_quantity_up" href=""> + </a>
+                                <input class="cart_quantity_input" type="text" name="quantity" value="1"
+                                    autocomplete="off" size="2">
+                                <a class="cart_quantity_down" href=""> - </a>
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">$59</p>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img src="images/cart/three.png" alt=""></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">Colorblock Scuba</a></h4>
+                            <p>Web ID: 1089772</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>$59</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <a class="cart_quantity_up" href=""> + </a>
+                                <input class="cart_quantity_input" type="text" name="quantity" value="1"
+                                    autocomplete="off" size="2">
+                                <a class="cart_quantity_down" href=""> - </a>
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">$59</p>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                        <td colspan="2">
+                            <table class="table table-condensed total-result">
+                                <tr>
+                                    <td>Cart Sub Total</td>
+                                    <td>$59</td>
+                                </tr>
+                                <tr>
+                                    <td>Exo Tax</td>
+                                    <td>$2</td>
+                                </tr>
+                                <tr class="shipping-cost">
+                                    <td>Shipping Cost</td>
+                                    <td>Free</td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td><span>$61</span></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="payment-options">
+            <span>
+                <label><input type="checkbox"> Direct Bank Transfer</label>
+            </span>
+            <span>
+                <label><input type="checkbox"> Check Payment</label>
+            </span>
+            <span>
+                <label><input type="checkbox"> Paypal</label>
+            </span>
         </div>
     </div>
 </section>
 <!--/#cart_items-->
+<!-- Shopping Cart Section End -->
+
 @endsection
+
+@push('cartjs')
+
+<script>
+    //Type radio show/hide
+            $(document).ready(function(){
+                $('input[type="radio"]').click(function(){
+                    var inputValue = $(this).attr("class");
+                    var targetBox = $("." + inputValue);
+                    $(".box").not(targetBox).hide();
+                    $(targetBox).show();
+                });
+            });
+</script>
+
+@endpush

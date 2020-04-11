@@ -70,14 +70,12 @@
                         <tr>
                             <td>{{ ++$key }}</td>
 
-                            <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}"
-                                    target="_blank">{{ $bills->id_product }}</a></td>
+                            <td>{{ $bills->id_product }}</td>
 
-                            <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}"
-                                    target="_blank">{{ $bills->products->name }}</a>
-                            </td>
+                            <td>{{ $bills->product->name }}</td>
+                            <td>{{ $bills->size }}</td>
 
-                            @if($bills->size == 1)
+                            {{-- @if($bills->size == 1)
                             <td>S</td>
                             @elseif($bills->size == 2)
                             <td>M</td>
@@ -86,8 +84,7 @@
                             @elseif($bills->size == 4)
                             <td>XL</td>
                             @else
-                            <td>{{ $bills->size }}</td>
-                            @endif
+                            @endif --}}
 
                             <td>{{ $bills->quantity }}</td>
                             <td>${{ number_format($bills->unit_price, 2) }}</td>

@@ -64,9 +64,16 @@
                         <!--brands_products-->
                         <h2>Product</h2>
                         <div class="brands-name">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>
+                                    <span class="pull-right">Amount
+                                    </span>Product
+                                </li>
+                            </ul>
                             @foreach ($products as $product)
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">
+
+                                <li><a href="{{ route('productdetail', $product->id) }}">
                                         <span class="pull-right">{{ $product->amount }}
                                         </span>{{ $product->name }}
                                     </a>
@@ -138,38 +145,8 @@
                                         <span
                                             style="text-decoration: line-through">{{ number_format($id_product->price_input) }}
                                             vnđ</span>
-                                        <div class="pd-size-choose" style="margin-top: 160px">
-                                            <div class="sc-item">
-                                                <input type="radio" id="size" name="size12" value="2" height="50"
-                                                    width="10" style="display: flex">Size
-                                            </div>
-
-                                            {{-- Size --}}
-                                            @foreach ($id_product->size as $size)
-                                            <div class="sc-item">
-                                                <input type="radio" name="size12" value="{{ $size->id }}">
-                                                <label for="sm-size">{{ $size->name }}</label>
-                                            </div>
-                                            @endforeach
-
-                                        </div>
                                         @else
                                         <span>{{ number_format($id_product->price_input) }} vnđ</span>
-                                        <div class="pd-size-choose" style="margin-top: 160px">
-                                            <div class="sc-item">
-                                                <input type="radio" id="size" name="size12" value="2" height="50"
-                                                    width="10" style="display: flex">Size
-                                            </div>
-
-                                            {{-- Size --}}
-                                            @foreach ($id_product->size as $size)
-                                            <div class="sc-item">
-                                                <input type="radio" name="size12" value="{{ $size->id }}">
-                                                <label for="sm-size">{{ $size->name }}</label>
-                                            </div>
-                                            @endforeach
-
-                                        </div>
                                         @endif
                                         <label>Quantity:</label>
                                         <input type="number" value="1" min="1" max="{{ $id_product->amount }}"

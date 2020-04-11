@@ -73,17 +73,21 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->id_type = $request->type;
         $product->id_producer = $request->producer;
+        if ($request->size) {
+            $product->size()->attach($request->size);
+        }
         $product->amount = $request->amount;
         if (request('image')) {
             $product->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
         }
         $product->price_input = $request->price_input;
-        $product->promotion_price = $request->promotion_price;
+        if ($request->promotion_price) {
+            $product->promotion_price = $request->promotion_price;
+        }
+        $product->new = $request->new;
         $product->description = $request->description;
         $product->save();
-        if (request('size')) {
-            $product->size()->attach(request('size'));
-        }
+
         return redirect()->route('product.index')->with('success', 'Product Created successfully');
     }
 
@@ -141,17 +145,21 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->id_type = $request->type;
         $product->id_producer = $request->producer;
+        $product->size()->sync($request->size);
+
         $product->amount = $request->amount;
-        if ($request->hasFile('image')) {
+        if (request('image')) {
             $product->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
         }
         $product->price_input = $request->price_input;
-        $product->promotion_price = $request->promotion_price;
+        if ($request->promotion_price) {
+            $product->promotion_price = $request->promotion_price;
+        }
+        $product->new = $request->new;
 
         $product->description = $request->description;
 
         $product->save();
-        $product->size()->sync($request->size);
         return redirect()->route('product.index')->with('success', 'Product Created successfully');
     }
 
@@ -164,6 +172,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
+        $product->bill_detail()->delete();
         $product->delete();
         return back()->with('success', "Product $product->name delete!");
     }
@@ -197,7 +206,7 @@ class ProductController extends Controller
         $product = Product::onlyTrashed()->findOrFail($id);
 
         $product->forceDelete();
-        return back()->with('delete', "Product $product->name destroyed!");
+        return back()->with('delete', "Product $product->name deleted!");
     }
 
     public function deleteAll()

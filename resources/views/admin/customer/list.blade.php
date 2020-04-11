@@ -28,14 +28,14 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Username</th>
                             <th>Name</th>
+                            <th>Gender</th>
                             <th>Order number</th>
                             <th width='10%'>Email</th>
                             <th width='15%'>Address</th>
                             <th>Postcode</th>
                             <th>City</th>
-                            <th>Country</th>
+                            {{-- <th>Country</th> --}}
                             <th>Phone</th>
                             <th>Active</th>
                             <th width='15%'>User updated</th>
@@ -46,14 +46,14 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Username</th>
                             <th>Name</th>
+                            <th>Gender</th>
                             <th>Order number</th>
                             <th width='10%'>Email</th>
                             <th width='15%'>Address</th>
                             <th>Postcode</th>
                             <th>City</th>
-                            <th>Country</th>
+                            {{-- <th>Country</th> --}}
                             <th>Phone</th>
                             <th>Active</th>
                             <th width='15%'>User updated</th>
@@ -63,47 +63,43 @@
                     </tfoot>
                     <tbody>
 
-                        @foreach ($customer as $key => $customer)
+                        @foreach ($customer as $key => $value)
 
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $customer->username }}</td>
-                            <td>{{ $customer->name }}</td>
-
-                            <td>{{ count($customer->bills) }}</td>
-
-                            <td>{{ $customer->email }}</td>
-                            <td>{{ $customer->address }}</td>
-                            <td>{{ $customer->postcode }}</td>
-                            <td>{{ $customer->city }}</td>
-                            <td>{{ $customer->country }}</td>
-                            <td>+84 {{ $customer->phone }}</td>
-
-                            @if($customer->active == 1)
-                            <td><a href="{{ route('customer.active', $customer->id) }}"
+                            <td>{{ $value->name }}</td>
+                            <td>{{ $value->gender->name }}</td>
+                            <td>{{ count($value->bills) }}</td>
+                            <td>{{ $value->email }}</td>
+                            <td>{{ $value->address }}</td>
+                            <td>{{ $value->postcode }}</td>
+                            <td>{{ $value->city }}</td>
+                            <td>(+84) {{ $value->phone }}</td>
+                            @if($value->active == 1)
+                            <td><a href="{{ route('customer.active', $value->id) }}"
                                     style="color:#32CD32; font-weight: bold;"
                                     onclick="return confirm('Do you want change active column of this customer?')">Yes</a>
                             </td>
                             @else
-                            <td><a href="{{ route('customer.active', $customer->id) }}"
+                            <td><a href="{{ route('customer.active', $value->id) }}"
                                     style="color:red; font-weight: bold;"
                                     onclick="return confirm('Do you want change active column of this customer?')">No</a>
                             </td>
                             @endif
 
-                            <td><b style="color:purple">{{ $customer->user_updated }}</b> <br>
-                                {{ $customer->updated_at }}
+                            <td><b style="color:purple">{{ $value->user_updated }}</b> <br>
+                                {{ $value->updated_at }}
                             </td>
 
-                            <td><a href="{{ route('customer.edit', $customer->id) }}" class="btn btn-info btn-sm">
+                            <td><a href="{{ route('customer.edit', $value->id) }}" class="btn btn-info btn-sm">
                                     <i class="fa fa-edit" title="Edit"></i></a>
                             </td>
                             <td>
-                                <form action="{{ route('customer.destroy', $customer->id) }}" method="POST">
+                                <form action="{{ route('customer.destroy', $value->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        onclick="return confirm('Do you want delete customer {{$customer->name}} ?')"
+                                        onclick="return confirm('Do you want delete customer {{$value->name}} ?')"
                                         class="btn btn-danger btn-sm"><i class="fa fa-backspace"></i></button>
                                 </form>
                             </td>

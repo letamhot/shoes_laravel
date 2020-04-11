@@ -63,9 +63,16 @@
                         <!--brands_products-->
                         <h2>Product</h2>
                         <div class="brands-name">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>
+                                    <span class="pull-right">Amount
+                                    </span>Product
+                                </li>
+                            </ul>
                             @foreach ($products as $product)
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">
+
+                                <li><a href="{{ route('productdetail', $product->id) }}">
                                         <span class="pull-right">{{ $product->amount }}
                                         </span>{{ $product->name }}
                                     </a>

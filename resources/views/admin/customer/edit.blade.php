@@ -48,13 +48,25 @@
                                     value="{{ $customer->name }}" required>
 
                             </div>
+                            <div class="form-group{{$errors->has('gender')?' has-error':''}}">
+                                <strong>Gender:</strong>
+                                <select class="form-control input-width" name="gender">
+                                    @foreach ($gender as $value)
+                                    <option value="{{ $value->id }}" @if(old('gender')==$value->id)
+                                        {{ "selected" }}
+                                        @endif
+                                        >{{ $value->name }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="text-danger">{{$errors->first('gender')}}</span>
+                            </div>
 
                             <div class="form-group @error('email') has-error has-feedback @enderror">
 
                                 <label>Email</label>
 
-                                <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ $customer->email }}" required>
+                                <input type="text" class="form-control @error('email') is-invalid @enderror"
+                                    name="address" value="{{ $customer->email }}" required>
 
                             </div>
 
@@ -82,15 +94,6 @@
 
                                 <input type="text" class="form-control @error('city') is-invalid @enderror" name="city"
                                     value="{{ $customer->city }}" required>
-
-                            </div>
-
-                            <div class="form-group @error('country') has-error has-feedback @enderror">
-
-                                <label>Country</label>
-
-                                <input type="text" class="form-control @error('country') is-invalid @enderror"
-                                    name="country" value="{{ $customer->country }}" required>
 
                             </div>
 

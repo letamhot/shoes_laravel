@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\URL;
 use App\Customer;
 use App\Bill_detail;
 use App\Bills;
+use App\Gender;
+
 
 class CustomerController extends Controller
 {
@@ -69,8 +71,9 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
+        $gender = Gender::all();
         $customer = Customer::withTrashed()->findOrFail($id);
-        return view('admin.customer.edit', compact('customer'));
+        return view('admin.customer.edit', compact('customer', 'gender'));
     }
 
     /**
@@ -84,23 +87,30 @@ class CustomerController extends Controller
     {
         $this->validate($request, [
             'name' => 'required | min:5 | max:255 | string',
-            'email' => 'required | min:5 | max:255 | email',
+            'gender' => 'required',
+            // 'email' => 'required',
             'address' => 'required | min:5 | max:255 | string',
             'city' => 'required | min:1 | max:255 | string',
-            'country' => 'required | min:1 | max:255 | string',
+            // 'country' => 'required | min:1 | max:255 | string',
             'phone' => 'required | numeric | min:0',
         ]);
 
         $customer = Customer::withTrashed()->findOrFail($id);
 
         $customer->name = request('name');
+        if (request('gender')) {
+            $customer->gender_id = request('gender');
+        } else {
+            $customer->gender_id = null;
+        }
+
         $customer->email = request('email');
         $customer->address = request('address');
         $customer->postcode = request('postcode');
         $customer->city = request('city');
-        $customer->country = request('country');
+        // $customer->country = request('country');
         $customer->phone = request('phone');
-        $customer->user_updated = Auth::user()->username;
+        $customer->user_updated = Auth::user()->name;
         $customer->save();
 
         return redirect()->back()->with('success', "Customer $customer->name updated!");
@@ -115,7 +125,7 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         $customer = Customer::findOrFail($id);
-        Customer::find($id)->update(['user_deleted' => Auth::user()->username]);
+        Customer::find($id)->update(['user_deleted' => Auth::user()->name]);
 
         $bills = Bills::where('id_customer', $customer->id)->get();
 
@@ -154,15 +164,14 @@ class CustomerController extends Controller
 
         $customer->bills()->restore();
         $customer->restore();
-
-        return redirect()->route('Customer.trash')->with('success', "Customer $customer->name restored!");
+        return back()->with('success', "Customer $customer->name restored!");
     }
 
     public function delete($id)
     {
         $customer = Customer::onlyTrashed()->findOrFail($id);
         $bills = Bills::onlyTrashed()->where('id_customer', $customer->id)->get();
-        // Products::find($id)->update(['user_deleted' => Auth::user()->username]);
+        // Product::find($id)->update(['user_deleted' => Auth::user()->name]);
 
         foreach ($bills as $bill) {
             $find_bills_detail = Bill_detail::onlyTrashed()->where('id_bill', $bill->id)->get();
@@ -174,17 +183,17 @@ class CustomerController extends Controller
 
         $customer->bills()->forceDelete();
         $customer->forceDelete();
-        return redirect()->route('Customer.trash')->with('delete', "Customer $customer->id destroyed!");
+        return back()->with('delete', "Customer $customer->name deleted!");
     }
 
     public function restoreAll()
     {
         $customer = Customer::onlyTrashed()->get();
         if (count($customer) == 0) {
-            return redirect()->route('Customer.trash')->with('success', "Clean trash, nothing to restore!");
+            return back()->with('success', "Clean trash, nothing to restore!");
         } else {
             Customer::onlyTrashed()->restore();
-            return redirect()->route('Customer.trash')->with('success', "All data restored!");
+            return back()->with('success', "All data restored!");
         }
     }
 
@@ -194,13 +203,13 @@ class CustomerController extends Controller
 
 
         if (count($customer) == 0) {
-            return redirect()->route('Customer.trash')->with('delete', "Clean trash, nothing to delete!");
+            return back()->with('delete', "Clean trash, nothing to deleted!");
         } else {
             foreach ($customer as $item) {
-                $item->Customer_detail()->forceDelete();
+                $item->customer_detail()->forceDelete();
                 $item->forceDelete();
             }
-            return redirect()->route('Customer.trash')->with('delete', "All data destroyed!");
+            return back()->with('delete', "All data deleted!");
         }
     }
 

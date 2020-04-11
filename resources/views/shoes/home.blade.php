@@ -10,19 +10,14 @@
 
     <div class="container">
 
+
+        @include('partials.message')
+
         <div class="row">
 
             <div class="col-sm-12">
 
                 <div id="slider-carousel" class="carousel slide" data-ride="carousel">
-
-                    <ol class="carousel-indicators">
-                        <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#slider-carousel" data-slide-to="1"></li>
-                        <li data-target="#slider-carousel" data-slide-to="2"></li>
-                        <li data-target="#slider-carousel" data-slide-to="3"></li>
-
-                    </ol>
 
                     <div class="carousel-inner">
                         <div class="item active">
@@ -34,8 +29,8 @@
                             </div>
                             <div class="col-sm-6">
                                 @if(!empty($slides->image))
-                                <img src="data:image;base64, {{ $slides->image }}" class="girl img-responsive" alt="" />
-                                {{-- <img src="images/home/pricing.png" class="pricing" alt="" /> --}}
+                                <img src="data:image;base64, {{ $slides->image }}" style="margin-left: 150px;"
+                                    width="300px" height="300px" class="girl img-responsive" alt="" />
                                 @endif
                             </div>
                         </div>
@@ -48,7 +43,8 @@
                                 <button type="button" class="btn btn-default get">Get it now</button>
                             </div>
                             <div class="col-sm-6">
-                                <img src="data:image;base64, {{ $slide->image }}" class="girl img-responsive" alt="" />
+                                <img src="data:image;base64, {{ $slide->image }}" style="margin-left: 150px;"
+                                    width="300px" height="300px" class="girl img-responsive" alt="" />
                                 {{-- <img src="images/home/pricing.png" class="pricing" alt="" /> --}}
                             </div>
                         </div>
@@ -93,9 +89,16 @@
                         <!--brands_products-->
                         <h2>Brands</h2>
                         <div class="brands-name">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>
+                                    <span class="pull-right">Amount
+                                    </span>Product
+                                </li>
+                            </ul>
                             @foreach ($products as $product)
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">
+
+                                <li><a href="{{ route('productdetail', $product->id) }}">
                                         <span class="pull-right">{{ $product->amount }}
                                         </span>{{ $product->name }}
                                     </a>
@@ -135,12 +138,33 @@
                         <div class="product-image-wrapper" style="margin-bottom: 10px">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <a href="{{ route('productdetail', $product->id) }}"><img
-                                            src="data:image;base64, {{ $product->image }}" alt="" height="180px" /></a>
-                                    <h2>{{ number_format($product->price_input) }} VND</h2>
-                                    <a href="{{ route('addCart', $product->id) }}"
-                                        class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
-                                        cart</a>
+                                    <a href="{{ route('productdetail', $product->id) }}">
+                                        @if($product->amount > 0)
+                                        <img src="data:image;base64, {{ $product->image }}" alt="" height="180px" /></a>
+                                    @else
+                                    <img src="data:image;base64, {{ $product->image }}" alt="" height="180px"
+                                        style="-webkit-filter: blur(2px);" /></a>
+                                    @endif
+
+                                    <form action="{{ route('addCart', $product->id) }}" method="GET">
+                                        @csrf
+                                        @if($product->amount > 0)
+                                        <h2>{{ number_format($product->price_input) }} VND</h2>
+
+                                        <input type="hidden" value="{{ $product->amount }}" name="check_stock">
+
+                                        <button type="submit" class="btn btn-default add-to-cart"><i
+                                                class="fa fa-shopping-cart"></i>Add to cart</button>
+
+                                        @else
+
+                                        <h2><span style="color:red">Out of stock</span> <br>
+                                            <span
+                                                style="color: #b2b2b2; text-decoration: line-through">{{ number_format($product->price_input) }}
+                                                VND</span></h2>
+
+                                        @endif
+                                    </form>
                                 </div>
                             </div>
 
@@ -478,15 +502,35 @@
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <a href="{{ route('productdetail', $product->id) }}"><img
-                                                        src="data:image;base64, {{ $product->image }}"
-                                                        alt="{{ $product->name }}" /></a>
-                                                <h2>{{ number_format($product->price_input) }} VND</h2>
-                                                {{-- <p>{!! $product->description !!}</p> --}}
-                                                <a href="{{ route('addCart', $product->id) }}"
-                                                    class="btn btn-default add-to-cart"><i
-                                                        class="fa fa-shopping-cart"></i>Add
-                                                    to cart</a>
+                                                <a href="{{ route('productdetail', $product->id) }}">
+                                                    @if($product->amount > 0)
+                                                    <img src="data:image;base64, {{ $product->image }}" alt=""
+                                                        height="180px" /></a>
+                                                @else
+                                                <img src=" data:image;base64, {{ $product->image }}" alt=""
+                                                    height="180px" style="-webkit-filter: blur(2px);" /></a>
+                                                @endif
+
+                                                <form action="{{ route('addCart', $product->id) }}" method="GET">
+                                                    @csrf
+                                                    @if($product->amount > 0)
+                                                    <h2>{{ number_format($product->price_input) }} VND</h2>
+
+                                                    <input type="hidden" value="{{ $product->amount }}"
+                                                        name="check_stock">
+
+                                                    <button type="submit" class="btn btn-default add-to-cart"><i
+                                                            class="fa fa-shopping-cart"></i>Add to cart</button>
+
+                                                    @else
+
+                                                    <h2><span style="color:red">Out of stock</span> <br>
+                                                        <span
+                                                            style="color: #b2b2b2; text-decoration: line-through">{{ number_format($product->price_input) }}
+                                                            VND</span></h2>
+
+                                                    @endif
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

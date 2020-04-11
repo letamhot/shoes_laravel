@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'image', 'id_role'
+        'name', 'gender', 'email', 'password', 'image', 'id_role', 'address', 'phone'
     ];
 
     /**
@@ -43,6 +43,10 @@ class User extends Authenticatable
         return $this
             ->belongsToMany('App\Role')
             ->withTimestamps();
+    }
+    public function gender()
+    {
+        return $this->belongsTo("App\Gender", 'gender_id', 'id');
     }
 
     public function authorizeRoles($roles)

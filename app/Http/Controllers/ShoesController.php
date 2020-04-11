@@ -8,6 +8,7 @@ use App\Producer;
 use App\slide;
 use App\Posts;
 use App\User;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -26,8 +27,8 @@ class ShoesController extends Controller
         // Cart::destroy();
         // dd(Cart::content());
         $types = Type::all();
-        $type = slide::first();
-        $type1 = slide::where('id', '>', 1)->get();
+        $type = Type::first();
+        $type1 = Type::where('id', '>', 1)->get();
         $products = Product::all();
         $product1 = Product::take(3)->get();
         $product2 = Product::where('id', '>', 4)->get();
@@ -41,9 +42,9 @@ class ShoesController extends Controller
 
     public function cart()
     {
-        $products = Product::all();
+        $product = Product::all();
         $types = Type::all();
-        return view('shoes.cart', compact('types', 'products'));
+        return view('shoes.cart', compact('types', 'product'));
     }
     public function blogsingle()
     {
@@ -92,5 +93,22 @@ class ShoesController extends Controller
         $products = Product::all();
         $types = Type::all();
         return view('shoes.404', compact('types', 'products'));
+    }
+    public function getDetailProduct($id)
+    {
+        $productKey = 'product_' . $id;
+
+        // // Kiểm tra Session của sản phẩm có tồn tại hay không.
+        // // Nếu không tồn tại, sẽ tự động tăng trường view_count lên 1 đồng thời tạo session lưu trữ key sản phẩm.
+        if (!Session::has($productKey)) {
+            Product::where('id', $id)->increment('view_count');
+            Session::put($productKey, 1);
+        }
+
+        $product = Product::find($id);
+        $id_product = Product::find($id);
+        $related_product = Product::where('id_type', $product->id_type)->where('amount', '<>', 0)->where('id', '<>', $product->id)->inRandomOrder()->paginate(8);
+        $id_type = Type::find($id);
+        return view('shoes.detail_product', compact('product',  'related_products', 'id_product'));
     }
 }

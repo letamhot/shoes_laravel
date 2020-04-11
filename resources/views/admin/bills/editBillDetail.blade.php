@@ -76,7 +76,7 @@
 
                                 <label>Quantity</label>
 
-                                <input type="number" min="1" max='{{ $bills->products->amount }}'
+                                <input type="number" min="1" max='{{ $bills->product->amount }}'
                                     class="form-control @error('quantity') is-invalid @enderror" name="quantity"
                                     value="{{ $bills->quantity }}">
 

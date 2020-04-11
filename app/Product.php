@@ -19,7 +19,7 @@ class Product extends Model
 
     public function producer()
     {
-        return $this->belongsTo(Producer::class, 'id_producer', 'id');
+        return $this->belongsTo(Producer::class, 'id_producer', 'id')->withTrashed();
     }
 
     public function type()
@@ -38,6 +38,6 @@ class Product extends Model
 
     public function size_product()
     {
-        return $this->hasMany("App\Size_product", 'id_product', 'id');
+        return $this->hasMany(Size_product::class, 'id_product', 'id');
     }
 }

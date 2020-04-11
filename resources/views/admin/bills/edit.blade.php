@@ -81,15 +81,6 @@
 
                             </div>
 
-                            <div class="form-group @error('country') has-error has-feedback @enderror">
-
-                                <label>Country</label>
-
-                                <input type="text" class="form-control @error('country') is-invalid @enderror"
-                                    name="country" value="{{ $customer->country }}">
-
-                            </div>
-
                             <div class="form-group @error('phone') has-error has-feedback @enderror">
 
                                 <label>Phone</label>

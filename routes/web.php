@@ -10,15 +10,19 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
+Route::post('/user/changaddress', 'ChangePasswordController@postChangeAddress')->name('change_address');
+
 //layouts
 Route::get('/', 'ShoesController@home')->name('shoesHome');
 Route::get('/shoesHome', 'ShoesController@home')->name('shoesHome');
 Route::get('/cart', 'ShoesController@cart')->name('cart');
 Route::get('/blog/{id}', 'ShoesController@blogsingle')->name('blog-single');
 Route::get('/shop', 'ShoesController@shop')->name('shop');
+Route::get('/getDetailProduct', 'ShoesController@getDetailProduct')->name('getDetailProduct');
+
 // Route::get('/loginshoes', 'ShoesController@login')->name('loginshoes');
 Route::get('/blog', 'ShoesController@blog')->name('blog');
-Route::get('/checkout', 'ShoesController@checkout')->name('checkout');
+Route::get('/checkout', 'ShoesController@checkout')->name('checkoutGet');
 
 Route::get('/product/detail/{id}', 'ShoesController@productdetail')->name('productdetail');
 
@@ -29,7 +33,7 @@ Route::resource('/cartt', 'CartController');
 Route::get('/add/cart/{id}', 'CartController@addCart')->name('addCart');
 Route::post('/add/cart/{id}', 'CartController@addCart')->name('addCartPost');
 Route::get('/remove/cart/{id}', 'CartController@deleteCart')->name('deleteCart');
-// Route::get('checkout','CartController@checkout')->name('cart.ckeckout');
+Route::post('/checkout1', 'CartController@checkout')->name('checkoutPost');
 
 
 

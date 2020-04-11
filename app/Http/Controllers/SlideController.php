@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\slide;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class SlideController extends Controller
 {
@@ -97,11 +98,8 @@ class SlideController extends Controller
      */
     public function destroy($id)
     {
-        slide::find($id)->delete();
-
-        //store status message
-        Session::flash('success_msg', 'slide deleted successfully!');
-
-        return redirect()->route('slide.index');
+        $slide = Slide::find($id);
+        $slide->delete();
+        return back()->with('success', "slide deleted successfully!");
     }
 }

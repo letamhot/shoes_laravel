@@ -82,7 +82,6 @@ class BillDetailController extends Controller
             'size' => 'required | numeric | min:0',
             'quantity' => 'required | numeric | min:0',
             'status' => 'required | numeric | between:0,1',
-            'discount' => 'required | numeric | between:0,100',
         ]);
 
         $bill = Bill_detail::withTrashed()->findOrFail($id); // 132
@@ -105,10 +104,9 @@ class BillDetailController extends Controller
             if (request('size') == $size->id_size) {
                 $bill->size = request('size');
                 $bill->quantity = request('quantity');
-                $bill->discount = request('discount');
-                $bill->total_price = (request('quantity') * $price) - (request('discount') * (request('quantity') * $price) / 100);
+                $bill->total_price = ((request('quantity') * $price) / 100);
                 $bill->status = request('status');
-                Bill_detail::withTrashed()->findOrFail($id)->update(['user_updated' => Auth::user()->username]);
+                Bill_detail::withTrashed()->findOrFail($id)->update(['user_updated' => Auth::user()->name]);
                 $bill->save();
 
                 $amountBill = Bill_detail::where('id_bill', $bill->id_bill)->get();

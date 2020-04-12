@@ -62,7 +62,7 @@
                                 <select name="size" id="size" class="form-control @error('size') is-invalid @enderror">
                                     @foreach ($size_product as $key => $size)
 
-                                    <option value="{{ $size->size->id }}" @if($bills->size == $size->size->id)
+                                    <option value="{{ $size->size->id }}" @if($bills->size == $size->size_id)
                                         {{ "selected" }}
                                         @endif>{{ $size->size->name }}</option>
 
@@ -79,20 +79,6 @@
                                 <input type="number" min="1" max='{{ $bills->product->amount }}'
                                     class="form-control @error('quantity') is-invalid @enderror" name="quantity"
                                     value="{{ $bills->quantity }}">
-
-                            </div>
-
-                            <div class="form-group @error('discount') has-error has-feedback @enderror">
-
-                                <label>Discount (%)</label>
-
-                                <input type="numtber" @if(!empty($bills->discount))
-                                value="{{ $bills->discount }}"
-                                @else
-                                value="0"
-                                @endif
-                                class="form-control"
-                                class="form-control @error('discount') is-invalid @enderror" name="discount">
 
                             </div>
 

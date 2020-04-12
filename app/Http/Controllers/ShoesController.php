@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Type;
+use App\Size_product;
 use App\Product;
 use App\Producer;
 use App\slide;
@@ -40,11 +41,32 @@ class ShoesController extends Controller
         return view('shoes.home', compact('types', 'type', 'type1', 'slides1', 'product1', 'product2', 'products', 'producers', 'slides'));
     }
 
-    public function cart()
+    public function cart(Request $request)
     {
-        $product = Product::all();
+        // $product = Product::all();
+        $size_product = Size_product::all();
+
+        $product = null;
+
+        foreach (Cart::content() as $cart) {
+            $product[] = Product::find($cart->id);
+            $check_amount = Product::find($cart->id);
+
+            //Check if in cart of customer, product out of stock
+            if ($check_amount->amount <= 0) {
+                Cart::remove($cart->rowId);
+                $request->session()->flash('error', "Product $check_amount->name has sold out, sincerely sorry!");
+            }
+        }
+
+        $amount_product = null;
+        foreach (Cart::content() as $amount) {
+            $check = Product::findOrFail($amount->id);
+            $amount_product[] = $check->amount;
+        }
+
         $types = Type::all();
-        return view('shoes.cart', compact('types', 'product'));
+        return view('shoes.cart', compact('types', 'product', 'size_product', 'amount_product'));
     }
     public function blogsingle()
     {

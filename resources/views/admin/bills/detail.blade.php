@@ -16,13 +16,11 @@
                 <h1 id="descriptor"></h1><br>
                 <table>
                     <tr>
-                        <span id="username"></span><br>
                         <span id="name"></span><br>
                         <span id="email"></span><br>
                         <span id="address"></span><br>
                         <span id="postcode"></span><br>
                         <span id="city"></span><br>
-                        <span id="country"></span><br>
                         <span id="phone"></span><br>
                         <span id="active"></span><br>
                     </tr>

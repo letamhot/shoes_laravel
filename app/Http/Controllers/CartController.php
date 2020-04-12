@@ -36,6 +36,7 @@ class CartController extends Controller
             }
         }
 
+
         if (Auth::user()) {
             return view('shoes.cart', compact("product"));
         } else {
@@ -65,6 +66,16 @@ class CartController extends Controller
             'payment' => "required",
             "size.*" => "required | numeric | min:0"
         ]);
+
+        $i = 0;
+        foreach (Cart::content() as $check_amount) {
+            $id_product = Product::findOrFail($check_amount->id);
+            if (request('qty') > request("check_availability$i")) {
+                return back()->with('error', 'Nhập sai');
+            }
+            $i++;
+        }
+
         $oderdetail = array();
 
         // if (request('qty') > request('check_availability')) {
@@ -105,21 +116,16 @@ class CartController extends Controller
             foreach (Cart::content() as $key => $cart) {
                 $bill_detail["id_bill"] = $id_order;
                 $bill_detail["id_product"] = $cart->id;
-                // $bill_detail["name_product"] = $cart->name;
-                // $bill_detail["size"] = request("size" . $i++);
+                $bill_detail["size"] = request("size" . $i++);
                 $bill_detail["quantity"] = $cart->qty;
                 $bill_detail["unit_price"] = $cart->price;
-
-                // if (!empty(request('code'))) {
-                //     $bill_detail["discount"] = number_format(100 - ($cart->total * 100 / ($cart->price * $cart->qty)), 0);
-                // }
-
                 $bill_detail["total_price"] = $cart->total;
                 $oderdetail[$key] = Bill_detail::create($bill_detail);
 
                 $product = Product::findOrFail($cart->id);
                 $product->amount -= $cart->qty;
                 $product->save();
+                $i++;
             }
             Cart::destroy();
             return redirect()->route('shoesHome')->with('success', 'Order Success');

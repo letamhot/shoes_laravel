@@ -38,7 +38,6 @@
                             <th>Size</th>
                             <th>Quantity</th>
                             <th>Unit price</th>
-                            <th>Discount</th>
                             <th>Total price</th>
                             <th>Status</th>
                             <th>User deleted</th>
@@ -55,7 +54,6 @@
                             <th>Size</th>
                             <th>Quantity</th>
                             <th>Unit price</th>
-                            <th>Discount</th>
                             <th>Total price</th>
                             <th>Status</th>
                             <th>User deleted</th>
@@ -76,28 +74,12 @@
 
                             <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}"
                                     target="_blank">{{ $bills->products->name }}</a></td>
-
-                            @if($bills->size == 1)
-                            <td>S</td>
-                            @elseif($bills->size == 2)
-                            <td>M</td>
-                            @elseif($bills->size == 3)
-                            <td>L</td>
-                            @elseif($bills->size == 4)
-                            <td>XL</td>
-                            @else
                             <td>{{ $bills->size }}</td>
                             @endif
                             <td>{{ $bills->quantity }}</td>
-                            <td>${{ number_format($bills->unit_price, 2) }}</td>
+                            <td>{{ number_format($bills->unit_price, 2) }} VND</td>
 
-                            @if($bills->discount > 0)
-                            <td>{{ $bills->discount }}%</td>
-                            @else
-                            <td>0%</td>
-                            @endif
-
-                            <td>${{ number_format($bills->total_price, 2) }}</td>
+                            <td>{{ number_format($bills->total_price, 2) }} VND</td>
 
                             @if($bills->status == 1)
                             <td><a href="{{ route('bills.statusDetailBills', $bills->id) }}"

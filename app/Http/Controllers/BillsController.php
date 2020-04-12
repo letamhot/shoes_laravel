@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\URL;
 use App\Bills;
 use App\Customer;
 use App\Bill_detail;
+use App\Size_product;
+use App\Product;
+
 
 class BillsController extends Controller
 {
@@ -31,7 +34,7 @@ class BillsController extends Controller
      */
     public function index()
     {
-        $bills = Bills::orderBy('id', 'DESC')->get();
+        $bills = Bills::orderBy('id', 'ASC')->get();
         $list = Bill_detail::all();
         return view('admin.bills.list', compact('bills', 'list'));
     }
@@ -109,7 +112,6 @@ class BillsController extends Controller
         $customer->address = request('address');
         $customer->postcode = request('postcode');
         $customer->city = request('city');
-        $customer->country = request('country');
         $customer->phone = request('phone');
         $bill->pay_money = request('pay_money');
         $bill->status = request('status');

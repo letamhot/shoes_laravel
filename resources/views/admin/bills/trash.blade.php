@@ -73,12 +73,12 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $bills->id }}</td>
-                            <td>{{ $bills->customers->id }} - {{ $bills->customers->name }}</td>
+                            <td>{{ $bills->customer->id }} - {{ $bills->customer->name }}</td>
                             <td><button data-url="{{ route('bills.show',$bills->id) }}" ​ type="button"
                                     data-target="#showbills" data-toggle="modal"
                                     class="btn btn-info btn-show btn-sm">Detail</button></td>
                             <td>{{ $bills->date_order }}</td>
-                            <td>${{ number_format($bills->total, 2) }}</td>
+                            <td>{{ $bills->total }} VND</td>
                             <td>{{ $bills->payment }}</td>
                             {{-- <td><a href="{{ route('bills.show', $bills->id) }}">Details</a></td> --}}
 

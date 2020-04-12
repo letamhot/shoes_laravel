@@ -72,8 +72,6 @@
                             <td>{{ $bills->date_order }}</td>
                             <td>${{ $bills->total }}</td>
                             <td>{{ $bills->payment }}</td>
-                            {{-- <td><a href="{{ route('bills.show', $bills->id) }}">Details</a></td> --}}
-
                             @if($bills->pay_money == 1)
                             <td><a href="{{ route('bills.pay_money', $bills->id) }}" class="ajax_link"
                                     style="color:#32CD32; font-weight: bold"
@@ -148,22 +146,18 @@
                 type: 'get',
                 url: url,
                 success: function(response) {
-                    // console.log(response)
                     $('h4#name').html(response.data.name)
                     $('h1#descriptor').html("Id customer: " + response.data.id)
-                    $('span#username').html("Username: " + response.data.username)
                     $('span#name').html("Name: " + response.data.name)
                     $('span#email').html("Email: " + response.data.email)
                     $('span#address').html("Address: " + response.data.address)
                     $('span#postcode').html("Post code: " + response.data.postcode)
                     $('span#city').html("City: " + response.data.city)
                     $('span#phone').html("Phone: +84 " + response.data.phone)
-
                     $('span#last_updated').html("Last updated: " + response.data.updated_at.substring(0,19))
                     $('span#user_updated').html("User updated: " + response.data.user_updated)
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    //xử lý lỗi tại đây
                 }
             })
         })

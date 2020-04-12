@@ -33,26 +33,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i = 1; ?>
+                        <?php $i = 0; ?>
 
                         @foreach (Cart::content() as $key => $item)
 
                         <tr>
-                            <td class="id">{{ $i }}</td>
+                            <td class="id">{{ $i+1 }}</td>
                             <td class="cart_image">
                                 <a href="{{ route('productdetail', $item->id) }}"><img
                                         src="data:image;base64, {{ $item->options->img }}" alt="{{ $item->name }}"
                                         width="100px"></a>
                             </td>
-                            <td class=" cart_product">
+                            <td class="cart_product">
                                 <h4><a href="{{ route('productdetail', $item->id) }}">{{ $item->name }}</a></h4>
                             </td>
-                            <td class=" cart_size">
+                            <td class="cart_size">
                                 <h4>
                                     @if(count($product[$i]->size) != 0)
                                     <select name="{{ 'size' . $i }}" id="" class="form-control-lg">
                                         @foreach ($product[$i]->size as $size)
-                                        <option value="{{ $size->id }}">{{ $size->name }}</option>
+                                        <option value="{{ $size->name }}">{{ $size->name }}</option>
                                         @endforeach
                                     </select>
                                     @endif
@@ -72,8 +72,10 @@
                                 </div>
 
                             </td>
-                            <input type="hidden" name="check_availability" value="">
-                            <td class="cart_amount">{{ $product[$i]->amount }}</td>
+                            <td class="cart_amount">
+                                <input type="text" name="check_availability{{ $i-1 }}"
+                                    value="{{ $amount_product[$i] }}">
+                                {{ $amount_product[$i] }}</td>
                             <td class="cart_total">
                                 <p class="cart_total_price">{{ number_format($item->total) }}</p>
                             </td>

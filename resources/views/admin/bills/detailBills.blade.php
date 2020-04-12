@@ -75,27 +75,16 @@
                             <td>{{ $bills->product->name }}</td>
                             <td>{{ $bills->size }}</td>
 
-                            {{-- @if($bills->size == 1)
-                            <td>S</td>
-                            @elseif($bills->size == 2)
-                            <td>M</td>
-                            @elseif($bills->size == 3)
-                            <td>L</td>
-                            @elseif($bills->size == 4)
-                            <td>XL</td>
-                            @else
-                            @endif --}}
-
                             <td>{{ $bills->quantity }}</td>
-                            <td>${{ number_format($bills->unit_price, 2) }}</td>
+                            <td>{{ number_format($bills->unit_price, 2) }} VND</td>
 
-                            @if($bills->discount > 0)
+                            {{-- @if($bills->discount > 0)
                             <td>{{ $bills->discount }}%</td>
                             @else
                             <td>0%</td>
-                            @endif
+                            @endif --}}
 
-                            <td>${{ number_format($bills->total_price, 2) }}</td>
+                            <td>{{ number_format($bills->total_price, 2) }} VND</td>
 
                             @if($bills->status == 1)
                             <td><a href="{{ route('bills.statusDetailBills', $bills->id) }}"

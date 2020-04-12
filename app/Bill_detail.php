@@ -16,7 +16,7 @@ class Bill_detail extends Model
 
     protected $dates = ['deleted_at'];
 
-    //Update datetime to table categories
+    //Update datetime to table type
     protected $touches = ['bills'];
 
     public function bills()

@@ -215,6 +215,7 @@ class BillsController extends Controller
 
     public function detailBills($id)
     {
+        $size_product = Size_product::all();
         $bill_detail = Bill_detail::where('id_bill', $id)->get();
         $total_price = 0;
         foreach ($bill_detail as $bill) {
@@ -228,7 +229,7 @@ class BillsController extends Controller
             $bills = null;
         }
 
-        return view('admin.bills.detailBills', compact('bill_detail', 'id_bill_detail', 'bills', 'total_price'));
+        return view('admin.bills.detailBills', compact('size_product', 'bill_detail', 'id_bill_detail', 'bills', 'total_price'));
     }
 
     public function statusDetailBills($id)

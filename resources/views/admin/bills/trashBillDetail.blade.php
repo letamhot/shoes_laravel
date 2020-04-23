@@ -69,17 +69,15 @@
                         <tr>
                             <td>{{ ++$key }}</td>
 
-                            <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}"
-                                    target="_blank">{{ $bills->id_product }}</a></td>
+                            <td>{{ $bills->id_product }}</td>
 
-                            <td><a href="{{ route('getDetailProductMen', $bills->id_product) }}"
-                                    target="_blank">{{ $bills->products->name }}</a></td>
+                            <td>{{ $bills->product->name }}</td>
                             <td>{{ $bills->size }}</td>
-                            @endif
-                            <td>{{ $bills->quantity }}</td>
-                            <td>{{ number_format($bills->unit_price, 2) }} VND</td>
 
-                            <td>{{ number_format($bills->total_price, 2) }} VND</td>
+                            <td>{{ $bills->quantity }}</td>
+                            <td>{{ number_format($bills->unit_price) }} VND</td>
+
+                            <td>{{ number_format($bills->total_price) }} VND</td>
 
                             @if($bills->status == 1)
                             <td><a href="{{ route('bills.statusDetailBills', $bills->id) }}"

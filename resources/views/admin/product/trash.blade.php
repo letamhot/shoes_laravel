@@ -36,6 +36,7 @@
                             <th>Name</th>
                             <th>Type</th>
                             <th>Producer</th>
+                            <th>Size/Quantity</th>
                             <th>Amount</th>
                             <th>Image</th>
                             <th>Price_input</th>
@@ -52,6 +53,7 @@
                             <th>Name</th>
                             <th>Type</th>
                             <th>Producer</th>
+                            <th>Size/Quantity</th>
                             <th>Amount</th>
                             <th>Image</th>
                             <th>Price_input</th>
@@ -71,7 +73,12 @@
                             <td>{{$value->name}}</td>
                             <td>{{$value->type->name}}</td>
                             <td>{{$value->producer->name}}</td>
-                            <td>{{$value->amount}}</td>
+                            <td>
+                                @foreach ($value->size_product as $size)
+                                Size: {{ $size->size->name }} / Quantity: <b style="color:blue">{{ $size->qty }}</b><br>
+                                @endforeach
+                            </td>
+                            <td>{{ $value->size_product->sum('qty')}}</td>
                             <td><img src="data:image;base64, {{$value->image}}" width="60px" height="60px"></td>
                             <td>{{$value->price_input}}</td>
                             <td><button data-url="{{ route('product.show',$value->id) }}" ​ type="button"

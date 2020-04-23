@@ -10,7 +10,23 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
+
+Auth::routes();
+//mail
+
+
+Route::resource('/details', 'ChangePasswordController');
 Route::post('/user/changaddress', 'ChangePasswordController@postChangeAddress')->name('change_address');
+Route::get('/user/account/profile', 'ChangePasswordController@edit')->name('details.profile');
+Route::get('/password', 'ChangePasswordController@index')->name('password');
+
+//Change email
+Route::get('/user/account/email/', 'ChangePasswordController@getEmailVerify')->name('email');
+Route::post('/user/account/email/', 'ChangePasswordController@postEmailVerify')->name('verifyemail');
+
+//Change phone
+Route::get('/user/account/phone/', 'ChangePasswordController@getUpdatePhone')->name('phoneNumber');
+Route::post('/user/account/phone/', 'ChangePasswordController@postUpdatePhone')->name('verifyPhone');
 
 //layouts
 Route::get('/', 'ShoesController@home')->name('shoesHome');
@@ -22,7 +38,7 @@ Route::get('/getDetailProduct', 'ShoesController@getDetailProduct')->name('getDe
 
 // Route::get('/loginshoes', 'ShoesController@login')->name('loginshoes');
 Route::get('/blog', 'ShoesController@blog')->name('blog');
-Route::get('/checkout', 'ShoesController@checkout')->name('checkoutGet');
+// Route::get('/checkout', 'ShoesController@checkout')->name('checkoutGet');
 
 Route::get('/product/detail/{id}', 'ShoesController@productdetail')->name('productdetail');
 
@@ -30,15 +46,22 @@ Route::get('/contact', 'ShoesController@contact')->name('contact');
 Route::get('/error', 'ShoesController@error')->name('error');
 //Add cart
 Route::resource('/cartt', 'CartController');
+Route::get('/AddShoppingCart/{id}', 'CartController@AddShoppingCart')->name('AddShoppingCart');
 Route::get('/add/cart/{id}', 'CartController@addCart')->name('addCart');
-Route::post('/add/cart/{id}', 'CartController@addCart')->name('addCartPost');
+// Route::post('/add/cart/{id}/{qty}/{check}/{size}', 'CartController@addCart')->name('addCartPost');
 Route::get('/remove/cart/{id}', 'CartController@deleteCart')->name('deleteCart');
 Route::post('/checkout1', 'CartController@checkout')->name('checkoutPost');
+Route::get('/addCartPost/{id}/{qty}/{check}/{size}', 'CartController@addCartPost')->name('addCartPost');
+Route::get('/saveCart/{id}/{quantity}', 'CartController@saveListItemCart')->name('saveListItemCart');
+Route::get('/deleteListCart/{id}', 'CartController@deleteListCart')->name('deleteListCart');
+Route::get('/updateDeleteListCart', 'CartController@updateDeleteListCart')->name('updateDeleteListCart');
+
+
 
 
 
 //login-shoes
-Route::get('/loginshoes',  'Auth\LoginController@showLogin');
+Route::get('/loginshoes',  'Auth\LoginController@showLogin')->name('loginshoes');
 
 Route::post('signin', 'Auth\LoginController@doLogin');
 Route::get('logoutshoes', 'Auth\LoginController@logoutshoes');
@@ -54,8 +77,8 @@ Route::get('/product-restore-all', 'ProductController@restoreAll')->name('produc
 Route::get('/product/{id}/delete', 'ProductController@delete')->name('product.delete');
 Route::get('/product-delete-all', 'ProductController@deleteAll')->name('product.delete-all');
 Route::get('/new/{id}', 'ProductController@news')->name('product.new');
-
-Auth::routes();
+Route::get('qty/{id}', 'ProductController@qtyGet')->name('qtyGet');
+Route::post('qty/{id}', 'ProductController@qtyPost')->name('qtyPost');
 
 
 //producer
@@ -65,7 +88,6 @@ Route::get('/producer/{id}/restore', 'ProducerController@restore')->name('produc
 Route::get('/producer-restore-all', 'ProducerController@restoreAll')->name('producer.restore-all');
 Route::get('/producer/{id}/delete', 'ProducerController@delete')->name('producer.delete');
 Route::get('/producer-delete-all', 'ProducerController@deleteAll')->name('producer.delete-all');
-Auth::routes();
 Auth::routes();
 
 //user
@@ -79,7 +101,6 @@ Route::get('/type/{id}/restore', 'TypeController@restore')->name('type.restore')
 Route::get('/type-restore-all', 'TypeController@restoreAll')->name('type.restore-all');
 Route::get('/type/{id}/delete', 'TypeController@delete')->name('type.delete');
 Route::get('/type-delete-all', 'TypeController@deleteAll')->name('type.delete-all');
-Auth::routes();
 
 //Customer
 Route::resource('/customer', 'CustomerController');
@@ -117,7 +138,6 @@ Route::get('/search', 'PostsControllers@search')->name('posts.search');
 
 //slide-image
 Route::resource('/slide', 'SlideController');
-Auth::routes();
 
 // route to show the logout form
 Route::get('/logout', 'LoginController@logout')->name('logout');
@@ -133,3 +153,7 @@ Route::get('/animation', 'dashboardController@animation')->name('animation');
 Route::get('/border', 'dashboardController@border')->name('border');
 Route::get('/color', 'dashboardController@color')->name('color');
 Route::get('/orther', 'dashboardController@orther')->name('orther');
+
+//login google
+Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
+Route::get('/callback/{provider}', 'SocialController@callback');

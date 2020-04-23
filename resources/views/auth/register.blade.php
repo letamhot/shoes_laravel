@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <base href="{{ asset('') }}">
 
-    <title>SB Admin 2 - Register</title>
+    <title>Register To Admin</title>
 
     <!-- Custom fonts for this template-->
     <link href="sb-admin-2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -18,7 +19,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -33,8 +34,9 @@
                     <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                     <div class="col-lg-7">
                         <div class="p-5">
-                            <div class="card-header">{{ __('Register') }}</div>
-
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">{{ __('Register') }}</h1>
+                            </div>
                             <div class="card-body">
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
@@ -73,7 +75,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="name"
+                                        <label for="gender"
                                             class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
 
                                         <div class="col-md-6">

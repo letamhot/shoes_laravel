@@ -16,14 +16,14 @@ class CreateProductTable extends Migration
         Schema::create('product', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('type')->unsigned();
-            $table->foreign('type')->references('id')->on('type')->onDelete('cascade');
-            $table->integer('producer')->unsigned();
-            $table->foreign('producer')->references('id')->on('producer')->onDelete('cascade');
+            $table->integer('id_type')->unsigned();
+            $table->foreign('id_type')->references('id')->on('type')->onDelete('cascade');
+            $table->integer('id_producer')->unsigned();
+            $table->foreign('id_producer')->references('id')->on('producer')->onDelete('cascade');
             $table->integer('amount')->nullable();
             $table->longtext('image')->nullable();
-            $table->float('price_input', 20, 2)->nullable();
-            $table->float('promotion_price', 20, 2)->nullable()->default(0);
+            $table->integer('price_input')->nullable();
+            $table->integer('promotion_price')->nullable()->default(0);
             $table->boolean('new')->nullable()->default(0);
             $table->mediumText('description')->nullable();
             $table->timestamps();

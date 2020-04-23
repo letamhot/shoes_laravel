@@ -8,6 +8,8 @@ use App\Product;
 use App\Producer;
 use App\slide;
 use App\Posts;
+use App\Review;
+
 use App\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +33,7 @@ class ShoesController extends Controller
         $type = Type::first();
         $type1 = Type::where('id', '>', 1)->get();
         $products = Product::all();
+        $size_product = Size_product::all();
         $product1 = Product::take(3)->get();
         $product2 = Product::where('id', '>', 4)->get();
         $producers = Producer::all();
@@ -38,35 +41,35 @@ class ShoesController extends Controller
         $slides1 = slide::where('id', '>', 1)->get();
 
 
-        return view('shoes.home', compact('types', 'type', 'type1', 'slides1', 'product1', 'product2', 'products', 'producers', 'slides'));
+        return view('shoes.home', compact('types', 'size_product', 'type', 'type1', 'slides1', 'product1', 'product2', 'products', 'producers', 'slides'));
     }
 
     public function cart(Request $request)
     {
-        // $product = Product::all();
-        $size_product = Size_product::all();
+        if (Auth::user()) {
 
-        $product = null;
+            // $product = Product::all();
+            $size_product = Size_product::all();
 
-        foreach (Cart::content() as $cart) {
-            $product[] = Product::find($cart->id);
-            $check_amount = Product::find($cart->id);
+            $product = null;
+            $amount_product = null;
+            foreach (Cart::instance(Auth::user()->id)->content() as $cart) {
+                $product[] = Product::find($cart->id);
+                $check_amount = Product::find($cart->id);
+                $amount_product[] = Size_product::where('id_size', $cart->options->size)->where('id_product', $cart->id)->sum('qty');
 
-            //Check if in cart of customer, product out of stock
-            if ($check_amount->amount <= 0) {
-                Cart::remove($cart->rowId);
-                $request->session()->flash('error', "Product $check_amount->name has sold out, sincerely sorry!");
+                //Check if in cart of customer, product out of stock
+                if ($check_amount->amount <= 0) {
+                    Cart::remove($cart->rowId);
+                    $request->session()->flash('error', "Product $check_amount->name has sold out, sincerely sorry!");
+                }
             }
-        }
 
-        $amount_product = null;
-        foreach (Cart::content() as $amount) {
-            $check = Product::findOrFail($amount->id);
-            $amount_product[] = $check->amount;
+            $types = Type::all();
+            return view('shoes.cart', compact('types', 'product', 'size_product', 'amount_product'));
+        } else {
+            return view('shoes.login');
         }
-
-        $types = Type::all();
-        return view('shoes.cart', compact('types', 'product', 'size_product', 'amount_product'));
     }
     public function blogsingle()
     {
@@ -79,8 +82,10 @@ class ShoesController extends Controller
 
     {
         $products = Product::all();
+        $size_product = Size_product::all();
+
         $types = Type::all();
-        return view('shoes.shop', compact('types', 'products'));
+        return view('shoes.shop', compact('types', 'size_product', 'products'));
     }
     public function blog()
     {
@@ -99,10 +104,11 @@ class ShoesController extends Controller
     {
         $id_product = Product::findOrfail($id);
         $products = Product::all();
+        $review = Review::all();
         $types = Type::all();
-        $product1 = Product::first();
-        $product2 = Product::where('id', '>', 1)->get();
-        return view('shoes.product-detail', compact('id_product', 'types', 'products', 'product1', 'product2'));
+        $product1 = Product::take(3)->get();
+        $product2 = Product::where('id', '>', 4)->get();
+        return view('shoes.product-detail', compact('id_product', 'review', 'types', 'products', 'product1', 'product2'));
     }
     public function contact()
     {

@@ -8,8 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <base href="{{ asset('') }}">
 
-    <title>Đăng Nhập Hệ Thống</title>
+
+    <title>Login To Admin</title>
     <link rel="icon" href="" type="image/x-icon">
 
     <!-- Custom fonts for this template-->
@@ -76,6 +78,10 @@
                                         </div> --}}
                                         <input type="submit" class="form-control" value="Login">
                                     </form>
+                                    <hr>
+
+                                    <a href="{{ url('/auth/redirect/google') }}" class="btn btn-primary"><i
+                                            class="fa fa-google"></i> Google</a>
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="">Forgot

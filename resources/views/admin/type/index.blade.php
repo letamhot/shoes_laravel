@@ -29,7 +29,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable7" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -44,14 +44,17 @@
                             <td>{{$value->name}}</td>
                             <td><img src="data:image;base64, {{ $value->image }}" width="60px" height="60px"></td>
 
-                            <td><a href="{{ route('type.show', $value->id) }}" class="btn btn-primary">Show</a></td>
-                            <td><a href="{{ route('type.edit', $value->id) }}" class="btn btn-warning">Edit</a></td>
+                            <td><a href="{{ route('type.show', $value->id) }}" class="btn btn-primary" type="submit"><i
+                                        class="fa fa-window-restore" title="Show"></i></a></td>
+                            <td><a href="{{ route('type.edit', $value->id) }}" class="btn btn-warning" type="submit"><i
+                                        class="fa fa-window-restore" title="Edit"></i></a></td>
                             <td>
                                 <form action="{{ route('type.destroy', $value->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger" type="submit"
-                                        onclick="return confirm('Are you sure to delete?')">Delete</button>
+                                        onclick="return confirm('Are you sure to delete?')"><i class="fa fa-backspace"
+                                            title="Delete"></i></button>
                                 </form>
                             </td>
                         </tr>

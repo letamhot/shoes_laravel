@@ -28,7 +28,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable5" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -50,14 +50,18 @@
                             <td>{{$value->phone}}</td>
                             <td>{{$value->tax_code}}</td>
                             <td><img src="data:image;base64, {{ $value->image }}" width="60px" height="60px"></td>
-                            <td><a href="{{ route('producer.show', $value->id) }}" class="btn btn-primary">Show</a></td>
-                            <td><a href="{{ route('producer.edit', $value->id) }}" class="btn btn-warning">Edit</a></td>
+                            <td><a href="{{ route('producer.show', $value->id) }}" class="btn btn-primary" type="submit"
+                                    style="color:lightblue"><i class="fa fa-window-restore" aria-hidden="true"></i></a>
+                            </td>
+                            <td><a href="{{ route('producer.edit', $value->id) }}" class="btn btn-warning" type="submit"
+                                    style="color:yellow"><i class="fa fa-edit" title="Edit"></i></a></td>
                             <td>
                                 <form action="{{ route('producer.destroy', $value->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger" type="submit"
-                                        onclick="return confirm('Are you sure to delete?')">Delete</button>
+                                        onclick="return confirm('Are you sure to delete?')"><i
+                                            class="fa fa-backspace"></i></button>
                                 </form>
                             </td>
                         </tr>

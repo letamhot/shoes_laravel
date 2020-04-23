@@ -50,15 +50,34 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'gender' => ['required'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:1', 'confirmed'],
-            'address' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'min: 0'],
+        // return Validator::make($data, [
+        //     'name' => ['required', 'string', 'max:255', 'unique:users'],
+        //     'gender' => ['required'],
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //     'password' => ['required', 'string', 'min:1', 'confirmed'],
+        //     'address' => ['required', 'string', 'max:255'],
+        //     'phone' => ['required', 'min: 0'],
 
-        ]);
+        // ]);
+        $rules = [
+            'name' => 'required|unique:users,name|min:3',
+            'gender' => 'required',
+            'email' => 'required|unique:users,email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z\-]+\.)+[a-z]{2,6}$/ix|min:10|max:50',
+            'password' => 'required|min:3|confirmed',
+            'password_confirmation' => 'required|same:password',
+            'address' => 'required|string|min:3|max:25',
+            'phone' => 'required|min:9|unique:users',
+        ];
+
+        $messages = [
+            'required' => 'Vui lòng không để trống trường này!',
+            'name.unique'   => 'Dữ liệu này đã tồn tại!',
+            'email.unique'  => 'Dữ liệu này đã tồn tại!',
+            'email.regex'  => 'Email không đúng định dạng!',
+            'password_confirmation.same' => 'Mật khẩu không trùng khớp!'
+        ];
+
+        return Validator::make($data, $rules, $messages);
     }
 
     /**

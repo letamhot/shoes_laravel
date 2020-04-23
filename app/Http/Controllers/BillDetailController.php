@@ -80,7 +80,6 @@ class BillDetailController extends Controller
     {
         $this->validate($request, [
             'size' => 'required | numeric | min:0',
-            'quantity' => 'required | numeric | min:0',
             'status' => 'required | numeric | between:0,1',
         ]);
 
@@ -88,9 +87,9 @@ class BillDetailController extends Controller
         $product = Product::withTrashed()->where('id', $bill->id_product)->first();
         $size_product = Size_product::where('id_product', $bill->id_product)->get();
         $code_bill = Bills::withTrashed()->findOrFail($bill->id_bill);
-
-        if (request('quantity') > $product->amount) {
-            return back()->with('error', "Error, $product->name Exceeded quantity in stock! Maximum is $product->amount!");
+        $i = 0;
+        if (request('quantity') > $size_product->qty) {
+            return back()->with('error', "Error, $product->name Exceeded quantity in stock! Maximum is $size_product->qty!");
         }
         if ($product->promotion_price > 0) {
             $price = $product->promotion_price;
@@ -155,10 +154,11 @@ class BillDetailController extends Controller
 
     public function trashed(Request $request, $id)
     {
+        $size_product = Size_product::all();
         $bill_detail = Bill_detail::onlyTrashed()->where('id_bill', $id)->get();
         $id_bill_detail = Bill_detail::withTrashed()->where('id_bill', $id)->first();
         $id_bills = Bills::withTrashed()->where('id', $id_bill_detail->id_bill)->first();
-        return view('admin.bills.trashBillDetail', compact('bill_detail', 'id_bill_detail', 'id_bills'));
+        return view('admin.bills.trashBillDetail', compact('size_product', 'bill_detail', 'id_bill_detail', 'id_bills'));
     }
 
     public function restore($id)

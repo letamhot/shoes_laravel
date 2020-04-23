@@ -165,9 +165,16 @@
 <script src="js/jquery.scrollUp.min.js"></script>
 <script src="js/price-range.js"></script>
 <script src="js/jquery.prettyPhoto.js"></script>
-<script src="js/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-@stack('update_cart')
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script> --}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/fontawesome.min.js"></script>
+{{-- <script src="js/main.js"></script> --}}
+<script src="js/toastr.min.js"></script>
+<script src="js/back-to-top.js"></script>
+@stack('qty')
+@include('shoes.partials.footer_ajax')
+{{--  @stack('update_cart')  --}}
+
 </body>
 
 </html>

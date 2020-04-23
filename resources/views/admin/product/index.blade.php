@@ -23,14 +23,14 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable6" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Name</th>
                             <th>Type</th>
                             <th>Producer</th>
-                            <th>Size</th>
+                            <th>Size/Quantity</th>
                             <th>Amount</th>
                             <th>Image</th>
                             <th>Price_input</th>
@@ -39,8 +39,7 @@
                             <th>Description</th>
                             <th>Created at</th>
                             <th>Updated at</th>
-
-                            <th colspan="3 ">Action</th>
+                            <th colspan="4">Action</th>
                         </tr>
                     </thead>
 
@@ -52,15 +51,17 @@
                             <td>{{$value->name}}</td>
                             <td>{{$value->type->name}}</td>
                             <td>{{$value->producer->name}}</td>
+                            <?php $i =0?>
                             <td>
-                                @foreach ($value->size as $size)
-                                {{ $size->name }},
+                                @foreach ($value->size_product as $size)
+                                Size: {{ $size->size->name }} / Quantity: <b style="color:blue">{{ $size->qty }}</b><br>
                                 @endforeach
                             </td>
-                            <td>{{$value->amount}}</td>
+                            <td>{{ $value->size_product->sum('qty')}}</td>
+
                             <td><img src="data:image;base64, {{$value->image}}" width="60px" height="60px"></td>
                             <td>{{number_format($value->price_input)}}</td>
-                            <td>{{ $value->promotion_price }}</td>
+                            <td>{{ number_format($value->promotion_price) }}</td>
                             @if($value->new == 1)
                             <td><a href="{{ route('product.new', $value->id) }}"
                                     style="color:#32CD32; font-weight: bold"
@@ -82,15 +83,24 @@
 
                             <td>{{$value->updated_at}}</td>
                             <td>
-                                {{-- <a href="{{ route('product.show', $value->id) }}" class="btn btn-primary">Show</a>
+                                {{-- <a href="{{ route('product.show', $value->id) }}" class="btn
+                                btn-primary">Show</a>
                                 --}}
-                                <a href="{{ route('product.edit', $value->id) }}" class="btn btn-warning">Edit</a>
+                                <a href="{{ route('product.edit', $value->id) }}" class="btn btn-warning" type="submit"
+                                    style="color:yellow"><i class="fa fa-edit" title="Edit"></i></a>
+                            </td>
+                            <td>
                                 <form action="{{ route('product.destroy', $value->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger" type="submit"
-                                        onclick="return confirm('Are you sure to delete?')">Delete</button>
+                                    <a class="btn btn-danger" type="submit"
+                                        onclick="return confirm('Are you sure to delete?')"><i class="fa fa-backspace"
+                                            title="Delete"></i></a>
                                 </form>
+                            </td>
+                            <td>
+                                <a href={{route('qtyGet', $value->id)}} class="btn btn-primary" type="submit"
+                                    style="color:lightblue"><i class="fa fa-window-restore" title="ADD"></i></a>
                             </td>
                         </tr>
                         @endforeach
@@ -108,14 +118,14 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">​
 <script type="text/javascript" charset="utf-8">
     $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 </script>
 <script>
-    $(document).ready(function () {
-        $('.btn-show').click(function(){
+    $(document).ready(function() {
+        $('.btn-show').click(function() {
             var url = $(this).attr('data-url');
             $.ajax({
                 type: 'get',
@@ -124,10 +134,12 @@
                     // console.log(response)
                     $('h4#name').html(response.data.title)
                     $('h1#descriptor').html(response.data.description)
-                    $('span#created_at').html("Created_at: " + response.data.created_at.substring(0,19))
-                    $('span#updated_at').html("Updated_at: " + response.data.updated_at.substring(0,19))
+                    $('span#created_at').html("Created_at: " + response.data.created_at
+                        .substring(0, 19))
+                    $('span#updated_at').html("Updated_at: " + response.data.updated_at
+                        .substring(0, 19))
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     //xử lý lỗi tại đây
                 }
             })

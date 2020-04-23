@@ -7,7 +7,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Rules\MatchOldPassword;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Crypt;
+use Str;
+
 use App\User;
+use Illuminate\Support\Str as IlluminateStr;
 
 class ChangePasswordController extends Controller
 {
@@ -52,7 +56,7 @@ class ChangePasswordController extends Controller
     public function edit()
     {
         $user = User::findOrFail(Auth::user()->id);
-        return view('auth.edit', compact('user'));
+        return view('admin.profile', compact('user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -60,8 +64,21 @@ class ChangePasswordController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         $user->name = request('name');
         $user->address = request('address');
-        $user->save();
 
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $name_image = $file->getClientOriginalName();
+            $image = Str::random(5) . "_" . $name_image;
+            while (file_exists("img/user/" . $image)) {
+                $image = Str::random(5) . "_" . $name_image;
+            }
+            $file->move("img/user", $image);
+            if (!empty($user->image)) {
+                unlink("img/user/" . $user->image);
+            }
+            $user->image = $image;
+        }
+        $user->save();
         return redirect()->back()->with('success', 'Success, Details has changed');
     }
 
@@ -75,9 +92,8 @@ class ChangePasswordController extends Controller
     {
         $this->validate($request, [
             'current_password' => ['required', new MatchOldPassword],
-            'email' => ['required', 'email', 'unique:users']
+            'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('users')->ignore(Auth::user()->id)]
         ]);
-
         $user = User::findOrFail(Auth::user()->id);
 
         if (Hash::check($user->password, $request->input('current_password'))) {
@@ -99,7 +115,7 @@ class ChangePasswordController extends Controller
     {
         $this->validate($request, [
             'current_password' => ['required', new MatchOldPassword],
-            'phone' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:9', 'unique:users']
+            'phone' => ['numeric', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:9', \Illuminate\Validation\Rule::unique('users')->ignore(Auth::user()->id)]
         ]);
 
         $user = User::findOrFail(Auth::user()->id);

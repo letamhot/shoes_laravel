@@ -110,50 +110,55 @@
             <div class="col-sm-9 padding-right">
                 <div class="features_items">
                     <!--features_items-->
+                    <?php $i = 0 ;?>
+
                     <h2 class="title text-center">Product Items</h2>
                     @foreach ($products as $product)
                     <div class="col-sm-4">
-                        <div class="product-image-wrapper">
+                        <div class="product-image-wrapper" style="margin-bottom: 10px">
                             <div class="single-products">
                                 <div class="productinfo text-center">
                                     <a href="{{ route('productdetail', $product->id) }}">
-                                        @if($product->amount > 0)
+                                        @if($size_product[$i]->qty > 0)
                                         <img src="data:image;base64, {{ $product->image }}" alt="" height="180px" /></a>
                                     @else
                                     <img src="data:image;base64, {{ $product->image }}" alt="" height="180px"
                                         style="-webkit-filter: blur(2px);" /></a>
                                     @endif
 
-                                    <form action="{{ route('addCart', $product->id) }}" method="GET">
-                                        @csrf
-                                        @if($product->amount > 0)
-                                        <h2>{{ number_format($product->price_input) }} VND</h2>
+                                    {{-- <form action="{{ route('AddShoppingCart', $product->id) }}" method="GET">
+                                    @csrf --}}
+                                    @if($size_product[$i]->qty > 0)
+                                    <h2>{{ number_format($product->price_input) }} VND</h2>
 
-                                        <input type="hidden" value="{{ $product->amount }}" name="check_stock">
+                                    <input type="hidden" value="{{ $size_product[$i]->qty }}" name="check_stock">
 
-                                        <button type="submit" class="btn btn-default add-to-cart"><i
-                                                class="fa fa-shopping-cart"></i>Add to cart</button>
+                                    <a href="{{ route('productdetail', $product->id) }}"
+                                        class=" btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
+                                        cart</a>
 
-                                        @else
+                                    @else
 
-                                        <h2><span style="color:red">Out of stock</span> <br>
-                                            <span
-                                                style="color: #b2b2b2; text-decoration: line-through">{{ number_format($product->price_input) }}
-                                                VND</span></h2>
+                                    <h2><span style="color:red">Out of stock</span> <br>
+                                        <span
+                                            style="color: #b2b2b2; text-decoration: line-through">{{ number_format($product->price_input) }}
+                                            VND</span></h2>
 
-                                        @endif
-                                    </form>
+                                    @endif
+                                    {{-- </form> --}}
                                 </div>
                             </div>
 
                         </div>
-                        {{-- <div class="choose">
+                        <div class="choose">
                             <ul class="nav nav-pills nav-justified">
                                 <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
                                 <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
                             </ul>
-                        </div> --}}
+                        </div>
                     </div>
+                    <?php $i++?>
+
                     @endforeach
                     {{-- <div class="col-sm-4">
                         <div class="product-image-wrapper">

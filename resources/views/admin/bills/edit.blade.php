@@ -142,14 +142,8 @@
 </div>
 @endsection
 
-@push('ckeditor-js')
-{{-- <!-- CK editor 4 installed-->
-<script src="ckeditor/ckeditor.js"></script>
-<script>
-    // Script Ckeditor 4
-    CKEDITOR.replace("description");
-</script> --}}
-@endpush
+{{-- @push('ckeditor-js')
+@endpush --}}
 
 @push('select2-js')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>

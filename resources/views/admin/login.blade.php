@@ -75,6 +75,8 @@
                                         </div> --}}
                                         <input type="submit" class="form-control" value="Login">
                                     </form>
+
+
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="">Forgot

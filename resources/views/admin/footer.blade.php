@@ -41,9 +41,9 @@
 <!-- End of Page Wrapper -->
 
 <!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="sb-admin-2/#page-top">
+{{-- <a class="scroll-to-top rounded" href="sb-admin-2/#page-top">
     <i class="fas fa-angle-up"></i>
-</a>
+</a> --}}
 
 <!-- Bootstrap core JavaScript-->
 {{--  <script src="js/jquery.pjax.js"></script>  --}}
@@ -59,15 +59,19 @@
 <!-- Page level plugins -->
 <script src="sb-admin-2/vendor/chart.js/Chart.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
 <script src="sb-admin-2/vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="sb-admin-2/js/demo/datatables-demo.js"></script>
+<script src="js/back-to-top.js"></script>
 
 @stack('ckeditor-js')
 @stack('ckeditor')
 @stack('chart-js')
 @stack('show-ajax')
 @stack('select2-js')
+@stack('clicked')
+
 
 
 

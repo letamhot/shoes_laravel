@@ -10,6 +10,7 @@ use App\Product;
 use App\Producer;
 use App\Type;
 use App\Size;
+use App\Size_product;
 
 // use Session;
 // use Illuminate\Support\Facades\Auth;
@@ -226,5 +227,25 @@ class ProductController extends Controller
         $product->new = !$product->new;
         $product->save();
         return redirect()->back()->with('success', "Product $product->name changed column new");
+    }
+    public function qtyGet($id)
+    {
+        $product = Product::where('id', $id)->first();
+        $id_product = Size_product::where('id_product', $id)->get();
+        return view('admin.size_product.edit', compact('id_product', 'product'));
+    }
+    public function qtyPost(Request $request, $id)
+    {
+        $id_product = Size_product::where('id_product', $id)->get();
+        $i = 0;
+        foreach ($id_product as  $qty) {
+            $quantity = $i;
+            $quantity = Size_product::findOrfail($qty->id);
+            $quantity->qty = request('qty' . $i);
+            $quantity->save();
+            $i++;
+        }
+
+        return redirect()->back()->with('success', 'Add to qty');
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravelista\Comments\Commenter;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, Commenter;
 
@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'gender', 'email', 'password', 'image', 'id_role', 'address', 'phone'
+        'name', 'gender', 'email', 'password', 'image', 'id_role', 'address', 'phone', 'provider', 'provider_id', 'email_verified_at'
     ];
 
     /**

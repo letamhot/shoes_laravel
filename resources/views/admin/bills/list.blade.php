@@ -22,7 +22,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
+                <table class="table table-bordered" id="dataTable3" width="100%" cellspacing="0"
                     style="font-size: 13.5px;">
                     <thead>
                         <tr>
@@ -70,7 +70,7 @@
                                     data-target="#showbills" data-toggle="modal"
                                     class="btn btn-info btn-show btn-sm">Detail</button></td>
                             <td>{{ $bills->date_order }}</td>
-                            <td>${{ $bills->total }}</td>
+                            <td>{{ $bills->total }} VND</td>
                             <td>{{ $bills->payment }}</td>
                             @if($bills->pay_money == 1)
                             <td><a href="{{ route('bills.pay_money', $bills->id) }}" class="ajax_link"

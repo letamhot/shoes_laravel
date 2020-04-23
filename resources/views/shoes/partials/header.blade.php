@@ -15,7 +15,14 @@
     <link href="css/price-range.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <link href="css/back-to-top.css" rel="stylesheet" type="text/css">
+
+
     <link href="css/responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/fontawesome.min.css">
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"> --}}
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
     <link rel="shortcut icon" href="images/ico/favicon.ico">
@@ -23,6 +30,11 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <style>
+        #button::after {
+            content: "";
+        }
+    </style>
 </head>
 <!--/head-->
 
@@ -35,11 +47,20 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="contactinfo">
+                            @if(!Auth::user())
+                            <ul class="nav nav-pills">
+                                {{--  <li><a href="#"><i class="fa fa-phone"></i> {{ Auth::user()->phone }}</a></li>
+                                --}}
+                                <li><a href="{{ route('shoesHome') }}"><i class="fa fa-home">Khách</i></a></li>
+                            </ul>
+
+                            @else
                             <ul class="nav nav-pills">
                                 <li><a href="#"><i class="fa fa-phone"></i> {{ Auth::user()->phone }}</a></li>
                                 <li><a href="{{ route('shoesHome') }}"><i
                                             class="fa fa-home">{{ Auth::user()->name }}</i></a></li>
                             </ul>
+                            @endif
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -98,12 +119,15 @@
                             <ul class="nav navbar-nav">
                                 <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                                 <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                                <li><a href="{{ route('checkoutGet') }}"><i class="fa fa-crosshairs"></i> Checkout</a>
+                                {{-- <li><a href="{{ route('checkoutGet') }}"><i class="fa fa-crosshairs"></i>
+                                Checkout</a> --}}
                                 </li>
                                 <li><a href="{{ route('cart') }}"
                                         title="Giở hàng bạn có {{ Cart::count() }} mặt hàng"><i
                                             class="fa fa-shopping-cart"></i> Cart</a></li>
+                                @if(!Auth::user())
                                 <li><a href="{{ url('loginshoes') }}"><i class="fa fa-lock"></i> Login</a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -133,18 +157,18 @@
                                             class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="{{ route('shop') }}">Products</a></li>
-                                        {{--  <li><a href="{{ route('productdetail') }}">Product Details</a>
+                                        <li><a href="{{ url('logoutshoes') }}">Logout</a></li>
+                                        <div class="change-item-cart" id="change-item-cart">
+                                            @include('shoes.partials.header_ajax')
+                                        </div>
+                                        <li><a href="{{ url('loginshoes') }}">Login</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="{{ route('blog') }}">Blog List</a></li>
+                                        {{-- <li><a href="{{ route('blog-single') }}">Blog Single</a>
                                 </li> --}}
-                                <li><a href="{{ url('logoutshoes') }}">Logout</a></li>
-                                <li><a href="{{ route('cart') }}">Cart</a></li>
-                                <li><a href="{{ url('loginshoes') }}">Login</a></li>
-                            </ul>
-                            </li>
-                            <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="{{ route('blog') }}">Blog List</a></li>
-                                    {{-- <li><a href="{{ route('blog-single') }}">Blog Single</a>
-                            </li> --}}
                             </ul>
                             </li>
                             <li><a href="404.html">404</a></li>
@@ -163,3 +187,5 @@
         <!--/header-bottom-->
     </header>
     <!--/header-->
+    <a id="button"><i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </a>

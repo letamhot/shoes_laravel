@@ -16,13 +16,22 @@
     <link rel="icon" href="image\asics.png" type="image/x-icon">
 
     <!-- Custom fonts for this template-->
-    <link href="sb-admin-2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="css/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="css/back-to-top.css" rel="stylesheet" type="text/css">
+
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 
     <!-- Custom styles for this template-->
     <link href="sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        #button::after {
+            content: "";
+        }
+    </style>
+    @stack('select2css')
 
     <!-- Font Awesome-->
     {{-- <link rel="stylesheet" href="source/assets/dest/css/font-awesome.min.css"> --}}
@@ -43,11 +52,12 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
+
+                {{-- <img src="data:image;base64,{{Auth::user()->image}} " width="60px" height="60px"> --}}
                 <div class="sidebar-brand-text mx-3">Chào,
                     {{ Auth::user()->name }}<sup></sup>
                 </div>
             </a>
-
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
@@ -184,3 +194,5 @@
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
+            <a id="button"><i class="fas fa-arrow-up"></i>
+            </a>

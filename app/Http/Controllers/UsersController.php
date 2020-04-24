@@ -8,6 +8,12 @@ use App\Role;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware( 'role:ROLE_ADMIN' );
+        $this->middleware( 'role:ROLE_SUPERADMIN' );
+    }
     /**
      * Display a listing of the resource.
      *
@@ -76,8 +82,8 @@ class UsersController extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
-            'phone' => ['numeric', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:9', \Illuminate\Validation\Rule::unique('users')->ignore($id)],
-            'address' => ['required', 'string', 'max:255'],
+            // 'phone' => ['numeric', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:9', \Illuminate\Validation\Rule::unique('users')->ignore($id)],
+            // 'address' => ['required', 'string', 'max:255'],
         ]);
         $user = User::findOrFail($id);
         $user->name = request('name');

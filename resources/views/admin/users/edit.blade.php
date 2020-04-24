@@ -53,7 +53,7 @@
                                 <label>Phone</label>
 
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror"
-                                    name="phone" value="{{ $users->phone }}" required>
+                                    name="phone" value="{{ $users->phone }}" >
 
                             </div>
 
@@ -62,7 +62,7 @@
                                 <label>Address</label>
 
                                 <input type="text" class="form-control @error('address') is-invalid @enderror"
-                                    name="address" value="{{ $users->address }}" required>
+                                    name="address" value="{{ $users->address }}" >
 
                             </div>
 

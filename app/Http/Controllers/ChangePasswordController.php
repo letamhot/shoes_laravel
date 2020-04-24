@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-use App\Rules\MatchOldPassword;
 use App\Http\Requests\UpdateUserRequest;
-use Illuminate\Support\Facades\Crypt;
-use Str;
-
+use App\Rules\MatchOldPassword;
 use App\User;
-use Illuminate\Support\Str as IlluminateStr;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Str;
 
 class ChangePasswordController extends Controller
 {
@@ -23,6 +20,7 @@ class ChangePasswordController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:ROLE_ADMIN');
     }
 
     /**
@@ -92,13 +90,13 @@ class ChangePasswordController extends Controller
     {
         $this->validate($request, [
             'current_password' => ['required', new MatchOldPassword],
-            'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('users')->ignore(Auth::user()->id)]
+            'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('users')->ignore(Auth::user()->id)],
         ]);
         $user = User::findOrFail(Auth::user()->id);
         if (Hash::check($user->password, $request->input('current_password'))) {
             return redirect()->route('email', $user->id)->with('success', 'Error');
         } else {
-            if($user->email != request('email')){
+            if ($user->email != request('email')) {
                 $user->email = request('email');
                 $user->email_verified_at = null;
                 $user->save();
@@ -117,7 +115,7 @@ class ChangePasswordController extends Controller
     {
         $this->validate($request, [
             'current_password' => ['required', new MatchOldPassword],
-            'phone' => ['numeric', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:9', \Illuminate\Validation\Rule::unique('users')->ignore(Auth::user()->id)]
+            'phone' => ['numeric', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:9', \Illuminate\Validation\Rule::unique('users')->ignore(Auth::user()->id)],
         ]);
 
         $user = User::findOrFail(Auth::user()->id);
@@ -134,7 +132,7 @@ class ChangePasswordController extends Controller
     public function postChangeAddress(Request $request)
     {
         $this->validate($request, [
-            'address' => 'required | string | min:5 | max:255'
+            'address' => 'required | string | min:5 | max:255',
         ]);
 
         $user = User::findOrFail(Auth::user()->id);

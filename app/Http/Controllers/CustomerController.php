@@ -20,6 +20,12 @@ use App\Gender;
 
 class CustomerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware( 'role:ROLE_ADMIN' );
+        $this->middleware( 'role:ROLE_SUPERADMIN' );
+    }
     /**
      * Display a listing of the resource.
      *
@@ -168,7 +174,6 @@ class CustomerController extends Controller
     {
         $customer = Customer::onlyTrashed()->findOrFail($id);
         $bills = Bills::onlyTrashed()->where('id_customer', $customer->id)->get();
-        Product::find($id)->update(['user_deleted' => Auth::user()->name]);
 
         foreach ($bills as $bill) {
             $find_bills_detail = Bill_detail::onlyTrashed()->where('id_bill', $bill->id)->get();

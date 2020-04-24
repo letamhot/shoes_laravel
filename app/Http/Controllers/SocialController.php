@@ -21,34 +21,35 @@ class SocialController extends Controller
 
     public function callback($provider)
     {
-
         $getInfo = Socialite::driver($provider)->stateless()->user();
         $check = User::where('provider_id', $getInfo->id)->first();
         if (!$check) {
-            $password = Str::random(6);
+            $password = Str::random(8);
             $user = $this->createUser($getInfo, $provider, $password);
             $message = "Your password is: <b>" . $password . "</b>. <br/> You should change your password immediately to avoid forgetting your password !";
             Mail::to($getInfo->email)->send(new ReplyMail($getInfo, $message));
+
             auth()->login($user);
-            return redirect()->to('/')->with("success", "Login to first time success, password send to your email");
+            return redirect()->to('/')->with('toast', 'This is the first time you log in, a password has been sent to your email');
         } else {
-            $user = $this->createUser($getInfo, $provider,$password);
+            $password = 0;
+            $user = $this->createUser($getInfo, $provider, $password);
             auth()->login($user);
-            return redirect()->to('/')->with("success", "Login to success");
+            return redirect()->to('/')->with('toast', 'Login with google account success !');
         }
     }
+
     function createUser($getInfo, $provider, $password)
     {
-
         $user = User::where('provider_id', $getInfo->id)->first();
-
         if (!$user) {
             $user = User::create([
-                'name'     => $getInfo->name . '_google',
+                'name'     => $getInfo->name,
+                'username' => $getInfo->email,
                 'email'    => $getInfo->email,
-                'image'    => $getInfo->avatar,
-                'email_verified_at' => date('Y-m-d H:i:s'),
+                'image' => $getInfo->avatar,
                 'password' => Hash::make($password),
+                'email_verified_at' => date('Y-m-d H:i:s'),
                 'provider' => $provider,
                 'provider_id' => $getInfo->id
             ]);

@@ -145,7 +145,6 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->id_type = $request->type;
         $product->id_producer = $request->producer;
-        $product->size()->sync($request->size);
 
         $product->amount = $request->amount;
         if (request('image')) {
@@ -210,7 +209,6 @@ class ProductController extends Controller
     {
         $product = Product::onlyTrashed()->findOrFail($id);
         $product->size_product()->forceDelete();
-
         $product->forceDelete();
 
         return back()->with('delete', "Product $product->name deleted!");

@@ -53,7 +53,7 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-    $("#img").change(function() {
+    $("#image").change(function() {
         readURL(this);
     });
 </script>

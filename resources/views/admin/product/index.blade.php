@@ -31,7 +31,7 @@
                             <th>Type</th>
                             <th>Producer</th>
                             <th>Size/Quantity</th>
-                            <th>Amount</th>
+                            {{-- <th>Amount</th> --}}
                             <th>Image</th>
                             <th>Price_input</th>
                             <th>Price_sale</th>
@@ -66,10 +66,10 @@
                                             @endforeach
                                 </span>
 
-                                <span>Total:
+                                <span style="color:#DC143C">Total:
                                     <b>{{ $value->size_product->sum('qty') }}</b></span>
                             </td>
-                            <td>{{ $value->size_product->sum('qty')}}</td>
+                            {{-- <td>{{ $value->size_product->sum('qty')}}</td> --}}
 
                             <td><img src="data:image;base64, {{$value->image}}" width="60px" height="60px"></td>
                             <td>{{number_format($value->price_input)}}</td>

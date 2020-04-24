@@ -80,6 +80,8 @@ Route::get('/product-restore-all', 'ProductController@restoreAll')->name('produc
 Route::get('/product/{id}/delete', 'ProductController@delete')->name('product.delete');
 Route::get('/product-delete-all', 'ProductController@deleteAll')->name('product.delete-all');
 Route::get('/new/{id}', 'ProductController@news')->name('product.new');
+Route::get('/new/trash/{id}', 'ProductsController@newsTrash')->name('product.newTrash');
+
 Route::get('qty/{id}', 'ProductController@qtyGet')->name('qtyGet');
 Route::post('qty/{id}', 'ProductController@qtyPost')->name('qtyPost');
 

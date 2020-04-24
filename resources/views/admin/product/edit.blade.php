@@ -1,5 +1,7 @@
 @extends('admin.layouts')
-
+@push('select2-css')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
 @section('title', 'Product')
 
 @section('content')
@@ -59,7 +61,7 @@
 
                 <div class="form-group @error('size') has-error has-feedback @enderror">
 
-                    <label>Size products</label>
+                    <label>Size product</label>
 
                     <select name="size[]" multiple id="size" class="form-control @error('size') is-invalid @enderror">
                         @foreach ($sizes as $key => $size)
@@ -68,18 +70,11 @@
                         </option>
                         @endforeach
                     </select>
+                    </select>
 
                 </div>
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Amount:</strong>
-                    <textarea class="form-control @error('amount') is-invalid @enderror" rows="10" name="amount"
-                        placeholder="amount">{{ $product->size_product->sum('qty') }}</textarea>
-                    <span class="text-danger">{{$errors->first('amount')}}</span>
-                </div>
-            </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group{{$errors->has('image')?' has-error':''}}">
                     <strong>Image:</strong>
@@ -91,8 +86,8 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group{{$errors->has('price_input')?' has-error':''}}">
                     <strong>Price_input:</strong>
-                    <textarea class="form-control" rows="10" name="price_input"
-                        placeholder="price_input">{{ $product->price_input }}</textarea>
+                    <input type="number" class="form-control" rows="10" name="price_input" placeholder="price_input"
+                        value="{{ $product->price_input }}">
                     <span class="text-danger">{{$errors->first('price_input')}}</span>
                 </div>
             </div>
@@ -100,9 +95,9 @@
 
                 <div class="form-group @error('promotion_price') has-error has-feedback @enderror">
 
-                    <label>Discount (Option)</label>
+                    <label>Promotion_price</label>
 
-                    <input type="text" class="form-control @error('promotion_price') is-invalid @enderror"
+                    <input type="number" class="form-control @error('promotion_price') is-invalid @enderror"
                         name="promotion_price" value="{{ $product->promotion_price }}">
 
                 </div>
@@ -168,7 +163,7 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-    $("#img").change(function() {
+    $("#image").change(function() {
         readURL(this);
     });
 </script>

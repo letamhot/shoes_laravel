@@ -37,9 +37,10 @@
                             <th>Type</th>
                             <th>Producer</th>
                             <th>Size/Quantity</th>
-                            <th>Amount</th>
                             <th>Image</th>
                             <th>Price_input</th>
+                            <th>Promotion_price</th>
+                            <th>News</th>
                             <th>Description</th>
                             <th>User deleted</th>
                             <th>Edit</th>
@@ -54,9 +55,10 @@
                             <th>Type</th>
                             <th>Producer</th>
                             <th>Size/Quantity</th>
-                            <th>Amount</th>
                             <th>Image</th>
                             <th>Price_input</th>
+                            <th>Promotion_price</th>
+                            <th>News</th>
                             <th>Description</th>
                             <th>User deleted</th>
                             <th>Edit</th>
@@ -87,12 +89,27 @@
                                             @endforeach
                                 </span>
 
-                                <span>Total:
+                                <span style="color:#DC143C">Total:
                                     <b>{{ $value->size_product->sum('qty') }}</b></span>
                             </td>
-                            <td>{{ $value->size_product->sum('qty')}}</td>
+                            {{-- <td>{{ $value->size_product->sum('qty')}}</td> --}}
                             <td><img src="data:image;base64, {{$value->image}}" width="60px" height="60px"></td>
-                            <td>{{$value->price_input}}</td>
+                            <td>{{number_format($value->price_input)}}</td>
+                            <td>{{ number_format($value->promotion_price) }}</td>
+                            @if($value->new == 1)
+                            <td><a href="{{ route('product.newTrash', $value->id) }}"
+                                    style="color:#32CD32; font-weight: bold"
+                                    onclick="return confirm('Do you want change news column of this product?')">Yes</a>
+                            </td>
+
+                            @else
+
+                            <td><a href="{{ route('product.newTrash', $value->id) }}"
+                                    style="color:red; font-weight: bold"
+                                    onclick="return confirm('Do you want change news column of this product?')">No</a>
+                            </td>
+
+                            @endif
                             <td><button data-url="{{ route('product.show',$value->id) }}" ​ type="button"
                                     data-target="#show" data-toggle="modal"
                                     class="btn btn-info btn-show btn-sm">Detail</button></td>

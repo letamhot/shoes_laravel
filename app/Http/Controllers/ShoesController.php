@@ -32,6 +32,8 @@ class ShoesController extends Controller
         $types = Type::all();
         $type = Type::first();
         $type1 = Type::where('id', '>', 1)->get();
+        // $id_product = Product::findOrfail($id);
+
         $products = Product::all();
         $size_product = Size_product::all();
         $product1 = Product::take(3)->get();
@@ -41,7 +43,7 @@ class ShoesController extends Controller
         $slides1 = slide::where('id', '>', 1)->get();
 
 
-        return view('shoes.home', compact('types', 'size_product', 'type', 'type1', 'slides1', 'product1', 'product2', 'products', 'producers', 'slides'));
+        return view('shoes.home', compact( 'types', 'size_product', 'type', 'type1', 'slides1', 'product1', 'product2', 'products', 'producers', 'slides'));
     }
 
     public function cart(Request $request)

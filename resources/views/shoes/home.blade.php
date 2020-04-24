@@ -140,7 +140,7 @@
                             <div class="single-products">
                                 <div class="productinfo text-center">
                                     <a href="{{ route('productdetail', $product->id) }}">
-                                        @if($size_product[$i]->qty > 0)
+                                        @if($product->size_product->sum('qty') > 0)
                                         <img src="data:image;base64, {{ $product->image }}" alt="" height="180px" /></a>
                                     @else
                                     <img src="data:image;base64, {{ $product->image }}" alt="" height="180px"
@@ -149,10 +149,11 @@
 
                                     {{-- <form action="{{ route('AddShoppingCart', $product->id) }}" method="GET">
                                     @csrf --}}
-                                    @if($size_product[$i]->qty > 0)
+                                    @if($product->size_product->sum('qty') > 0)
                                     <h2>{{ number_format($product->price_input) }} VND</h2>
 
-                                    <input type="hidden" value="{{ $size_product[$i]->qty }}" name="check_stock">
+                                    <input type="hidden" value="{{ $product->size_product->sum('qty') }}"
+                                        name="check_stock">
 
                                     <a href="{{ route('productdetail', $product->id) }}"
                                         class=" btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
@@ -163,7 +164,9 @@
                                     <h2><span style="color:red">Out of stock</span> <br>
                                         <span
                                             style="color: #b2b2b2; text-decoration: line-through">{{ number_format($product->price_input) }}
-                                            VND</span></h2>
+                                            VND
+                                        </span>
+                                    </h2>
 
                                     @endif
                                     {{-- </form> --}}
@@ -199,7 +202,7 @@
                                         <div class="single-products">
                                             <div class="productinfo text-center">
                                                 <a href="{{ route('productdetail', $product->id) }}">
-                                                    @if($size_product[$i]->qty > 0)
+                                                    @if($product->size_product->sum('qty') > 0)
                                                     <img src="data:image;base64, {{ $product->image }}" alt=""
                                                         height="180px" /></a>
                                                 @else
@@ -209,10 +212,10 @@
 
                                                 {{-- <form action="{{ route('addCart', $product->id) }}" method="GET">
                                                 @csrf --}}
-                                                @if($size_product[$i]->qty > 0)
+                                                @if($product->size_product->sum('qty') > 0)
                                                 <h2>{{ number_format($product->price_input) }} VND</h2>
 
-                                                <input type="hidden" value="{{ $size_product[$i]->qty }}"
+                                                <input type="hidden" value="{{ $product->size_product->sum('qty') }}"
                                                     name="check_stock">
 
                                                 <a href="{{ route('productdetail', $product->id) }}"

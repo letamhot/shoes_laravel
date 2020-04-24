@@ -76,13 +76,13 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
+            {{-- <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group{{$errors->has('amount')?' has-error':''}}">
                     <strong>Amount :</strong>
                     <input type="number" name="amount" id="amount" value="{{ old('amount') }}" class="form-control">
                     <span class="text-danger">{{$errors->first('amount')}}</span>
                 </div>
-            </div>
+            </div> --}}
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Image :</strong>

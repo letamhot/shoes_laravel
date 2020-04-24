@@ -66,7 +66,7 @@
                                 <label>Email</label>
 
                                 <input type="text" class="form-control @error('email') is-invalid @enderror"
-                                    name="address" value="{{ $customer->email }}" required>
+                                    name="email" value="{{ $customer->email }}" required>
 
                             </div>
 

@@ -53,7 +53,6 @@
                             <th width='15%'>Address</th>
                             <th>Postcode</th>
                             <th>City</th>
-                            {{-- <th>Country</th> --}}
                             <th>Phone</th>
                             <th>Active</th>
                             <th width='15%'>User updated</th>
@@ -68,7 +67,12 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $value->name }}</td>
-                            <td>{{ $value->gender->name }}</td>
+                            @if(!empty($value->gender->name))
+                                <td>{{ $value->gender->name }}</td>
+                            
+                            @else
+                           <td>{{'Null'}}</td>
+                           @endif
                             <td>{{ count($value->bills) }}</td>
                             <td>{{ $value->email }}</td>
                             <td>{{ $value->address }}</td>

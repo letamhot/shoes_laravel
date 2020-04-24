@@ -33,7 +33,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Username</th>
                             <th>Name</th>
                             <th>Order number</th>
                             <th>Email</th>
@@ -52,7 +51,6 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Username</th>
                             <th>Name</th>
                             <th>Order number</th>
                             <th>Email</th>
@@ -75,7 +73,6 @@
                         <tr>
 
                             <td>{{ ++$key }}</td>
-                            <td>{{ $customer->username }}</td>
                             <td>{{ $customer->name }}</td>
 
                             <td>{{ count($customer->bills_trash) }}</td>

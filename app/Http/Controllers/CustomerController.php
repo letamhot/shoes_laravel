@@ -88,10 +88,8 @@ class CustomerController extends Controller
         $this->validate($request, [
             'name' => 'required | min:5 | max:255 | string',
             'gender' => 'required',
-            // 'email' => 'required',
             'address' => 'required | min:5 | max:255 | string',
             'city' => 'required | min:1 | max:255 | string',
-            // 'country' => 'required | min:1 | max:255 | string',
             'phone' => 'required | numeric | min:0',
         ]);
 
@@ -108,7 +106,6 @@ class CustomerController extends Controller
         $customer->address = request('address');
         $customer->postcode = request('postcode');
         $customer->city = request('city');
-        // $customer->country = request('country');
         $customer->phone = request('phone');
         $customer->user_updated = Auth::user()->name;
         $customer->save();
@@ -171,7 +168,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::onlyTrashed()->findOrFail($id);
         $bills = Bills::onlyTrashed()->where('id_customer', $customer->id)->get();
-        // Product::find($id)->update(['user_deleted' => Auth::user()->name]);
+        Product::find($id)->update(['user_deleted' => Auth::user()->name]);
 
         foreach ($bills as $bill) {
             $find_bills_detail = Bill_detail::onlyTrashed()->where('id_bill', $bill->id)->get();

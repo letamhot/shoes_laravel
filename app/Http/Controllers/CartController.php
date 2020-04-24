@@ -81,7 +81,7 @@ class CartController extends Controller
             'payment' => 'required',
             'size.*' => 'required | numeric | min:0'
         ]);
-        if(!empty(Auth::user()->phone) || !empty(Auth::user()->address)){
+        if(empty(Auth::user()->phone) || empty(Auth::user()->address)){
             return redirect()->route('details.profile')->with('error', '
             Please enter phone number or address');
         }

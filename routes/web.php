@@ -11,8 +11,11 @@
 |
  */
 
-Auth::routes();
-//mail
+// Auth::routes();
+Auth::routes(['verify' => true]);
+
+
+
 
 
 Route::resource('/details', 'ChangePasswordController');
@@ -22,7 +25,7 @@ Route::get('/password', 'ChangePasswordController@index')->name('password');
 
 //Change email
 Route::get('/user/account/email/', 'ChangePasswordController@getEmailVerify')->name('email');
-Route::post('/user/account/email/', 'ChangePasswordController@postEmailVerify')->name('verifyemail');
+Route::post('/user/account/email/', 'ChangePasswordController@postEmailVerify')->name('verifyemail')->middleware('verified');
 
 //Change phone
 Route::get('/user/account/phone/', 'ChangePasswordController@getUpdatePhone')->name('phoneNumber');
@@ -46,9 +49,9 @@ Route::get('/contact', 'ShoesController@contact')->name('contact');
 Route::get('/error', 'ShoesController@error')->name('error');
 //Add cart
 Route::resource('/cartt', 'CartController');
+Route::post('/cartt', 'CartController@store')->name('cartt.store')->middleware('verified');
 Route::get('/AddShoppingCart/{id}', 'CartController@AddShoppingCart')->name('AddShoppingCart');
 Route::get('/add/cart/{id}', 'CartController@addCart')->name('addCart');
-// Route::post('/add/cart/{id}/{qty}/{check}/{size}', 'CartController@addCart')->name('addCartPost');
 Route::get('/remove/cart/{id}', 'CartController@deleteCart')->name('deleteCart');
 Route::post('/checkout1', 'CartController@checkout')->name('checkoutPost');
 Route::get('/addCartPost/{id}/{qty}/{check}/{size}', 'CartController@addCartPost')->name('addCartPost');
@@ -143,7 +146,7 @@ Route::resource('/slide', 'SlideController');
 Route::get('/logout', 'LoginController@logout')->name('logout');
 
 //dashboard-admin
-Route::get('/dashboard', 'dashboardController@dashboard')->name('dashboard');
+Route::get('/dashboard', 'dashboardController@dashboard')->name('dashboard')->middleware('verified');
 Route::get('/errors', 'dashboardController@error404')->name('error404');
 Route::get('/button', 'dashboardController@button')->name('button');
 Route::get('/card', 'dashboardController@card')->name('card');

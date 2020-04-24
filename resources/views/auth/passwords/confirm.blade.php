@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('shoes.partials.layout')
+@section('title', 'Forgot password')
 
 @section('content')
 <div class="container">

@@ -56,7 +56,7 @@
                 <div class="form-group{{$errors->has('image')?' has-error':''}}">
                     <strong>Image:</strong>
                     <input type="file" class="form-control" name="image" id="image">
-                    <img src="data:image;base64,{{ $producer->image }} " width="60px" height="60px">
+                    <img id="image_post" src="data:image;base64,{{ $producer->image }} " width="60px" height="60px">
                     <span class="text-danger">{{$errors->first('image')}}</span>
                 </div>
             </div>
@@ -67,3 +67,20 @@
     </form>
 </div>
 @endsection
+@push('img-js')
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image_post').attr('src', e.target.result)
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#img").change(function() {
+        readURL(this);
+    });
+</script>
+@endpush

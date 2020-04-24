@@ -95,20 +95,22 @@ class ChangePasswordController extends Controller
             'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('users')->ignore(Auth::user()->id)]
         ]);
         $user = User::findOrFail(Auth::user()->id);
-
         if (Hash::check($user->password, $request->input('current_password'))) {
             return redirect()->route('email', $user->id)->with('success', 'Error');
         } else {
-            $user->email = request('email');
-            $user->save();
-            return redirect()->route('details')->with('success', 'Success, Your email has changed');
+            if($user->email != request('email')){
+                $user->email = request('email');
+                $user->email_verified_at = null;
+                $user->save();
+            }
+            return redirect()->route('details.profile')->with('success', 'Success, Your email has changed');
         }
     }
 
     public function getUpdatePhone()
     {
         $user = User::findOrFail(Auth::user()->id);
-        return view('auth.Phone', compact('user'));
+        return view('auth.phone', compact('user'));
     }
 
     public function postUpdatePhone(Request $request, User $user)
@@ -125,7 +127,7 @@ class ChangePasswordController extends Controller
         } else {
             $user->phone = request('phone');
             $user->save();
-            return redirect()->route('details')->with('success', 'Success, Your phone has changed');
+            return redirect()->route('details.profile')->with('success', 'Success, Your phone has changed');
         }
     }
 

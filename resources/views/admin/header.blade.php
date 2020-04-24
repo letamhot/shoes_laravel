@@ -31,7 +31,8 @@
             content: "";
         }
     </style>
-    @stack('select2css')
+    {{-- @stack('select2css') --}}
+    @stack('select2-css')
 
     <!-- Font Awesome-->
     {{-- <link rel="stylesheet" href="source/assets/dest/css/font-awesome.min.css"> --}}

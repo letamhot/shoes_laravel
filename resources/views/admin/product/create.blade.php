@@ -1,6 +1,6 @@
 @extends('admin.layouts')
 
-@push('select2css')
+@push('select2-css')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
@@ -68,15 +68,17 @@
                     <label>Size products</label>
 
                     <select name="size[]" multiple id="size" class="form-control @error('size') is-invalid @enderror">
-                        @foreach ($size as $size)
-                        <option value="{{ $size->id }}">{{ $size->name }}</option>
+                        @foreach ($size as $sizes)
+                        <option value="{{ $sizes->id }}">
+                            {{ $sizes->name }}
+                        </option>
                         @endforeach
                     </select>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group{{$errors->has('amount')?' has-error':''}}">
-                    <strong>amount :</strong>
+                    <strong>Amount :</strong>
                     <input type="number" name="amount" id="amount" value="{{ old('amount') }}" class="form-control">
                     <span class="text-danger">{{$errors->first('amount')}}</span>
                 </div>
@@ -99,7 +101,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group @error('promotion_price') has-error has-feedback @enderror">
 
-                    <label>Discount (Option)</label>
+                    <label>Promotion_price</label>
 
                     <input type="text" class="form-control @error('promotion_price') is-invalid @enderror"
                         name="promotion_price" @if(old('promotion_price')) value="{{ old('promotion_price') }}" @else

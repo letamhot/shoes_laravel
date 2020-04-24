@@ -31,8 +31,8 @@
                             <th scope="col">No</th>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
-                            {{-- <th scope="col">Email verified at</th>
-                            <th scope="col">Password</th> --}}
+                            <th scope="col">Email verified at</th>
+                            <th scope="col">Role</th>
                             <th scope="col">Created at</th>
                             <th scope="col">Updated at</th>
                             <th colspan="2"></th>
@@ -57,8 +57,12 @@
                             <td>{{ $user->name }}</td>
 
                             <td>{{ $user->email }}</td>
-                            {{-- <td>{{ $user->email_verified_at }}</td> --}}
-                            {{-- <td>{{ $user->password }}</td> --}}
+                            <td>{{ $user->email_verified_at }}</td>
+                            <td>
+                                @foreach($user->roles as $role)
+                                {{$role->name}}
+                                @endforeach
+                            </td>
                             <td>{{ $user->created_at->format("d-m-Y H:i:s") }}</td>
                             <td>{{ $user->updated_at->format("d-m-Y H:i:s") }}</td>
                             <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Edit</a></td>

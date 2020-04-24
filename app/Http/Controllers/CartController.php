@@ -81,8 +81,11 @@ class CartController extends Controller
             'payment' => 'required',
             'size.*' => 'required | numeric | min:0'
         ]);
-
-        $i = 0;
+        if(!empty(Auth::user()->phone) || !empty(Auth::user()->address)){
+            return redirect()->route('details.profile')->with('error', '
+            Please enter phone number or address');
+        }
+            $i = 0;
         foreach (Cart::content() as $check_amount) {
             $id_product = Product::findOrFail($check_amount->id);
             if (request('qty') > request("check_availability")) {

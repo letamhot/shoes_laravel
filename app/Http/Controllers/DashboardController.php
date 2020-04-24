@@ -17,7 +17,8 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        // $this->middleware('role:ROLE_ADMIN');
+        $this->middleware('role:ROLE_ADMIN');
+        $this->middleware('role:ROLE_SUPERADMIN');
     }
     public function dashboard()
     {
@@ -99,6 +100,7 @@ class DashboardController extends Controller
     //     if ($request->session()->has('remember_token')) {
     //         return view('yte', ['name' => $request->session()->get('username')]);
     //     } else return view('admin.404');
+
     // }
 
 }

@@ -32,7 +32,7 @@ class SocialController extends Controller
             auth()->login($user);
             return redirect()->to('/')->with("success", "Login to first time success, password send to your email");
         } else {
-            $user = $this->createUser($getInfo, $provider, $password);
+            $user = $this->createUser($getInfo, $provider,$password);
             auth()->login($user);
             return redirect()->to('/')->with("success", "Login to success");
         }
@@ -44,7 +44,7 @@ class SocialController extends Controller
 
         if (!$user) {
             $user = User::create([
-                'name'     => $getInfo->name,
+                'name'     => $getInfo->name . '_google',
                 'email'    => $getInfo->email,
                 'image'    => $getInfo->avatar,
                 'email_verified_at' => date('Y-m-d H:i:s'),

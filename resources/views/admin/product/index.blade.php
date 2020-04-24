@@ -54,8 +54,20 @@
                             <?php $i =0?>
                             <td>
                                 @foreach ($value->size_product as $size)
-                                Size: {{ $size->size->name }} / Quantity: <b style="color:blue">{{ $size->qty }}</b><br>
-                                @endforeach
+                                {{ $size->size->name }}:
+                                <span>
+                                    @if($size->qty < 1) <b style="color:#DC143C">
+                                        {{ $size->qty }}</b><br>
+                                        @elseif($size->qty < 11) <b style="color:orange">
+                                            {{ $size->qty }}</b><br>
+                                            @else
+                                            <b style="color:blue">{{ $size->qty }}</b><br>
+                                            @endif
+                                            @endforeach
+                                </span>
+
+                                <span>Total:
+                                    <b>{{ $value->size_product->sum('qty') }}</b></span>
                             </td>
                             <td>{{ $value->size_product->sum('qty')}}</td>
 
@@ -93,9 +105,9 @@
                                 <form action="{{ route('product.destroy', $value->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <a class="btn btn-danger" type="submit"
+                                    <button class="btn btn-danger" type="submit"
                                         onclick="return confirm('Are you sure to delete?')"><i class="fa fa-backspace"
-                                            title="Delete"></i></a>
+                                            title="Delete"></i></button>
                                 </form>
                             </td>
                             <td>

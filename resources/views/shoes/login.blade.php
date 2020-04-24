@@ -25,7 +25,12 @@
                             Keep me signed in
                         </span>
                         <button type="submit" class="btn btn-default">Login</button>
+                       
                     </form>
+                    <div class="text-center">
+                        <a class="small" href="password/reset/">Forgot
+                            Password?</a>
+                    </div>
                 </div>
                 <!--/login form-->
             </div>

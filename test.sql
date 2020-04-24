@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 21, 2020 lúc 01:30 PM
+-- Thời gian đã tạo: Th4 23, 2020 lúc 11:35 AM
 -- Phiên bản máy phục vụ: 10.3.16-MariaDB
 -- Phiên bản PHP: 7.3.7
 
@@ -50,7 +50,10 @@ CREATE TABLE `bills` (
 --
 
 INSERT INTO `bills` (`id`, `id_customer`, `date_order`, `total`, `payment`, `pay_money`, `status`, `note`, `user_created`, `user_updated`, `user_deleted`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(40, 3, '2020-04-21', '9200000', 'Payment on delivery', 0, 1, NULL, NULL, NULL, NULL, '2020-04-20 19:11:03', '2020-04-21 07:25:39', NULL);
+(40, 3, '2020-04-21', '9200000', 'Payment on delivery', 1, 0, NULL, NULL, NULL, NULL, '2020-04-20 19:11:03', '2020-04-23 04:47:20', NULL),
+(42, 3, '2020-04-22', '36800000', 'Payment on delivery', 0, 0, NULL, NULL, NULL, NULL, '2020-04-22 02:12:16', '2020-04-22 14:50:39', NULL),
+(43, 3, '2020-04-22', '9200000', 'Payment on delivery', 0, 0, NULL, NULL, NULL, NULL, '2020-04-22 02:30:15', '2020-04-22 14:50:42', NULL),
+(45, 5, '2020-04-23', '11500000', 'Payment on delivery', 0, 0, NULL, NULL, NULL, NULL, '2020-04-23 04:35:51', '2020-04-23 04:42:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -82,7 +85,13 @@ CREATE TABLE `bills_detail` (
 
 INSERT INTO `bills_detail` (`id`, `id_bill`, `id_product`, `name_product`, `size`, `quantity`, `unit_price`, `total_price`, `status`, `user_created`, `user_updated`, `user_deleted`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (35, 39, 1, 'Asics Gel Nova MT', 21, 3, 2300000, 6900000.00, 0, NULL, NULL, NULL, '2020-04-20 19:09:37', '2020-04-20 19:09:37', NULL),
-(36, 40, 2, 'Asics Gel Nova MT', 38, 4, 2300000, 9200000.00, 1, NULL, NULL, NULL, '2020-04-20 19:11:03', '2020-04-21 07:25:39', NULL);
+(36, 40, 2, 'Asics Gel Nova MT', 38, 4, 2300000, 9200000.00, 0, NULL, NULL, NULL, '2020-04-20 19:11:03', '2020-04-23 04:46:33', NULL),
+(39, 42, 1, 'Asics Gel Nova MT', 22, 4, 2300000, 9200000.00, 0, NULL, NULL, NULL, '2020-04-22 02:12:18', '2020-04-22 04:30:13', NULL),
+(40, 42, 1, 'Asics Gel Nova MT', 20, 4, 2300000, 9200000.00, 1, NULL, NULL, NULL, '2020-04-22 02:12:19', '2020-04-22 02:12:52', NULL),
+(41, 42, 2, 'Asics Gel Nova MT', 38, 4, 2300000, 9200000.00, 1, NULL, NULL, NULL, '2020-04-22 02:12:20', '2020-04-22 02:12:45', NULL),
+(42, 42, 2, 'Asics Gel Nova MT', 37, 4, 2300000, 9200000.00, 1, NULL, NULL, NULL, '2020-04-22 02:12:20', '2020-04-22 02:12:41', NULL),
+(43, 43, 2, 'Asics Gel Nova MT', 37, 4, 2300000, 9200000.00, 1, NULL, NULL, NULL, '2020-04-22 02:30:16', '2020-04-22 02:30:40', NULL),
+(45, 45, 1, 'Asics Gel Nova MT', 21, 5, 2300000, 11500000.00, 0, NULL, NULL, NULL, '2020-04-23 04:35:51', '2020-04-23 04:42:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -137,10 +146,11 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `name`, `gender_id`, `email`, `address`, `postcode`, `image`, `city`, `phone`, `note`, `active`, `user_created`, `user_updated`, `user_deleted`, `users`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'LÊ VĂN TÁM', 1, 'letamhot@gmail.com', 'Hue', NULL, NULL, NULL, 123123, NULL, 0, NULL, NULL, NULL, NULL, '2020-04-10 19:46:41', '2020-04-10 22:33:18', NULL),
+(1, 'LÊ VĂN TÁM', 1, NULL, 'Thừa Thiên Huế', '123454321', NULL, 'Thành phố Huế', 985757941, NULL, 0, NULL, 'Nguyễn Đình Tiến', NULL, NULL, '2020-04-10 19:46:41', '2020-04-22 14:53:28', NULL),
 (2, 'khôi dẹo', 1, 'ldk1@gmail.com', 'Hồ Đắc Di, Tp Huế', '123', NULL, 'Huế', 913381173, NULL, 0, NULL, 'Tiến', 'Tiến', NULL, '2020-04-10 22:46:30', '2020-04-10 23:24:54', NULL),
-(3, 'Tiến', 1, 'tien@gmail.com', 'Huế', NULL, NULL, NULL, 913381173, NULL, 0, NULL, NULL, NULL, NULL, '2020-04-10 22:59:37', '2020-04-10 22:59:37', NULL),
-(4, 'LÊ VĂN TÁM', 1, 'kl13@gmail.com', 'huee123', NULL, NULL, NULL, 9133811555, NULL, 0, NULL, NULL, NULL, NULL, '2020-04-11 03:10:25', '2020-04-11 03:10:25', NULL);
+(3, 'Nguyễn Đình Tiến', 1, NULL, 'Thừa Thiên Huế', '123454321', NULL, 'Thành phố Huế', 985757933, NULL, 0, NULL, 'Nguyễn Đình Tiến', NULL, NULL, '2020-04-10 22:59:37', '2020-04-22 15:02:51', NULL),
+(4, 'LÊ VĂN TÁM', 1, 'kl13@gmail.com', 'huee123', NULL, NULL, NULL, 9133811555, NULL, 0, NULL, NULL, NULL, NULL, '2020-04-11 03:10:25', '2020-04-11 03:10:25', NULL),
+(5, 'Nguyễn Đình Tiến', NULL, 'tien@gmail.com', 'Tp Hồ Chí Minh', NULL, NULL, NULL, 234567891, NULL, 0, NULL, NULL, NULL, NULL, '2020-04-23 04:17:27', '2020-04-23 04:17:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -444,15 +454,15 @@ INSERT INTO `size_product` (`id`, `id_product`, `id_size`, `qty`, `created_at`, 
 (3, 3, 9, 11, NULL, '2020-04-17 05:21:34'),
 (4, 3, 10, 12, NULL, '2020-04-17 05:21:34'),
 (5, 3, 11, 12, NULL, '2020-04-17 05:21:35'),
-(7, 1, 2, 12, NULL, '2020-04-21 04:22:28'),
-(8, 1, 3, 5, NULL, '2020-04-21 04:22:27'),
+(7, 1, 2, 8, NULL, '2020-04-22 02:12:19'),
+(8, 1, 3, 0, NULL, '2020-04-23 04:35:51'),
 (9, 2, 3, 22, NULL, NULL),
-(10, 2, 20, 11, NULL, NULL),
-(11, 2, 21, 18, NULL, '2020-04-20 19:11:03'),
+(10, 2, 20, 0, NULL, '2020-04-23 04:17:28'),
+(11, 2, 21, 14, NULL, '2020-04-22 02:12:20'),
 (19, 5, 1, 11, NULL, '2020-04-17 05:21:56'),
 (20, 5, 2, 21, NULL, '2020-04-17 05:21:56'),
 (21, 5, 13, 11, NULL, '2020-04-17 05:21:56'),
-(22, 1, 4, 15, NULL, '2020-04-20 01:00:01');
+(22, 1, 4, 11, NULL, '2020-04-22 02:12:19');
 
 -- --------------------------------------------------------
 
@@ -514,6 +524,8 @@ CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `gender` tinyint(1) DEFAULT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -530,12 +542,11 @@ CREATE TABLE `users` (
 -- Đang đổ dữ liệu cho bảng `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `image`, `gender`, `address`, `phone`, `email_verified_at`, `password`, `id_role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'LÊ VĂN TÁM', 'letamhot@gmail.com', 'ITqHx_IMG_0438.JPG', NULL, '123123', '123123', NULL, '$2y$10$lPT8Ge24UofR7V1/V8qLaOy.4567shjB0zeEtXY742s3NCBiyY3Rm', NULL, NULL, '2020-04-10 03:23:52', '2020-04-20 06:45:10'),
-(2, 'Khôi', 'ldk1@gmail.com', NULL, NULL, NULL, NULL, NULL, '$2y$10$6wkKNnFXnj.xCu8kKPHX0u/E4rnskGqjc0yWhXXj8.4TAWsDhaoBq', NULL, NULL, '2020-04-10 22:42:03', '2020-04-10 22:42:03'),
-(3, 'Nguyễn Đình Tiến', 'tien@gmail.com', 'Uh2hV_IMG_4673.JPG', NULL, 'Tp Hồ Chí Minh', '234567891', NULL, '$2y$10$tciuFt0EAV6xLIKqsZPHq.emaxHwi9UPFlkiC0GvKmPp7jc6mcbaK', NULL, NULL, '2020-04-10 22:59:13', '2020-04-20 21:11:36'),
-(4, 'LÊ VĂN TÁM', 'kl13@gmail.com', NULL, 1, 'huee123', '09133811555', NULL, '$2y$10$j1AKvqa64sMy7u5Mme4EMeG2pO8pDxcR.FVe/b/7Q0YG9FrMltslm', NULL, NULL, '2020-04-11 03:09:38', '2020-04-11 03:09:38'),
-(5, 'LÊ VĂN TÁM123', 'levantam160896@gmail.com', NULL, 1, 'Hồ Đắc Di, Tp Huế', '0913381173', NULL, '$2y$10$L1pFGd7FKgtfHeq/8u9pc.ljk.9yT/MxzzZdnPHFX4.25zyMXfE3e', NULL, NULL, '2020-04-20 20:11:41', '2020-04-20 20:11:41');
+INSERT INTO `users` (`id`, `name`, `email`, `provider`, `provider_id`, `image`, `gender`, `address`, `phone`, `email_verified_at`, `password`, `id_role`, `remember_token`, `created_at`, `updated_at`) VALUES
+(2, 'Khôi', 'ldk1@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$6wkKNnFXnj.xCu8kKPHX0u/E4rnskGqjc0yWhXXj8.4TAWsDhaoBq', NULL, NULL, '2020-04-10 22:42:03', '2020-04-10 22:42:03'),
+(3, 'Nguyễn Đình Tiến', 'tien@gmail.com', NULL, NULL, 'Uh2hV_IMG_4673.JPG', NULL, 'Tp Hồ Chí Minh', '234567891', NULL, '$2y$10$tciuFt0EAV6xLIKqsZPHq.emaxHwi9UPFlkiC0GvKmPp7jc6mcbaK', NULL, NULL, '2020-04-10 22:59:13', '2020-04-20 21:11:36'),
+(4, 'LÊ VĂN TÁM', 'kl13@gmail.com', NULL, NULL, NULL, 1, 'huee123', '09133811555', NULL, '$2y$10$j1AKvqa64sMy7u5Mme4EMeG2pO8pDxcR.FVe/b/7Q0YG9FrMltslm', NULL, NULL, '2020-04-11 03:09:38', '2020-04-11 03:09:38'),
+(14, 'tám lê văn', 'letamhot@gmail.com', 'google', '108655503165349077077', 'https://lh3.googleusercontent.com/a-/AOh14GjMhwxVxfBFJfjbRmkl-PTI_e4U19KCZG9uDIOS', NULL, NULL, NULL, '2020-04-23 09:24:31', '$2y$10$3pFoMOlJ7y080MAS.peTyeXwEPHbueKvHKoV4Lm43pJRyUvD2vdwe', NULL, NULL, '2020-04-23 09:24:31', '2020-04-23 09:24:31');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -689,13 +700,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `bills`
 --
 ALTER TABLE `bills`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT cho bảng `bills_detail`
 --
 ALTER TABLE `bills_detail`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT cho bảng `comments`
@@ -707,7 +718,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT cho bảng `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `failed_jobs`
@@ -791,7 +802,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

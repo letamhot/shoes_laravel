@@ -64,13 +64,13 @@
 <script src="sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="sb-admin-2/js/demo/datatables-demo.js"></script>
 <script src="js/back-to-top.js"></script>
-
 @stack('ckeditor-js')
 @stack('ckeditor')
 @stack('chart-js')
 @stack('show-ajax')
 @stack('select2-js')
 @stack('clicked')
+@stack('img-js')
 
 
 

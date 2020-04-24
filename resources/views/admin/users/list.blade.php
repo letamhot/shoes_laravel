@@ -35,7 +35,7 @@
                             <th scope="col">Role</th>
                             <th scope="col">Created at</th>
                             <th scope="col">Updated at</th>
-                            <th colspan="2"></th>
+                            <th colspan="2">Action</th>
                         </tr>
 
                     </thead>
@@ -65,6 +65,7 @@
                             </td>
                             <td>{{ $user->created_at->format("d-m-Y H:i:s") }}</td>
                             <td>{{ $user->updated_at->format("d-m-Y H:i:s") }}</td>
+                            @if(Auth::user()->email == 'letamhot@gmail.com')
                             <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Edit</a></td>
                             <td>
                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST">
@@ -74,6 +75,7 @@
                                         class="btn btn-danger">Delete</button>
                                 </form>
                             </td>
+                            @endif
 
                         </tr>
 

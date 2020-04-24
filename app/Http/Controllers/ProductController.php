@@ -59,7 +59,6 @@ class ProductController extends Controller
             'name' => 'required | min:3 | string',
             'type' => 'required',
             'producer' => 'required',
-            // 'amount' => 'required | numeric | min:0',
             'image' => 'image | mimes:png,jpg,jpeg',
             'price_input' => 'required | numeric | min:0',
             'description' => 'required | string',
@@ -83,8 +82,8 @@ class ProductController extends Controller
         $product->new = $request->new;
         $product->description = $request->description;
         $product->save();
-        if ($request->size) {
-            $product->size()->attach($request->size);
+        if (request('size')) {
+            $product->size()->attach(request('size'));
         }
 
         return redirect()->route('product.index')->with('success', 'Product Created successfully');
@@ -137,7 +136,6 @@ class ProductController extends Controller
             'name' => 'required | min:3 | string',
             'type' => 'required',
             'producer' => 'required',
-            // 'amount' => 'required | numeric | min:0',
             'image' => 'image | mimes:png,jpg,jpeg',
             'price_input' => 'required | numeric | min:0',
             'description' => 'required | string',
@@ -177,8 +175,8 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        $product->size_product()->delete();
-        $product->bill_detail()->delete();
+        // $product->size_product()->delete();
+        // $product->bill_detail()->delete();
         $product->delete();
         return back()->with('success', "Product $product->name delete!");
     }

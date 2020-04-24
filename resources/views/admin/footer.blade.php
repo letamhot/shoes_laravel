@@ -41,28 +41,28 @@
 <!-- End of Page Wrapper -->
 
 <!-- Scroll to Top Button-->
-{{-- <a class="scroll-to-top rounded" href="sb-admin-2/#page-top">
+{{-- <a class="scroll-to-top rounded" href="js/#page-top">
     <i class="fas fa-angle-up"></i>
 </a> --}}
 
 <!-- Bootstrap core JavaScript-->
 {{--  <script src="js/jquery.pjax.js"></script>  --}}
-<script src="sb-admin-2/vendor/jquery/jquery.min.js"></script>
-<script src="sb-admin-2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+<script src="js/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="sb-admin-2/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="js/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="sb-admin-2/js/sb-admin-2.min.js"></script>
+<script src="js/js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
-<script src="sb-admin-2/vendor/chart.js/Chart.min.js"></script>
+<script src="js/vendor/chart.js/Chart.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
-<script src="sb-admin-2/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="sb-admin-2/js/demo/datatables-demo.js"></script>
+<script src="js/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="js/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="js/js/demo/datatables-demo.js"></script>
 <script src="js/back-to-top.js"></script>
 @stack('ckeditor-js')
 @stack('ckeditor')

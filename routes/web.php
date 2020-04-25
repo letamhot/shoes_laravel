@@ -13,13 +13,9 @@
 
 // Auth::routes();
 Auth::routes(['verify' => true]);
+Route::resource('/comment', 'CommentController');
+// Route::get('/comment/show/{id}', 'CommentController@show')->name('comment.show');
 
-//Reviews Products table
-Route::resource('/review', 'ReviewController');
-// Route::get('/review/show/{id}', 'ReviewController@show')->name('review.show');
-
-//Review post products
-Route::post('/reviews', 'ShoesController@reviews')->name('reviews');
 
 Route::resource('/details', 'ChangePasswordController');
 Route::post('/user/changaddress', 'ChangePasswordController@postChangeAddress')->name('change_address');

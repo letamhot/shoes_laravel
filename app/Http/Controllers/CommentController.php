@@ -7,14 +7,22 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:ROLE_ADMIN');
+        // $this->middleware('role:ROLE_SUPERADMIN');
+    }
     /**
+     * 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $comment = Comment::all();
+        return view('admin.comment.index', compact('comment'));
     }
 
     /**
@@ -44,9 +52,12 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show($id)
     {
-        //
+
+        // $comment = Comment::where('commentable_id', $id)->orderBy('commenter_id', 'desc')->get();
+        // $product = Comment::where('commentable_id', $id)->take(1);
+        // return view('admin.comment.index', compact('comment', 'product'));
     }
 
     /**
@@ -78,8 +89,10 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
-        //
+        $comment = Comment::findOrfail($id);
+        $comment->forceDelete();
+        return back()->with('delete', "Success destroyed!");
     }
 }

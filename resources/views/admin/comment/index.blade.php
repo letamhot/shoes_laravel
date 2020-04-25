@@ -1,15 +1,15 @@
 @extends('admin.layouts')
 
-@section('title', 'Review')
+@section('title', 'Comment')
 
 @section('content')
 <div class="container-fluid">
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Review
-                @foreach($product as $products)
-                {{ $products->product->name }}</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Comment
+                @foreach($comment as $comments)
+                {{ $comments->commentable_id }}</h6>
             @endforeach
         </div>
 
@@ -22,11 +22,9 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th width='35%'>Comment</th>
-                            <th>Rating</th>
+                            <th>Name User</th>
                             <th>Products</th>
+                            <th width='35%'>Comment</th>
                             <th>User created</th>
                             <th>Delete</th>
                         </tr>
@@ -34,43 +32,31 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th width='35%'>Comment</th>
-                            {{-- <th>Rating</th> --}}
+                            <th>Name User</th>
                             <th>Products</th>
+                            <th width='35%'>Comment</th>
                             <th>User created</th>
                             <th>Delete</th>
                         </tr>
                     </tfoot>
                     <tbody>
 
-                        @foreach ($reviews as $key => $review)
+                        @foreach ($comment as $key => $comments)
 
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $review->name }}</td>
-                            <td>{{ $review->email }}</td>
-                            <td style="width: auto; word-break: break-all;">{{ $review->comment }}</td>
-                            {{-- <td>{{ $review->rating }}
-                                @if($review->rating > 0)
-                                <span style="color: #FAC451;">
-                                    <i class="fa fa-star"></i>
-                                </span>
-                                @else
-                                {{ "No rating" }}
-                                @endif
-                            </td> --}}
-                            <td>{{ $review->product->name}}</td>
-                            <td><b style="color:orange">{{ $review->user_created }}</b> <br>
-                                {{ $review->created_at }}
+                            <td>{{ $comments->user->name }}</td>
+                            <td>{{ $comments->product->name }}</td>
+                            <td style="width: auto; word-break: break-all;">{{ $comments->comment }}</td>
+                            <td><b style="color:orange">{{ $comments->created_at }}</b> <br>
+
                             </td>
                             <td>
-                                <form action="{{ route('review.destroy', $review->id) }}" method="POST">
+                                <form action="{{ route('comment.destroy', $comments->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                        onclick="return confirm('Do you want delete reviews {{$review->name}} ?')"
+                                        onclick="return confirm('Do you want delete comments {{$comments->guest_name}} ?')"
                                         class="btn btn-danger"><i class="fa fa-backspace"></i></button>
                                 </form>
                             </td>

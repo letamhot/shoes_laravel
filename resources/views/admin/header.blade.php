@@ -91,9 +91,9 @@
                     <span>Customer</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('review/show')}}">
+                <a class="nav-link" href="{{ url('comment')}}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Review</span></a>
+                    <span>Comment</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('type.index') }}">

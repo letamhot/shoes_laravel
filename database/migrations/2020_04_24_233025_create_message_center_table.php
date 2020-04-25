@@ -15,7 +15,7 @@ class CreateMessageCenterTable extends Migration
     {
         Schema::create('message_center', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_review')->unsigned();->nullable();
+            $table->integer('id_review')->unsigned()->nullable();
             $table->foreign('id_review')->references('id')->on('review');
             $table->timestamps();
         });

@@ -44,4 +44,8 @@ class Product extends Model
     {
         return $this->hasMany(Size_product::class, 'id_product', 'id');
     }
+    public function comment()
+    {
+        return $this->hasMany(Comment::class, 'commentable_id', 'id');
+    }
 }

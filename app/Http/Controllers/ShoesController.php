@@ -9,13 +9,18 @@ use App\Producer;
 use App\slide;
 use App\Posts;
 use App\Review;
-
+use App\Bills;
+use App\MessageCenter;
+use App\Bill_detail;
 use App\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
-
-
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
 
 
@@ -43,8 +48,62 @@ class ShoesController extends Controller
         $slides1 = slide::where('id', '>', 1)->get();
 
 
-        return view('shoes.home', compact( 'types', 'size_product', 'type', 'type1', 'slides1', 'product1', 'product2', 'products', 'producers', 'slides'));
+        return view('shoes.home', compact('types', 'size_product', 'type', 'type1', 'slides1', 'product1', 'product2', 'products', 'producers', 'slides'));
     }
+    public function reviews(Request $request)
+    {
+        $this->validate($request, [
+            'comment' => 'required | min:10 | max:255 | string',
+            'id_product' => 'required | numeric | min:0',
+            'rating' => 'required',
+        ]);
+
+        $reviews = new Review();
+        if (Auth::user()) {
+            $reviews->name = Auth::user()->name;
+            $reviews->email = Auth::user()->email;
+            $reviews->user_created = Auth::user()->name;
+        } else {
+            $reviews->name = request('name');
+            $reviews->email = request('email');
+        }
+
+
+
+        $rating = new \willvincent\Rateable\Rating;
+
+        $rating->rating = $request->rate;
+
+        $rating->user_id = auth()->user()->id;
+
+
+
+        $reviews->ratings()->save($rating);
+        $reviews->comment = request('comment');
+        $reviews->id_product = request('id_product');
+        $reviews->save();
+
+        $message = new MessageCenter();
+        $message->id_review = $reviews->id;
+        $message->save();
+
+        return Redirect::to(URL::previous() . "#location")->with('toast', 'Thanks for your review...');
+    }
+
+    public function find_bill($id)
+    {
+        $id = Crypt::decrypt($id);
+        $code_bills = Bills::withTrashed()->findOrFail($id);
+        if (!Auth::user()) {
+            return redirect()->route('home')->with('toast_error', 'You must log in to see your order !');
+        } elseif ((Auth::user()->username == $code_bills->customers->username) || Auth::check()) {
+            $code_bills_detail = Bill_detail::withTrashed()->where('id_bill', $code_bills->id)->get();
+            return view('fashi.code_bill', compact('code_bills', 'code_bills_detail'));
+        } else {
+            return redirect()->route('home')->with('toast_error', 'Invoice code or account is incorrect');
+        }
+    }
+
 
     public function cart(Request $request)
     {
@@ -109,8 +168,14 @@ class ShoesController extends Controller
         $review = Review::all();
         $types = Type::all();
         $product1 = Product::take(3)->get();
+
         $product2 = Product::where('id', '>', 4)->get();
-        return view('shoes.product-detail', compact('id_product', 'review', 'types', 'products', 'product1', 'product2'));
+        $reviews = Review::where('id_product', $id_product->id)->get();
+        $avgRating = DB::table('review')->where('id_product', $id_product->id)->avg('rating');
+        $countRating = Review::where('id_product', $id_product->id)->where('rating', '>', 0)->get();
+
+
+        return view('shoes.product-detail', compact('id_product', 'avgRating', 'countRating', 'reviews', 'review', 'types', 'products', 'product1', 'product2'));
     }
     public function contact()
     {

@@ -8,8 +8,8 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Review
-                @foreach($product as $product)
-                {{ $product->products->name }}</h6>
+                @foreach($product as $products)
+                {{ $products->product->name }}</h6>
             @endforeach
         </div>
 
@@ -26,7 +26,7 @@
                             <th>Email</th>
                             <th width='35%'>Comment</th>
                             <th>Rating</th>
-                            {{-- <th>Products</th> --}}
+                            <th>Products</th>
                             <th>User created</th>
                             <th>Delete</th>
                         </tr>
@@ -38,7 +38,7 @@
                             <th>Email</th>
                             <th width='35%'>Comment</th>
                             <th>Rating</th>
-                            {{-- <th>Products</th> --}}
+                            <th>Products</th>
                             <th>User created</th>
                             <th>Delete</th>
                         </tr>
@@ -61,12 +61,12 @@
                                 {{ "No rating" }}
                                 @endif
                             </td>
-
+                            <td>{{ $review->product->name}}</td>
                             <td><b style="color:orange">{{ $review->user_created }}</b> <br>
                                 {{ $review->created_at }}
                             </td>
                             <td>
-                                <form action="{{ route('reivew.destroy', $review->id) }}" method="POST">
+                                <form action="{{ route('review.destroy', $review->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"

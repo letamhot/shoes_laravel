@@ -14,9 +14,12 @@
 // Auth::routes();
 Auth::routes(['verify' => true]);
 
+//Reviews Products table
+Route::resource('/review', 'ReviewController');
+// Route::get('/review/show/{id}', 'ReviewController@show')->name('review.show');
 
-
-
+//Review post products
+Route::post('/reviews', 'ShoesController@reviews')->name('reviews');
 
 Route::resource('/details', 'ChangePasswordController');
 Route::post('/user/changaddress', 'ChangePasswordController@postChangeAddress')->name('change_address');
@@ -59,16 +62,11 @@ Route::get('/saveCart/{id}/{quantity}', 'CartController@saveListItemCart')->name
 Route::get('/deleteListCart/{id}', 'CartController@deleteListCart')->name('deleteListCart');
 Route::get('/updateDeleteListCart', 'CartController@updateDeleteListCart')->name('updateDeleteListCart');
 
-
-
-
-
 //login-shoes
-Route::get('/loginshoes',  'Auth\LoginController@showLogin')->name('loginshoes');
+Route::get('/loginshoes', 'Auth\LoginController@showLogin')->name('loginshoes');
 
 Route::post('signin', 'Auth\LoginController@doLogin');
 Route::get('logoutshoes', 'Auth\LoginController@logoutshoes');
-
 
 //home-admin
 Route::get('/home', 'HomeController@index')->name('home');
@@ -85,7 +83,6 @@ Route::get('/new/trash/{id}', 'ProductsController@newsTrash')->name('product.new
 Route::get('qty/{id}', 'ProductController@qtyGet')->name('qtyGet');
 Route::post('qty/{id}', 'ProductController@qtyPost')->name('qtyPost');
 
-
 //producer
 Route::resource('/producer', 'ProducerController');
 Route::get('/trash-producer', 'ProducerController@trashed')->name('producer.trash');
@@ -97,7 +94,6 @@ Auth::routes();
 
 //user
 Route::resource('/users', 'UsersController');
-
 
 //type
 Route::resource('/type', 'TypeController');
@@ -135,7 +131,6 @@ Route::get('/billDetail/restore/{id}', 'BillDetailController@restore')->name('bi
 Route::get('/billDetail-restore-all', 'BillDetailController@restoreAll')->name('billDetail.restore-all');
 Route::get('/billDetail/delete/{id}', 'BillDetailController@delete')->name('billDetail.delete');
 Route::get('/billDetail-delete-all', 'BillDetailController@deleteAll')->name('billDetail.delete-all');
-
 
 //post
 Route::resource('/posts', 'PostsControllers');

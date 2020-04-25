@@ -13,8 +13,8 @@ class ReviewController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware( 'role:ROLE_ADMIN' );
-        $this->middleware( 'role:ROLE_SUPERADMIN' );
+        $this->middleware('role:ROLE_ADMIN');
+        $this->middleware('role:ROLE_SUPERADMIN');
     }
     /**
      * Display a listing of the resource.
@@ -55,9 +55,9 @@ class ReviewController extends Controller
      */
     public function show($id)
     {
-        $reviews = Review::where('id_products', $id)->orderBy('rating', 'asc')->get();
-        $product = Review::where('id_products', $id)->take(1);
-        return view('admin.reviews.list', compact('reviews', 'product'));
+        $reviews = Review::where('id_product', $id)->orderBy('id', 'asc')->get();
+        $product = Review::where('id_product', $id)->take(1);
+        return view('admin.review.index', compact('reviews', 'product'));
     }
 
     /**

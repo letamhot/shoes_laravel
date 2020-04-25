@@ -173,7 +173,6 @@
 <script src="js/back-to-top.js"></script>
 @stack('qty')
 @include('shoes.partials.footer_ajax')
-{{--  @stack('update_cart')  --}}
 
 </body>
 

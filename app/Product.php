@@ -21,6 +21,10 @@ class Product extends Model
     {
         return $this->belongsTo(Producer::class, 'id_producer', 'id')->withTrashed();
     }
+    public function reviews()
+    {
+        return $this->hasMany("App\Review", 'id_product', 'id');
+    }
 
     public function type()
     {

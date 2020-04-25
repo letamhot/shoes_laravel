@@ -214,8 +214,12 @@
                     <!--category-tab-->
                     <div class="col-sm-12">
                         <ul class="nav nav-tabs">
-                            <li><a href="#details" data-toggle="tab">Details</a></li>
-                            <li class="active"><a href="#reviews" data-toggle="tab">Reviews ({{ count($review) }})</a>
+                            <li><a href="#details" data-toggle="tab" role="tab">Details</a></li>
+                            <li>
+                                <a data-toggle="tab" href="#tab-2" role="tab">SPECIFICATIONS</a>
+                            </li>
+                            <li class="active"><a href="#reviews" data-toggle="tab" role="tab">Reviews
+                                    ({{ count($review) }})</a>
                             </li>
                         </ul>
                     </div>
@@ -226,20 +230,151 @@
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <a href="{{ route('productdetail', $product->id) }}"><img
-                                                    src="data:image;base64, {{ $product->image }}" alt="" /></a>
+                                            <a href="{{ route('productdetail', $product->id) }}">
+                                                @if($product->size_product->sum('qty') > 0)
+
+                                                <img src="data:image;base64, {{ $product->image }}" alt="" /></a>
+                                            @else
+                                            <img src="data:image;base64, {{ $product->image }}" alt=""
+                                                style="-webkit-filter: blur(2px);" /></a>
+                                            @endif
+                                            @if($product->size_product->sum('qty') > 0)
                                             <h2>{{ $product->price_input }}</h2>
                                             <a href="{{ route('productdetail', $product->id) }}"
                                                 class="btn btn-default add-to-cart"><i
                                                     class="fa fa-shopping-cart"></i>Add to
                                                 cart</a>
+                                            @else
+
+                                            <h2><span style="color:red">Out of stock</span> <br>
+                                                <span
+                                                    style="color: #b2b2b2; text-decoration: line-through">{{ number_format($product->price_input) }}
+                                                    VND</span></h2>
+
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             @endforeach
                         </div>
+                        <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                            <div class="specification-table">
+                                <table>
+                                    <tr>
+                                        <td class="p-catagory">Customer Rating</td>
+                                        <td>
+                                            <div class="pd-rating">
+                                                {{ round($avgRating, 1) }}
+                                                @if($avgRating == 0)
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                @elseif($avgRating > 0 && $avgRating < 0.9) <i
+                                                    class="fa fa-star-half-alt">
+                                                    </i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    @elseif($avgRating >= 1 && $avgRating < 1.1) <i class="fa fa-star">
+                                                        </i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        @elseif($avgRating >= 1.1 && $avgRating < 2) <i
+                                                            class="fa fa-star"></i>
+                                                            <i class="fa fa-star-half-alt"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            @elseif($avgRating >= 2 && $avgRating < 2.1) <i
+                                                                class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                @elseif($avgRating >= 2.1 && $avgRating < 3) <i
+                                                                    class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star-half-alt"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    @elseif($avgRating >= 3 && $avgRating < 3.1) <i
+                                                                        class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star"></i>
+                                                                        @elseif($avgRating >= 3.1 && $avgRating < 4) <i
+                                                                            class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            <i class="fa fa-star-half-alt"></i>
+                                                                            <i class="fa fa-star"></i>
+                                                                            @elseif($avgRating >= 4 && $avgRating < 4.1)
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                @elseif($avgRating >= 4.1 &&
+                                                                                $avgRating < 5) <i class="fa fa-star">
+                                                                                    </i>
+                                                                                    <i class="fa fa-star"></i>
+                                                                                    <i class="fa fa-star"></i>
+                                                                                    <i class="fa fa-star"></i>
+                                                                                    <i class="fa fa-star-half-alt"></i>
+                                                                                    @else
+                                                                                    <i class="fa fa-star"></i>
+                                                                                    <i class="fa fa-star"></i>
+                                                                                    <i class="fa fa-star"></i>
+                                                                                    <i class="fa fa-star"></i>
+                                                                                    <i class="fa fa-star"></i>
+                                                                                    @endif
+                                                                                    <span>
+                                                                                        ({{ count($countRating) }}
+                                                                                        Rating)</span>
 
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-catagory">Price</td>
+                                        <td>
+                                            <div class="p-price">
+
+                                                @if($id_product->promotion_price < $id_product->price_input &&
+                                                    $id_product->promotion_price > 0)
+                                                    {{ number_format($id_product->promotion_price) }} VND
+                                                    @else
+                                                    {{ number_format($id_product->price_input) }} VND
+                                                    @endif
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-catagory">Availability</td>
+                                        <td>
+                                            <div class="p-stock">{{ $id_product->size_product->sum('qty') }} in
+                                                stock</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-catagory">Size</td>
+                                        <td>
+                                            <div class="p-size"> @foreach ($id_product->size_product as $size)
+                                                {{ $size->size->name }} &nbsp;
+                                                @endforeach</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                         <div class="tab-pane fade active in" id="reviews">
                             <div class="col-sm-12">
                                 <ul>
@@ -247,24 +382,49 @@
                                     <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
                                     <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
                                 </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure
-                                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur.</p>
-                                <p><b>Write Your Review</b></p>
+                                <img src="data:image;base64, {{ $id_product->image }}" style=" aligh:center;width: 60rem;
+                                    height: 40rem;" alt="" />
+                                <br>
+                                <p aligh:"center">{!! $id_product->description !!}</p>
 
-                                <form action="#">
-                                    <span>
-                                        <input type="text" placeholder="Your Name" />
-                                        <input type="email" placeholder="Email Address" />
-                                    </span>
-                                    <textarea name=""></textarea>
-                                    <b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
-                                    <button type="button" class="btn btn-default pull-right">
-                                        Submit
-                                    </button>
-                                </form>
+                                @if(Auth::user())
+
+                                <div class="leave-comment">
+                                    <h4>Leave A Comment</h4>
+
+                                    <!-- Form reviews -->
+                                    <form action="{{ route('reviews')}}" method="POST" class="comment-form"
+                                        id="my-form2">
+                                        @csrf
+                                        <div class="row">
+                                            <input type="hidden" name="id_product" value="{{ $id_product->id }}">
+                                            <div class="col-lg-1">
+                                                Rating
+                                            </div>
+                                            <input id="input-1" name="input-1" class="rating rating-loading"
+                                                data-min="0" data-max="5" data-step="0.1"
+                                                value="{{ $reviews->averageRating }}" data-size="xs" disabled="">
+                                            <div style="margin-left: 1rem">
+                                                <span class="stars"></span>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <textarea id="comment" placeholder="Messages" name="comment" rows="5"
+                                                    maxlength="250"
+                                                    style="margin-bottom: 10px">{{ old('comment') }}</textarea>
+                                                <div id="the-count_comment" style="margin-bottom: 30px">
+                                                    <span id="current_comment">0</span>
+                                                    <span id="maximum_comment"> / 250</span>
+                                                </div>
+                                                <button type="submit" class="site-btn" id="btn-submit2"
+                                                    style="border: none">Send
+                                                    message</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                                @endif
                             </div>
                         </div>
 
@@ -278,24 +438,23 @@
                     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="item active">
-
                                 @foreach ($product1 as $product)
                                 <div class="col-sm-4">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
                                                 <a href="{{ route('productdetail', $product->id) }}">
-                                                    @if($id_product->size_product->sum('qty') > 0)
+                                                    @if($product->size_product->sum('qty') > 0)
                                                     <img src="data:image;base64, {{ $product->image }}" alt=""
                                                         height="180px" /></a>
                                                 @else
                                                 <img src=" data:image;base64, {{ $product->image }}" alt=""
                                                     height="180px" style="-webkit-filter: blur(2px);" /></a>
                                                 @endif
-                                                @if($id_product->size_product->sum('qty') > 0)
+                                                @if($product->size_product->sum('qty') > 0)
                                                 <h2>{{ number_format($product->price_input) }} VND</h2>
 
-                                                <input type="hidden" value="{{ $id_product->size_product->sum('qty') }}"
+                                                <input type="hidden" value="{{ $product->size_product->sum('qty') }}"
                                                     name="check_stock">
 
                                                 <a href="{{ route('productdetail', $product->id) }}"
@@ -316,7 +475,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 @endforeach
                             </div>
 
@@ -328,13 +486,35 @@
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="data:image;base64, {{ $item->image }}"
-                                                    alt="{{ $item->name }}" />
+                                                <a href="{{ route('productdetail', $item->id) }}">
+                                                    @if($item->size_product->sum('qty') > 0)
+                                                    <img src="data:image;base64, {{ $item->image }}" alt=""
+                                                        height="180px" /></a>
+                                                @else
+                                                <img src=" data:image;base64, {{ $item->image }}" alt="" height="180px"
+                                                    style="-webkit-filter: blur(2px);" /></a>
+                                                @endif
+                                                @if($item->size_product->sum('qty') > 0)
                                                 <h2>{{ number_format($item->price_input) }} VND</h2>
-                                                <a href="{{ route('cart') }}" class="btn btn-default add-to-cart"><i
-                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
 
+                                                <input type="hidden" value="{{ $item->size_product->sum('qty') }}"
+                                                    name="check_stock">
+
+                                                <a href="{{ route('productdetail', $item->id) }}"
+                                                    class="btn btn-default add-to-cart"><i
+                                                        class="fa fa-shopping-cart"></i>Add to
+                                                    cart</a>
+
+                                                @else
+
+                                                <h2><span style="color:red">Out of stock</span> <br>
+                                                    <span
+                                                        style="color: #b2b2b2; text-decoration: line-through">{{ number_format($item->price_input) }}
+                                                        VND</span></h2>
+
+                                                @endif
+                                                {{--  </form>  --}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -356,8 +536,14 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+
+    $("#input-id").rating();
+
+</script>
 @endsection
 @push('qty')
+<script src="js/zoom-image.js"></script>
 <script>
     $('.equipCatValidation').on('keyup keydown', function(e){
         for(i = 0; i < 100; i++) {
@@ -383,6 +569,75 @@
             e.preventDefault();
             $(this).val(totalqty);
         }
+    });
+</script>
+<script>
+    $(document).ready(function() {
+  $('label').click(function() {
+    $('label').removeClass('active');
+    $(this).addClass('active');
+  });
+ });
+</script>
+<script>
+    $(document).ready(function(){
+      $("#star5").click(function(){
+        $(".stars").html("<b style='color: orange'>Excellent</b>");
+      });
+      $("#star4").click(function(){
+        $(".stars").html("<b style='color: green'>Very good</b>");
+      });
+      $("#star3").click(function(){
+        $(".stars").html("<b style='color: blue'>Normal</b>");
+      });
+      $("#star2").click(function(){
+        $(".stars").html("<b style='color: red'>Bad</b>");
+      });
+      $("#star1").click(function(){
+        $(".stars").html("<b style='color: #A52A2A'>Very bad</b>");
+      });
+    });
+</script>
+<script>
+    $('#comment').keyup(function() {
+        var characterCount = $(this).val().length,
+            current = $('#current_comment'),
+            maximum = $('#maximum_comment'),
+            theCount = $('#the-count_comment');
+        var maxlength = $(this).attr('maxlength');
+        var changeColor = 0.75 * maxlength;
+        current.text(characterCount);
+
+        if (characterCount > changeColor && characterCount < maxlength) {
+            current.css('color', '#FF4500');
+            current.css('fontWeight', 'bold');
+        } else if (characterCount >= maxlength) {
+            current.css('color', '#B22222');
+            current.css('fontWeight', 'bold');
+        } else {
+            var col = maximum.css('color');
+            var fontW = maximum.css('fontWeight');
+            current.css('color', col);
+            current.css('fontWeight', fontW);
+        }
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#my-form").submit(function (e) {
+            $("#btn-submit").attr("disabled", true);
+            $("#btn-submit").addClass('button-clicked');
+            return true;
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#my-form2").submit(function (e) {
+            $("#btn-submit2").attr("disabled", true);
+            $("#btn-submit2").addClass('button-clicked');
+            return true;
+        });
     });
 </script>
 @endpush

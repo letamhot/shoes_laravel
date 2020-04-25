@@ -49,8 +49,6 @@ Route::get('/error', 'ShoesController@error')->name('error');
 //Add cart
 Route::resource('/cartt', 'CartController');
 Route::post('/cartt', 'CartController@store')->name('cartt.store')->middleware('verified');
-Route::get('/AddShoppingCart/{id}', 'CartController@AddShoppingCart')->name('AddShoppingCart');
-Route::get('/add/cart/{id}', 'CartController@addCart')->name('addCart');
 Route::get('/remove/cart/{id}', 'CartController@deleteCart')->name('deleteCart');
 Route::post('/checkout1', 'CartController@checkout')->name('checkoutPost');
 Route::get('/addCartPost/{id}/{qty}/{check}/{size}', 'CartController@addCartPost')->name('addCartPost');

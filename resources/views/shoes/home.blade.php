@@ -87,7 +87,7 @@
 
                     <div class="brands_products">
                         <!--brands_products-->
-                        <h2>Brands</h2>
+                        <h2>Product</h2>
                         <div class="brands-name">
                             <ul class="nav nav-pills nav-stacked">
                                 <li>
@@ -99,7 +99,7 @@
                             <ul class="nav nav-pills nav-stacked">
 
                                 <li><a href="{{ route('productdetail', $product->id) }}">
-                                        <span class="pull-right">{{ $product->amount }}
+                                        <span class="pull-right">{{ $product->size_product->sum('qty') }}
                                         </span>{{ $product->name }}
                                     </a>
                                 </li>

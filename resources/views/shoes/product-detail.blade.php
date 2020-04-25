@@ -176,7 +176,7 @@
                                     </div>
                                 </div>
                                 <div style="margin-top: 20px;">
-
+                                @if(Auth::user())
                                     @if($id_product->size_product->sum('qty') > 0)
                                     <a onclick="AddCartPost({{ $id_product->id }})" class="btn btn-default add-to-cart"
                                         style="border: none" href="javascript:"><i class="fa fa-shopping-cart"></i>Add
@@ -185,6 +185,7 @@
                                     <a href="javascript:window.location.href=window.location.href"
                                         class="btn primary-btn pd-cart disabled" aria-disabled="true">Add To
                                         Cart</a>
+                                    @endif
                                     @endif
                                 </div>
                                 <input type="hidden" id="check_stock" name="check_stock"

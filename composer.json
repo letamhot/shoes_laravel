@@ -16,6 +16,8 @@
         "laravel/tinker": "^2.0",
         "laravelista/comments": "^3.3",
         "nesbot/carbon": "^2.32",
+        "orangehill/iseed": "^2.6",
+        "oscarafdev/migrations-generator": "2.0.18",
         "willvincent/laravel-rateable": "^2.1"
     },
     "require-dev": {

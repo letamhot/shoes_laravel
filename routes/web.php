@@ -66,7 +66,7 @@ Route::get('/updateDeleteListCart', 'CartController@updateDeleteListCart')->name
 Route::get('/loginshoes', 'Auth\LoginController@showLogin')->name('loginshoes');
 
 Route::post('signin', 'Auth\LoginController@doLogin');
-Route::get('logoutshoes', 'Auth\LoginController@logoutshoes');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
 //home-admin
 Route::get('/home', 'HomeController@index')->name('home');
@@ -94,6 +94,7 @@ Auth::routes();
 
 //user
 Route::resource('/users', 'UsersController');
+
 
 //type
 Route::resource('/type', 'TypeController');
@@ -140,7 +141,7 @@ Route::get('/search', 'PostsControllers@search')->name('posts.search');
 Route::resource('/slide', 'SlideController');
 
 // route to show the logout form
-Route::get('/logout', 'LoginController@logout')->name('logout');
+// Route::get('/logout', 'LoginController@logout')->name('logout');
 
 //dashboard-admin
 Route::get('/dashboard', 'dashboardController@dashboard')->name('dashboard')->middleware('verified');

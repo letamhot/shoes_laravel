@@ -157,7 +157,7 @@
                                             class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="{{ route('shop') }}">Products</a></li>
-                                        <li><a href="{{ url('logoutshoes') }}">Logout</a></li>
+                                        <li><a href="{{ url('logout') }}" class="login-panel">Log Out</a></li>
                                         <div class="change-item-cart" id="change-item-cart">
                                             @include('shoes.partials.header_ajax')
                                         </div>
@@ -167,8 +167,7 @@
                                 <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="{{ route('blog') }}">Blog List</a></li>
-                                        {{-- <li><a href="{{ route('blog-single') }}">Blog Single</a>
-                                </li> --}}
+                                        
                             </ul>
                             </li>
                             <li><a href="404.html">404</a></li>

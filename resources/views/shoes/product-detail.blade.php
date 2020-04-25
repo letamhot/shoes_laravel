@@ -261,87 +261,7 @@
                         <div class="tab-pane fade" id="tab-2" role="tabpanel">
                             <div class="specification-table">
                                 <table>
-                                    <tr>
-                                        <td class="p-catagory">Customer Rating</td>
-                                        <td>
-                                            <div class="pd-rating">
-                                                {{ round($avgRating, 1) }}
-                                                @if($avgRating == 0)
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                @elseif($avgRating > 0 && $avgRating < 0.9) <i
-                                                    class="fa fa-star-half-alt">
-                                                    </i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    @elseif($avgRating >= 1 && $avgRating < 1.1) <i class="fa fa-star">
-                                                        </i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        @elseif($avgRating >= 1.1 && $avgRating < 2) <i
-                                                            class="fa fa-star"></i>
-                                                            <i class="fa fa-star-half-alt"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            @elseif($avgRating >= 2 && $avgRating < 2.1) <i
-                                                                class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                @elseif($avgRating >= 2.1 && $avgRating < 3) <i
-                                                                    class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star-half-alt"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    @elseif($avgRating >= 3 && $avgRating < 3.1) <i
-                                                                        class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
-                                                                        <i class="fa fa-star"></i>
-                                                                        @elseif($avgRating >= 3.1 && $avgRating < 4) <i
-                                                                            class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            <i class="fa fa-star-half-alt"></i>
-                                                                            <i class="fa fa-star"></i>
-                                                                            @elseif($avgRating >= 4 && $avgRating < 4.1)
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                <i class="fa fa-star"></i>
-                                                                                @elseif($avgRating >= 4.1 &&
-                                                                                $avgRating < 5) <i class="fa fa-star">
-                                                                                    </i>
-                                                                                    <i class="fa fa-star"></i>
-                                                                                    <i class="fa fa-star"></i>
-                                                                                    <i class="fa fa-star"></i>
-                                                                                    <i class="fa fa-star-half-alt"></i>
-                                                                                    @else
-                                                                                    <i class="fa fa-star"></i>
-                                                                                    <i class="fa fa-star"></i>
-                                                                                    <i class="fa fa-star"></i>
-                                                                                    <i class="fa fa-star"></i>
-                                                                                    <i class="fa fa-star"></i>
-                                                                                    @endif
-                                                                                    <span>
-                                                                                        ({{ count($countRating) }}
-                                                                                        Rating)</span>
 
-                                            </div>
-                                        </td>
-                                    </tr>
                                     <tr>
                                         <td class="p-catagory">Price</td>
                                         <td>
@@ -385,43 +305,14 @@
                                 <img src="data:image;base64, {{ $id_product->image }}" style=" aligh:center;width: 60rem;
                                     height: 40rem;" alt="" />
                                 <br>
-                                <p aligh:"center">{!! $id_product->description !!}</p>
+                                <p aligh:"center"><b>Giới thiệu sản phẩm: </b> {!! $id_product->description !!}</p>
 
                                 @if(Auth::user())
 
-                                <div class="leave-comment">
-                                    <h4>Leave A Comment</h4>
+                                {{-- {{ $id_product->description }} --}}
 
-                                    <!-- Form reviews -->
-                                    <form action="{{ route('reviews')}}" method="POST" class="comment-form"
-                                        id="my-form2">
-                                        @csrf
-                                        <div class="row">
-                                            <input type="hidden" name="id_product" value="{{ $id_product->id }}">
-                                            <div class="col-lg-1">
-                                                Rating
-                                            </div>
-                                            <input id="input-1" name="input-1" class="rating rating-loading"
-                                                data-min="0" data-max="5" data-step="0.1"
-                                                value="{{ $reviews->averageRating }}" data-size="xs" disabled="">
-                                            <div style="margin-left: 1rem">
-                                                <span class="stars"></span>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <textarea id="comment" placeholder="Messages" name="comment" rows="5"
-                                                    maxlength="250"
-                                                    style="margin-bottom: 10px">{{ old('comment') }}</textarea>
-                                                <div id="the-count_comment" style="margin-bottom: 30px">
-                                                    <span id="current_comment">0</span>
-                                                    <span id="maximum_comment"> / 250</span>
-                                                </div>
-                                                <button type="submit" class="site-btn" id="btn-submit2"
-                                                    style="border: none">Send
-                                                    message</button>
-                                            </div>
-                                        </div>
-                                    </form>
-
+                                <div class="container">
+                                    @comments(['model' => $id_product])
                                 </div>
 
                                 @endif
@@ -536,14 +427,14 @@
         </div>
     </div>
 </section>
-<script type="text/javascript">
 
-    $("#input-id").rating();
-
-</script>
 @endsection
 @push('qty')
-<script src="js/zoom-image.js"></script>
+{{-- <script src="js/zoom-image.js"></script> --}}
+{{-- <script type="text/javascript">
+    $("#input-id").rating();
+
+</script> --}}
 <script>
     $('.equipCatValidation').on('keyup keydown', function(e){
         for(i = 0; i < 100; i++) {

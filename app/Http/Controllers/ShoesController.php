@@ -68,17 +68,6 @@ class ShoesController extends Controller
             $reviews->email = request('email');
         }
 
-
-
-        $rating = new \willvincent\Rateable\Rating;
-
-        $rating->rating = $request->rate;
-
-        $rating->user_id = auth()->user()->id;
-
-
-
-        $reviews->ratings()->save($rating);
         $reviews->comment = request('comment');
         $reviews->id_product = request('id_product');
         $reviews->save();

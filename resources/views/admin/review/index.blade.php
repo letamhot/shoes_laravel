@@ -37,7 +37,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th width='35%'>Comment</th>
-                            <th>Rating</th>
+                            {{-- <th>Rating</th> --}}
                             <th>Products</th>
                             <th>User created</th>
                             <th>Delete</th>
@@ -52,7 +52,7 @@
                             <td>{{ $review->name }}</td>
                             <td>{{ $review->email }}</td>
                             <td style="width: auto; word-break: break-all;">{{ $review->comment }}</td>
-                            <td>{{ $review->rating }}
+                            {{-- <td>{{ $review->rating }}
                                 @if($review->rating > 0)
                                 <span style="color: #FAC451;">
                                     <i class="fa fa-star"></i>
@@ -60,7 +60,7 @@
                                 @else
                                 {{ "No rating" }}
                                 @endif
-                            </td>
+                            </td> --}}
                             <td>{{ $review->product->name}}</td>
                             <td><b style="color:orange">{{ $review->user_created }}</b> <br>
                                 {{ $review->created_at }}

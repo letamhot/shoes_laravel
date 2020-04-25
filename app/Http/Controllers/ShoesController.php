@@ -8,7 +8,7 @@ use App\Product;
 use App\Producer;
 use App\slide;
 use App\Posts;
-use App\Review;
+use App\Comment;
 use App\Bills;
 use App\MessageCenter;
 use App\Bill_detail;
@@ -49,34 +49,6 @@ class ShoesController extends Controller
 
 
         return view('shoes.home', compact('types', 'size_product', 'type', 'type1', 'slides1', 'product1', 'product2', 'products', 'producers', 'slides'));
-    }
-    public function reviews(Request $request)
-    {
-        $this->validate($request, [
-            'comment' => 'required | min:10 | max:255 | string',
-            'id_product' => 'required | numeric | min:0',
-            'rating' => 'required',
-        ]);
-
-        $reviews = new Review();
-        if (Auth::user()) {
-            $reviews->name = Auth::user()->name;
-            $reviews->email = Auth::user()->email;
-            $reviews->user_created = Auth::user()->name;
-        } else {
-            $reviews->name = request('name');
-            $reviews->email = request('email');
-        }
-
-        $reviews->comment = request('comment');
-        $reviews->id_product = request('id_product');
-        $reviews->save();
-
-        $message = new MessageCenter();
-        $message->id_review = $reviews->id;
-        $message->save();
-
-        return Redirect::to(URL::previous() . "#location")->with('toast', 'Thanks for your review...');
     }
 
     public function find_bill($id)
@@ -154,17 +126,14 @@ class ShoesController extends Controller
     {
         $id_product = Product::findOrfail($id);
         $products = Product::all();
-        $review = Review::all();
         $types = Type::all();
         $product1 = Product::take(3)->get();
-
         $product2 = Product::where('id', '>', 4)->get();
-        $reviews = Review::where('id_product', $id_product->id)->get();
-        $avgRating = DB::table('review')->where('id_product', $id_product->id)->avg('rating');
-        $countRating = Review::where('id_product', $id_product->id)->where('rating', '>', 0)->get();
+        $comment = Comment::where('commentable_type', $id_product->id)->get();
 
 
-        return view('shoes.product-detail', compact('id_product', 'avgRating', 'countRating', 'reviews', 'review', 'types', 'products', 'product1', 'product2'));
+
+        return view('shoes.product-detail', compact('comment', 'id_product',  'types', 'products', 'product1', 'product2'));
     }
     public function contact()
     {

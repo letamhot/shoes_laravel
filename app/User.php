@@ -78,4 +78,8 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return false;
     }
+    public function comment()
+    {
+        return $this->hasMany(Comment::class, 'commenter_id', 'id');
+    }
 }

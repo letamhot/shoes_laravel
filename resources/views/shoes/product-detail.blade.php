@@ -219,7 +219,7 @@
                                 <a data-toggle="tab" href="#tab-2" role="tab">SPECIFICATIONS</a>
                             </li>
                             <li class="active"><a href="#reviews" data-toggle="tab" role="tab">Reviews
-                                    ({{ count($review) }})</a>
+                                    ({{ count($comment) }})</a>
                             </li>
                         </ul>
                     </div>

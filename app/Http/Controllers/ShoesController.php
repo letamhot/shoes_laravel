@@ -6,7 +6,7 @@ use App\Type;
 use App\Size_product;
 use App\Product;
 use App\Producer;
-use App\slide;
+use App\Slide;
 use App\Posts;
 use App\Comment;
 use App\Bills;
@@ -44,8 +44,8 @@ class ShoesController extends Controller
         $product1 = Product::take(3)->get();
         $product2 = Product::where('id', '>', 4)->get();
         $producers = Producer::all();
-        $slides = slide::where('id', '>', 0)->first();
-        $slides1 = slide::where('id', '>', 1)->get();
+        $slides = Slide::where('id', '>', 0)->first();
+        $slides1 = Slide::where('id', '>', 1)->get();
 
 
         return view('shoes.home', compact('types', 'size_product', 'type', 'type1', 'slides1', 'product1', 'product2', 'products', 'producers', 'slides'));

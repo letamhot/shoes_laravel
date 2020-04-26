@@ -15,10 +15,10 @@ class CreateProductTable extends Migration
     {
         Schema::create('product', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->integer('id_type')->unsigned();
+            $table->string('name')->nullable();
+            $table->integer('id_type')->unsigned()->nullable();
             $table->foreign('id_type')->references('id')->on('type')->onDelete('cascade');
-            $table->integer('id_producer')->unsigned();
+            $table->integer('id_producer')->unsigned()->nullable();
             $table->foreign('id_producer')->references('id')->on('producer')->onDelete('cascade');
             $table->integer('amount')->nullable();
             $table->longtext('image')->nullable();

@@ -16,8 +16,8 @@ class CreateCustomerTable extends Migration
         Schema::create('customer', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
-            $table->integer('gender_id')->unsigned()->nullable();
-            $table->foreign('gender_id')->references('id')->on('gender')->onDelete('cascade')->nullable();
+            $table->boolean('gender')->nullable();
+
             $table->string('email')->nullable();
             $table->string('address')->nullable();
             $table->string('postcode')->nullable();

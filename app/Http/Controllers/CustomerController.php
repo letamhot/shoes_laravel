@@ -103,7 +103,7 @@ class CustomerController extends Controller
 
         $customer->name = request('name');
 
-        $customer->gender_id = request('gender');
+        $customer->gender = request('gender');
 
 
         $customer->email = request('email');

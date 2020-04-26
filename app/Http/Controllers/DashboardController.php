@@ -18,7 +18,7 @@ class DashboardController extends Controller
     {
         // $this->middleware('auth');
         // $this->middleware('role:ROLE_ADMIN');
-        // $this->middleware('role:ROLE_SUPERADMIN');...
+        // $this->middleware('role:ROLE_SUPERADMIN');
     }
     public function dashboard()
     {

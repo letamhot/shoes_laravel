@@ -138,16 +138,16 @@ Route::resource('/slide', 'SlideController');
 // Route::get('/logout', 'LoginController@logout')->name('logout');
 
 //dashboard-admin
-Route::get('/dashboard', 'dashboardController@dashboard')->name('dashboard')->middleware('verified');
-Route::get('/errors', 'dashboardController@error404')->name('error404');
-Route::get('/button', 'dashboardController@button')->name('button');
-Route::get('/card', 'dashboardController@card')->name('card');
-Route::get('/chart', 'dashboardController@chart')->name('chart');
-Route::get('/table', 'dashboardController@table')->name('table');
-Route::get('/animation', 'dashboardController@animation')->name('animation');
-Route::get('/border', 'dashboardController@border')->name('border');
-Route::get('/color', 'dashboardController@color')->name('color');
-Route::get('/orther', 'dashboardController@orther')->name('orther');
+Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
+Route::get('/errors', 'DashboardController@error404')->name('error404');
+Route::get('/button', 'DashboardController@button')->name('button');
+Route::get('/card', 'DashboardController@card')->name('card');
+Route::get('/chart', 'DashboardController@chart')->name('chart');
+Route::get('/table', 'DashboardController@table')->name('table');
+Route::get('/animation', 'DashboardController@animation')->name('animation');
+Route::get('/border', 'DashboardController@border')->name('border');
+Route::get('/color', 'DashboardController@color')->name('color');
+Route::get('/orther', 'DashboardController@orther')->name('orther');
 
 //login google
 Route::get('/auth/redirect/{provider}', 'SocialController@redirect');

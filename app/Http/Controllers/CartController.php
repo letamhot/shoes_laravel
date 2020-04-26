@@ -16,6 +16,8 @@ use App\Customer;
 use App\Bills;
 use App\Bill_detail;
 use App\Size;
+use App\Mail\ShoppingMail;
+use Mail;
 
 class CartController extends Controller
 {
@@ -149,6 +151,8 @@ class CartController extends Controller
                     $product->save();
                     $i++;
                 }
+                Mail::to($check_customer->email)->send(new ShoppingMail($bills, $oderdetail));
+
                 Cart::instance(Auth::user()->id)->destroy();
                 return redirect()->route('shoesHome')->with('success', 'Order Success');
             } else {

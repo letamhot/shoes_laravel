@@ -37,6 +37,8 @@ Route::get('/cart', 'ShoesController@cart')->name('cart');
 Route::get('/blog/{id}', 'ShoesController@blogsingle')->name('blog-single');
 Route::get('/shop', 'ShoesController@shop')->name('shop');
 Route::get('/getDetailProduct', 'ShoesController@getDetailProduct')->name('getDetailProduct');
+//Find bill in page your order
+Route::get('/bills/search/{id}', 'ShoesController@findbill')->name('find.bills');
 
 // Route::get('/loginshoes', 'ShoesController@login')->name('loginshoes');
 Route::get('/blog', 'ShoesController@blog')->name('blog');

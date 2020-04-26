@@ -84,6 +84,19 @@ class ShoesController extends Controller
             return view('shoes.login');
         }
     }
+    public function findbill($id)
+    {
+        $id = Crypt::decrypt($id);
+        $code_bills = Bills::withTrashed()->findOrFail($id);
+        if (!Auth::user()) {
+            return redirect()->route('shoesHome')->with('toast_error', 'You must log in to see your order !');
+        } elseif ((Auth::user()->name == $code_bills->customer->name) || Auth::check()) {
+            $code_bills_detail = Bill_detail::withTrashed()->where('id_bill', $code_bills->id)->get();
+            return view('shoes.code_bill', compact('code_bills', 'code_bills_detail'));
+        } else {
+            return redirect()->route('shoesHome')->with('toast_error', 'Invoice code or account is incorrect');
+        }
+    }
     public function blogsingle()
     {
         $products = Product::all();

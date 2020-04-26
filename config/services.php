@@ -32,7 +32,7 @@ return [
     'google' => [
         'client_id' => '839087684515-kuo4gd84jlubconj5cvbq7bivtcttipe.apps.googleusercontent.com',
         'client_secret' => 'F2P6gP1q52mPIi6sEWCsnpfX',
-        'redirect' => 'http://127.0.0.1:8000/callback/google',
+        'redirect' => 'https://hidden-stream-79204.herokuapp.com/callback/google',
     ],
 
 ];

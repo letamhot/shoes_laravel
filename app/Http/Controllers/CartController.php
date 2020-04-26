@@ -252,11 +252,11 @@ class CartController extends Controller
             $check_amount = Product::find($cart->id);
             $amount_product[] = Size_product::where('id_size', $cart->options->size)->where('id_product', $cart->id)->sum('qty');
 
-            // //Check if in cart of customer, product out of stock
-            // if ($check_amount->amount <= 0) {
-            //     Cart::remove($cart->rowId);
-            //     $request->session()->flash('error', "Product $check_amount->name has sold out, sincerely sorry!");
-            // }
+            //Check if in cart of customer, product out of stock
+            if ($check_amount->size_product->sum('qty') <= 0) {
+                Cart::remove($cart->rowId);
+                $request->session()->flash('error', "Product $check_amount->name has sold out, sincerely sorry!");
+            }
         }
 
         $types = Type::all();

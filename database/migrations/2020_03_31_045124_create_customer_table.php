@@ -17,7 +17,7 @@ class CreateCustomerTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->integer('gender')->unsigned()->nullable();
-            $table->foreign('gender')->references('id')->on('gender')->onDelete('cascade');
+            $table->foreign('gender')->references('id')->on('gender')->onDelete('cascade')->nullable();
             $table->string('email')->nullable();
             $table->string('address')->nullable();
             $table->string('postcode')->nullable();
@@ -30,9 +30,9 @@ class CreateCustomerTable extends Migration
             $table->string('user_updated')->nullable();
             $table->string('user_deleted')->nullable();
             $table->integer('users')->unsigned()->nullable();
-            $table->foreign('users')->references('id')->on('users');
+            $table->foreign('users')->references('id')->on('users')->nullable();
             $table->timestamps();
-            $table->softDeletes();
+            $table->softDeletes()->nullable();
         });
     }
 

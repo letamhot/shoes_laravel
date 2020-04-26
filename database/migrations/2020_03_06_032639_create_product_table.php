@@ -27,7 +27,7 @@ class CreateProductTable extends Migration
             $table->boolean('new')->nullable()->default(0);
             $table->mediumText('description')->nullable();
             $table->timestamps();
-            $table->softDeletes();
+            $table->softDeletes()->nullable();
         });
     }
     // đm tạo db khác

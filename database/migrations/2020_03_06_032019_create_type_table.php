@@ -18,7 +18,7 @@ class CreateTypeTable extends Migration
             $table->string('name')->nullable();
             $table->longtext('image')->nullable();
             $table->timestamps();
-            $table->softDeletes();
+            $table->softDeletes()->nullable();
         });
     }
 

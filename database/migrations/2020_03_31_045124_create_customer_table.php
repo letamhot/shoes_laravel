@@ -29,7 +29,7 @@ class CreateCustomerTable extends Migration
             $table->string('user_created')->nullable();
             $table->string('user_updated')->nullable();
             $table->string('user_deleted')->nullable();
-            $table->integer('users')->unsigned();
+            $table->integer('users')->unsigned()->nullable();
             $table->foreign('users')->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();

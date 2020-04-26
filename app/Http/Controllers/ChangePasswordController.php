@@ -19,8 +19,8 @@ class ChangePasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('role:ROLE_ADMIN');
+        // $this->middleware('auth');
+        // $this->middleware('role:ROLE_ADMIN');
     }
 
     /**

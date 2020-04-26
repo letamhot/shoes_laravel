@@ -50,13 +50,9 @@
                             </div>
                             <div class="form-group{{$errors->has('gender')?' has-error':''}}">
                                 <strong>Gender:</strong>
-                                <select class="form-control input-width" name="gender">
-                                    @foreach ($gender as $value)
-                                    <option value="{{ $value->id }}" @if(old('gender')==$value->id)
-                                        {{ "selected" }}
-                                        @endif
-                                        >{{ $value->name }}</option>
-                                    @endforeach
+                                <select name="gender" id="" class="form-control">
+                                    <option value="1">Men</option>
+                                    <option value="2">Women</option>
                                 </select>
                                 <span class="text-danger">{{$errors->first('gender')}}</span>
                             </div>

@@ -42,7 +42,7 @@ class CustomerTableSeeder extends Seeder
             array (
 
                 'name' => 'Tám Lê',
-                'gender' => 1,
+                'gender' => NULL,
                 'email' => 'levantam160896@gmail.com',
                 'address' => 'Tp Huế',
                 'postcode' => NULL,

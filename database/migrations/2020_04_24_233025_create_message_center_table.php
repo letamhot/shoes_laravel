@@ -17,7 +17,7 @@ class CreateMessageCenterTable extends Migration
             $table->increments('id');
             $table->integer('id_review')->unsigned()->nullable();
             $table->foreign('id_review')->references('id')->on('review');
-            $table->timestamps();
+            $table->timestamps()->nullable();
         });
     }
 

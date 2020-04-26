@@ -26,8 +26,8 @@ class CreateBillsTable extends Migration
             $table->string('user_created')->nullable();
             $table->string('user_updated')->nullable();
             $table->string('user_deleted')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->timestamps()->nullable();
+            $table->softDeletes()->nullable();
         });
     }
 

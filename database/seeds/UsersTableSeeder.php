@@ -12,14 +12,14 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('users')->delete();
-        
+
         \DB::table('users')->insert(array (
-            0 => 
+            0 =>
             array (
-                'id' => 18,
+
                 'name' => 'tám lê văn_google',
                 'email' => 'letamhot@gmail.com',
                 'provider' => 'google',
@@ -35,9 +35,9 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2020-04-24 12:33:47',
                 'updated_at' => '2020-04-24 18:56:20',
             ),
-            1 => 
+            1 =>
             array (
-                'id' => 19,
+
                 'name' => 'Tám Lê',
                 'email' => 'levantam160896@gmail.com',
                 'provider' => 'google',
@@ -54,7 +54,7 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => '2020-04-24 20:38:45',
             ),
         ));
-        
-        
+
+
     }
 }

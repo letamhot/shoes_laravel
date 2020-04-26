@@ -12,37 +12,37 @@ class RoleUserTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('role_user')->delete();
-        
+
         \DB::table('role_user')->insert(array (
-            0 => 
+            0 =>
             array (
-                'id' => 3,
+
                 'role_id' => 1,
                 'user_id' => 18,
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            1 => 
+            1 =>
             array (
-                'id' => 4,
+
                 'role_id' => 2,
                 'user_id' => 18,
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-            2 => 
+            2 =>
             array (
-                'id' => 5,
+
                 'role_id' => 1,
                 'user_id' => 19,
                 'created_at' => '2020-04-24 18:47:36',
                 'updated_at' => '2020-04-24 18:47:36',
             ),
         ));
-        
-        
+
+
     }
 }

@@ -19,10 +19,10 @@ use App\Size;
 
 class CartController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware( 'auth' );
-    // }
+    public function __construct()
+    {
+        $this->middleware( 'auth' );
+    }
     /**
      * Display a listing of the resource.
      *
@@ -241,7 +241,8 @@ class CartController extends Controller
         $size_product = Size_product::all();
         $product = null;
         $amount_product = null;
-        foreach (Cart::instance(Auth::user()->id)->content() as $cart) {
+
+       foreach (Cart::instance(Auth::user()->id)->content() as $cart) {
             $product[] = Product::find($cart->id);
             $check_amount = Product::find($cart->id);
             $amount_product[] = Size_product::where('id_size', $cart->options->size)->where('id_product', $cart->id)->sum('qty');

@@ -19,11 +19,11 @@ class CreateProductTable extends Migration {
 			$table->integer('id_type')->unsigned()->index('product_type_foreign');
 			$table->integer('id_producer')->unsigned()->index('product_producer_foreign');
 			$table->integer('amount')->nullable();
-			$table->text('image')->nullable();
+			$table->text('image', 65535)->nullable();
 			$table->integer('price_input')->nullable();
 			$table->integer('promotion_price')->nullable()->default(0);
 			$table->boolean('new')->nullable()->default(0);
-			$table->text('description', 16777215)->nullable();
+			$table->text('description', 65535)->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

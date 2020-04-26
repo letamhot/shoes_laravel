@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateProducerTable extends Migration {
+class CreateTypeTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,11 @@ class CreateProducerTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('producer', function(Blueprint $table)
+		Schema::create('type', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('name')->nullable();
-			$table->string('address')->nullable();
-			$table->string('phone')->nullable();
-			$table->bigInteger('tax_code')->nullable();
-			$table->text('image')->nullable();
+			$table->text('image', 65535)->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});
@@ -33,7 +30,7 @@ class CreateProducerTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('producer');
+		Schema::drop('type');
 	}
 
 }

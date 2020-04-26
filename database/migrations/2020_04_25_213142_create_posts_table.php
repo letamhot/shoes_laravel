@@ -16,8 +16,8 @@ class CreatePostsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('title')->nullable();
-			$table->text('content')->nullable();
-			$table->text('image')->nullable();
+			$table->text('content', 65535)->nullable();
+			$table->text('image', 65535)->nullable();
 			$table->integer('user_id')->unsigned()->index('posts_user_id_foreign');
 			$table->timestamps();
 			$table->softDeletes();

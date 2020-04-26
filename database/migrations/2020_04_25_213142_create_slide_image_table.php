@@ -15,7 +15,7 @@ class CreateSlideImageTable extends Migration {
 		Schema::create('slide_image', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->text('image')->nullable();
+			$table->text('image', 65535)->nullable();
 			$table->timestamps();
 		});
 	}

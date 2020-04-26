@@ -20,7 +20,7 @@ class CreateCustomerTable extends Migration {
 			$table->string('email')->nullable();
 			$table->string('address')->nullable();
 			$table->string('postcode')->nullable();
-			$table->text('image')->nullable();
+			$table->text('image', 65535)->nullable();
 			$table->string('city')->nullable();
 			$table->bigInteger('phone')->nullable();
 			$table->string('note')->nullable();

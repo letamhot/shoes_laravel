@@ -35,7 +35,7 @@ class ShoesController extends Controller
         // Cart::destroy();
         // dd(Cart::content());
         $types = Type::all();
-        $type = Type::first();
+        $type = Type::where('id', '>', 0)->first();
         $type1 = Type::where('id', '>', 1)->get();
         // $id_product = Product::findOrfail($id);
 
@@ -44,7 +44,7 @@ class ShoesController extends Controller
         $product1 = Product::take(3)->get();
         $product2 = Product::where('id', '>', 4)->get();
         $producers = Producer::all();
-        $slides = slide::first();
+        $slides = slide::where('id', '>', 0)->first();
         $slides1 = slide::where('id', '>', 1)->get();
 
 

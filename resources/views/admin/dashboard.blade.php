@@ -123,7 +123,7 @@
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
                                             <div class="progress-bar bg-info" role="progressbar"
-                                                style="width: {{ number_format($product * 100 / $total_product) }}%"
+                                                style="width: {{ number_format($product * 100 / $total_product, 2) }}%"
                                                 aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>

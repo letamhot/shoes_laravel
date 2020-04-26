@@ -152,7 +152,6 @@ class CartController extends Controller
                     $i++;
                 }
                 Mail::to($check_customer->email)->send(new ShoppingMail($bills, $oderdetail));
-
                 Cart::instance(Auth::user()->id)->destroy();
                 return redirect()->route('shoesHome')->with('success', 'Order Success');
             } else {

@@ -21,7 +21,7 @@ class CreateProducerTable extends Migration
             $table->bigInteger('tax_code')->nullable();
             $table->longText('image')->nullable();
             $table->timestamps();
-            $table->softDeletes();
+            $table->softDeletes()->nullable();
         });
     }
 

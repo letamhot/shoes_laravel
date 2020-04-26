@@ -52,8 +52,7 @@
                                                             <center><img width="100%" style="max-width:300px"
                                                                     src="https://i.pinimg.com/originals/9d/60/2c/9d602c4db36e1cea6a168f0ad895793e.jpg"
                                                                     class="CToWUd"></center>
-                                                        </a><br><b>Dear {{ $order->customer->name }} </b>. Thanks for
-                                                        your feedback. <br>
+                                                        </a>
 
                                                     </td>
                                                     <td width="36"></td>

@@ -102,11 +102,9 @@ class CustomerController extends Controller
         $customer = Customer::withTrashed()->findOrFail($id);
 
         $customer->name = request('name');
-        if (request('gender')) {
-            $customer->gender_id = request('gender');
-        } else {
-            $customer->gender_id = null;
-        }
+
+        $customer->gender = request('gender');
+
 
         $customer->email = request('email');
         $customer->address = request('address');

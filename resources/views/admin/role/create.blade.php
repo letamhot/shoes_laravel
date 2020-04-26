@@ -8,7 +8,7 @@
         <div class="pull-left">
             <h2>Create type</h2>
         </div>
-        @include('partials\message')
+        @include('partials.message')
         <div class="pull-right">
             <a href="{{route('role.index')}}" class="btn btn-primary">Back</a>
         </div>

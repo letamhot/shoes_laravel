@@ -8,7 +8,7 @@
         <div class="pull-left">
             <h2>Create slide</h2>
         </div>
-        @include('partials\message')
+        @include('partials.message')
         <div class="pull-right">
             <a href="{{route('slide.index')}}" class="btn btn-primary">Back</a>
         </div>

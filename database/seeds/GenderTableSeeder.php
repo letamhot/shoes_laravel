@@ -19,7 +19,6 @@ class GenderTableSeeder extends Seeder
         \DB::table('gender')->insert(array (
             0 =>
             array (
-
                 'name' => 'Men',
                 'created_at' => NULL,
                 'updated_at' => NULL,

@@ -14,7 +14,7 @@ class CreateFailedJobsTable extends Migration
     public function up()
     {
         Schema::create('failed_jobs', function (Blueprint $table) {
-            $table->bigIncrements('id')->nullable();
+            $table->bigIncrements('id');
             $table->text('connection')->nullable();
             $table->text('queue')->nullable();
             $table->longText('payload')->nullable();

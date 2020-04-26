@@ -15,11 +15,11 @@ class CreateBillsDetailTable extends Migration
     {
         Schema::create('bills_detail', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_bill')->unsigned();
+            $table->integer('id_bill')->unsigned()->nullable();
             $table->foreign('id_bill')->references('id')->on('bills')->onDelete('cascade');
-            $table->integer('id_product')->unsigned();
+            $table->integer('id_product')->unsigned()->nullable();
             $table->foreign('id_product')->references('id')->on('product')->onDelete('cascade');
-            $table->integer('quantity')->comment('Số lượng');
+            $table->integer('quantity')->comment('Số lượng')->nullable();
             $table->double('unit_price')->nullable();
             $table->double('total_price')->nullable();
             $table->boolean('status')->nullable()->default(0);

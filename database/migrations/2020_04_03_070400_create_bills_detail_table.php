@@ -20,6 +20,7 @@ class CreateBillsDetailTable extends Migration
             $table->integer('id_product')->unsigned()->nullable();
             $table->foreign('id_product')->references('id')->on('product')->onDelete('cascade');
             $table->string('name_product')->nullable();
+            $table->integer('size')->nullable();
             $table->integer('quantity')->comment('Số lượng')->nullable();
             $table->double('unit_price')->nullable();
             $table->double('total_price')->nullable();

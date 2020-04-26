@@ -21,7 +21,7 @@ class CustomerTableSeeder extends Seeder
             array (
 
                 'name' => 'tám lê văn',
-                'gender' => 1,
+                'gender_id' => 1,
                 'email' => 'letamhot@gmail.com',
                 'address' => 'Hồ Đắc Di, Tp Huế',
                 'postcode' => '123123',
@@ -42,7 +42,7 @@ class CustomerTableSeeder extends Seeder
             array (
 
                 'name' => 'Tám Lê',
-                'gender' => NULL,
+                'gender_id' => NULL,
                 'email' => 'levantam160896@gmail.com',
                 'address' => 'Tp Huế',
                 'postcode' => NULL,

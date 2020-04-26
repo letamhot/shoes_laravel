@@ -19,7 +19,7 @@ class CustomerTableSeeder extends Seeder
         \DB::table('customer')->insert(array (
             0 =>
             array (
-
+                'id' => 6,
                 'name' => 'tám lê văn',
                 'gender_id' => 1,
                 'email' => 'letamhot@gmail.com',
@@ -40,7 +40,7 @@ class CustomerTableSeeder extends Seeder
             ),
             1 =>
             array (
-
+                'id' => 7,
                 'name' => 'Tám Lê',
                 'gender_id' => NULL,
                 'email' => 'levantam160896@gmail.com',

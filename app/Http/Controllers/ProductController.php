@@ -66,7 +66,6 @@ class ProductController extends Controller
         ]);
 
         $product = new Product();
-        $product->id = $request->id;
         $product->name = $request->name;
         $product->id_type = $request->type;
         $product->id_producer = $request->producer;

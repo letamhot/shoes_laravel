@@ -74,10 +74,14 @@ class ProductController extends Controller
         if (request('image')) {
             $product->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
         }
-        $product->price_input = $request->price_input;
-        if ($request->promotion_price) {
-            $product->promotion_price = $request->promotion_price;
-        }
+        if($product->price_input > 0){
+            $product->price_input = $request->price_input;
+             }
+            if ($request->promotion_price > 0 && $request->promotion_price <= 300000000 && $request->promotion_price <  $product->price_input) {
+                $product->promotion_price = $request->promotion_price;
+            }else{
+                $product->promotion_price = null;
+            }
         $product->new = $request->new;
         $product->description = $request->description;
         $product->save();
@@ -150,11 +154,9 @@ class ProductController extends Controller
             $product->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
         }
         if($product->price_input > 0){
-
-
         $product->price_input = $request->price_input;
          }
-        if ($request->promotion_price > 0 || $request->promotion_price <= 300000000) {
+        if ($request->promotion_price > 0 && $request->promotion_price <= 300000000 && $request->promotion_price <  $product->price_input) {
             $product->promotion_price = $request->promotion_price;
         }else{
             $product->promotion_price = 0;

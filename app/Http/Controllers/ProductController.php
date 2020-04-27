@@ -137,6 +137,7 @@ class ProductController extends Controller
             'producer' => 'required',
             'image' => 'image | mimes:png,jpg,jpeg',
             'price_input' => 'required | numeric | min:0',
+            'promotion_price' => 'required | numeric | min:0',
             'description' => 'required | string',
 
         ]);
@@ -149,9 +150,15 @@ class ProductController extends Controller
         if (request('image')) {
             $product->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
         }
+        if($product->price_input > 0){
+
+
         $product->price_input = $request->price_input;
-        if ($request->promotion_price) {
+         }
+        if ($request->promotion_price > 0) {
             $product->promotion_price = $request->promotion_price;
+        }else{
+            $product->promotion_price = 0;
         }
         $product->new = $request->new;
 

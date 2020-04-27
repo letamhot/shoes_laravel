@@ -158,11 +158,13 @@
                                             class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="{{ route('shop') }}">Products</a></li>
-                                        <li><a href="{{ url('logout') }}" class="login-panel">Log Out</a></li>
+
                                         <div class="change-item-cart" id="change-item-cart">
                                             @include('shoes.partials.header_ajax')
                                         </div>
+                                        @if(!Auth::user())
                                         <li><a href="{{ url('loginshoes') }}">Login</a></li>
+                                        @endif
                                     </ul>
                                 </li>
                                 <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
@@ -171,8 +173,11 @@
 
                             </ul>
                             </li>
-                            <li><a href="404.html">404</a></li>
-                            <li><a href="{{ route('contact') }}">Contact</a></li>
+                            @if(Auth::user())
+                            <li><a href="{{ url('logout') }}" class="login-panel">Log Out</a></li>
+                            @endif
+
+                            {{-- <li><a href="{{ route('contact') }}">Contact</a></li> --}}
                             </ul>
                         </div>
                     </div>

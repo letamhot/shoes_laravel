@@ -13,7 +13,7 @@
     <base href="{{ asset('') }}">
 
     <!-- add icon link -->
-    <link rel="icon" href="image\asics.png" type="image/x-icon">
+    <link rel="icon" href="img\asics.png" type="image/x-icon">
 
     <!-- Custom fonts for this template-->
     <link href="css/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

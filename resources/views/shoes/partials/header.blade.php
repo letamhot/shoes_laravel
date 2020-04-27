@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <title>@yield('title')</title>
     <base href="{{ asset('') }}">
-    <link rel="icon" href="image\asics.png" type="image/x-icon">
+    <link rel="icon" href="img\asics.png" type="image/x-icon">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -86,7 +86,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="logo pull-left">
-                            <a href="{{ route('shoesHome') }}"><img src="image/asics.png" width="80px" height="60px"
+                            <a href="{{ route('shoesHome') }}"><img src="img/asics.png" width="80px" height="60px"
                                     alt="" /></a>
                         </div>
                         <div class="btn-group pull-right">

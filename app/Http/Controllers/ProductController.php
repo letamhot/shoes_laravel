@@ -136,8 +136,7 @@ class ProductController extends Controller
             'type' => 'required',
             'producer' => 'required',
             'image' => 'image | mimes:png,jpg,jpeg',
-            'price_input' => 'required | numeric | min:0',
-            'promotion_price' => 'required | numeric | min:0',
+            'price_input' => 'required | numeric | min:0 | max:300000000',
             'description' => 'required | string',
 
         ]);
@@ -155,7 +154,7 @@ class ProductController extends Controller
 
         $product->price_input = $request->price_input;
          }
-        if ($request->promotion_price > 0) {
+        if ($request->promotion_price > 0 || $request->promotion_price <= 300000000) {
             $product->promotion_price = $request->promotion_price;
         }else{
             $product->promotion_price = 0;

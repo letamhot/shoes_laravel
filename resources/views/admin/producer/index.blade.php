@@ -54,7 +54,7 @@
                                     style="color:lightblue"><i class="fa fa-window-restore" aria-hidden="true"></i></a>
                             </td>
                             <td><a href="{{ route('producer.edit', $value->id) }}" class="btn btn-warning" type="submit"
-                                    style="color:yellow"><i class="fa fa-edit" title="Edit"></i></a></td>
+                                onclick="return confirm('Are you sure to update?')" style="color:yellow"><i class="fa fa-edit" title="Edit"></i></a></td>
                             <td>
                                 <form action="{{ route('producer.destroy', $value->id) }}" method="POST">
                                     @csrf

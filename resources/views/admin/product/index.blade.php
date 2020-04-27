@@ -99,6 +99,7 @@
                                 btn-primary">Show</a>
                                 --}}
                                 <a href="{{ route('product.edit', $value->id) }}" class="btn btn-warning" type="submit"
+                                    onclick="return confirm('Are you sure to update?')"
                                     style="color:yellow"><i class="fa fa-edit" title="Edit"></i></a>
                             </td>
                             <td>

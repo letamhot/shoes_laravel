@@ -46,7 +46,7 @@
 
                             <td><a href="{{ route('type.show', $value->id) }}" class="btn btn-primary" type="submit"><i
                                         class="fa fa-window-restore" title="Show"></i></a></td>
-                            <td><a href="{{ route('type.edit', $value->id) }}" class="btn btn-warning" type="submit"><i
+                            <td><a href="{{ route('type.edit', $value->id) }}" class="btn btn-warning" type="submit" onclick="return confirm('Are you sure to update?')"><i
                                         class="fa fa-window-restore" title="Edit"></i></a></td>
                             <td>
                                 <form action="{{ route('type.destroy', $value->id) }}" method="POST">

@@ -122,7 +122,7 @@
                                 <span>
                                     <span
                                         style="text-decoration: line-through; color: #b2b2b2">{{ number_format($id_product->price_input) }}
-                                        vnđ</span>
+                                        VND</span>
                                 </span>
                                 @else
                                 <h2>{{ $id_product->name }}</h2>
@@ -131,13 +131,13 @@
 
                                 <span>
                                     @if($id_product->promotion_price > 0)
-                                    <span>{{ number_format($id_product->promotion_price) }} vnđ</span>
+                                    <span>{{ number_format($id_product->promotion_price) }} VND</span>
 
                                     <span
                                         style="text-decoration: line-through">{{ number_format($id_product->price_input) }}
-                                        vnđ</span>
+                                        VND</span>
                                     @else
-                                    <span>{{ number_format($id_product->price_input) }} vnđ</span>
+                                    <span>{{ number_format($id_product->price_input) }} VND</span>
                                     @endif
 
 

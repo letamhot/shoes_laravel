@@ -372,7 +372,7 @@ class CartController extends Controller
                 }
             }
             if ($request->ajax()) {
-                if ($total > $qty_size_check->qty || $bool == false || $total < 1) {
+                if ($qty > $qty_size_check->qty || $bool == false || $qty < 1) {
                     return response()->json([
                         'status' => 'error',
                         'msg' => 'Error'

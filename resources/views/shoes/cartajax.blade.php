@@ -77,11 +77,11 @@
                                 <p class="cart_total_price">{{ number_format($item->total) }}</p>
                             </td>
                             <td class="cart_update">
-                                <a type="submit"><i data-id="{{ $item->rowId }}" id="save{{ $item->rowId }}"
+                                <a type="submit" onclick="return confirm('Are you sure to update?')"><i data-id="{{ $item->rowId }}" id="save{{ $item->rowId }}"
                                         class="fa fa-save"></i></a>
                             </td>
                             <td class=" cart_delete">
-                                <a type="submit"><i class="fa fa-times fa-lg" data-id="{{ $item->rowId }}"></i></a>
+                                <a type="submit" onclick="return confirm('Are you sure to delete?')"><i class="fa fa-times fa-lg" data-id="{{ $item->rowId }}"></i></a>
                             </td>
 
                         </tr>

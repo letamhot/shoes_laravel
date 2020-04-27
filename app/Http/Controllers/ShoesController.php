@@ -39,7 +39,7 @@ class ShoesController extends Controller
         $products = Product::all();
         $size_product = Size_product::all();
         $product1 = Product::take(3)->get();
-        $product2 = Product::where('id', '>', 4)->get();
+        $product2 = Product::where('id', '>', 3)->get();
         $producers = Producer::all();
         $slides = Slide::where('id', '>', 0)->first();
         $slides1 = Slide::where('id', '>', 1)->get();
@@ -155,8 +155,6 @@ class ShoesController extends Controller
     {
         $productKey = 'product_' . $id;
 
-        // // Kiểm tra Session của sản phẩm có tồn tại hay không.
-        // // Nếu không tồn tại, sẽ tự động tăng trường view_count lên 1 đồng thời tạo session lưu trữ key sản phẩm.
         if (!Session::has($productKey)) {
             Product::where('id', $id)->increment('view_count');
             Session::put($productKey, 1);

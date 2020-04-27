@@ -34,12 +34,12 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Gender</th>
                             <th>Order number</th>
                             <th>Email</th>
                             <th width='15%'>Address</th>
                             <th>Postcode</th>
                             <th>City</th>
-                            <th>Country</th>
                             <th>Phone</th>
                             <th>Active</th>
                             <th width='15%'>User deleted</th>
@@ -52,12 +52,12 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Gender</th>
                             <th>Order number</th>
                             <th>Email</th>
                             <th width='15%'>Address</th>
                             <th>Postcode</th>
                             <th>City</th>
-                            <th>Country</th>
                             <th>Phone</th>
                             <th>Active</th>
                             <th width='15%'>User deleted</th>
@@ -74,14 +74,18 @@
 
                             <td>{{ ++$key }}</td>
                             <td>{{ $customer->name }}</td>
+                            @if(!empty($value->gender))
+                            <td>{{ $value->gender}}</td>
 
+                            @else
+                            <td>{{'Null'}}</td>
+                            @endif
                             <td>{{ count($customer->bills_trash) }}</td>
 
                             <td>{{ $customer->email }}</td>
                             <td>{{ $customer->address }}</td>
                             <td>{{ $customer->postcode }}</td>
                             <td>{{ $customer->city }}</td>
-                            <td>{{ $customer->country }}</td>
                             <td>+84 {{ $customer->phone }}</td>
 
                             @if($customer->active == 1)

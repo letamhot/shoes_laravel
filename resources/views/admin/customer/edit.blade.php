@@ -48,13 +48,22 @@
                                     value="{{ $customer->name }}" required>
 
                             </div>
-                            <div class="form-group{{$errors->has('gender')?' has-error':''}}">
-                                <strong>Gender:</strong>
-                                <select name="gender" id="" class="form-control">
-                                    <option value="1">Men</option>
-                                    <option value="2">Women</option>
-                                </select>
-                                <span class="text-danger">{{$errors->first('gender')}}</span>
+                            <div class="form-group @error('name') has-error has-feedback @enderror">
+                                <label for="gender"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
+
+                                <div class="col-md-6">
+                                    <select name="gender" id="" class="form-control">
+                                        <option value="0">Men</option>
+                                        <option value="1">Women</option>
+                                    </select>
+
+                                    @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="form-group @error('email') has-error has-feedback @enderror">

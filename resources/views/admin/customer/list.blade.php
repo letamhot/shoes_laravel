@@ -35,7 +35,6 @@
                             <th width='15%'>Address</th>
                             <th>Postcode</th>
                             <th>City</th>
-                            {{-- <th>Country</th> --}}
                             <th>Phone</th>
                             <th>Active</th>
                             <th width='15%'>User updated</th>
@@ -67,9 +66,9 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $value->name }}</td>
-                            @if(!empty($value->gender->name))
-                                <td>{{ $value->gender->name }}</td>
-                            
+                            @if(!empty($value->gender))
+                                <td>{{ $value->gender}}</td>
+
                             @else
                            <td>{{'Null'}}</td>
                            @endif

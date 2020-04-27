@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\slide;
+use App\Slide;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -42,7 +42,7 @@ class SlideController extends Controller
      */
     public function store(Request $request)
     {
-        $slide = new slide();
+        $slide = new Slide();
         if (request('image')) {
             $slide->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
         }
@@ -58,7 +58,7 @@ class SlideController extends Controller
      */
     public function show($id)
     {
-        $slide = slide::findOrFail($id);
+        $slide = Slide::findOrFail($id);
         return view('admin.slide.show', compact('slide'));
     }
 
@@ -70,7 +70,7 @@ class SlideController extends Controller
      */
     public function edit($id)
     {
-        $slide = slide::findOrFail($id);
+        $slide = Slide::findOrFail($id);
         return view('admin.slide.edit', compact('slide'));
     }
 
@@ -83,7 +83,7 @@ class SlideController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $slide = slide::findOrfail($id);
+        $slide = Slide::findOrfail($id);
         $slide->name = $request->name;
         $slide->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
         $slide->save();

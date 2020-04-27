@@ -53,7 +53,7 @@ class TypeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string| min:3',
             'image' => 'image | mimes:png,jpg,jpeg',
 
         ]);
@@ -103,7 +103,7 @@ class TypeController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string| min:3',
             'image' => 'image | mimes:png,jpg,jpeg',
 
         ]);

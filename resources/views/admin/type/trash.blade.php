@@ -12,7 +12,7 @@
         <a href="{{ route('type.index') }}" class="btn btn-primary">Home page types</a>
 
         <a href="{{ route('type.delete-all') }}" class="btn btn-danger float-right"
-            onclick="return confirm('Do you want destroy all? All data can\'t be restore!')">Delete all</a>
+            onclick="return confirm('Are you sure to delete all?')">Delete all</a>
 
         <a href="{{ route('type.restore-all') }}" class="btn btn-warning float-right mr-2"
             onclick="return confirm('Do you want restore all data?')">Restore all</a>
@@ -63,7 +63,7 @@
                             <td>
                                 {{-- <a href="{{ route('type.show', $value->id) }}" class="btn btn-primary">Show</a>
                                 --}}
-                                <a href="{{ route('type.edit', $value->id) }}" class="btn btn-primary"><i
+                                <a href="{{ route('type.edit', $value->id) }}" class="btn btn-primary" onclick="return confirm('Do you want edit type {{ $value->name }}?')"><i
                                         class="fa fa-edit" title="Edit"></i></a>
                             </td>
 

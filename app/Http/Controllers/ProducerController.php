@@ -51,9 +51,8 @@ class ProducerController extends Controller
         $request->validate([
             'name' => 'required',
             'address' => 'required',
-            'phone' => 'required',
-            'tax_code' => 'required',
-            // 'image' => 'required',
+            'phone' => 'required| numeric | min:0 | max:9999999999999',
+            'tax_code' => 'required| numeric | min:0 | max:9999999999999',
         ]);
         $producer = new Producer();
         $producer->name = $request->name;
@@ -99,10 +98,10 @@ class ProducerController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'tax_code' => 'required',
+            'name' => 'required |string| min:3',
+            'address' => 'required |string| min:3',
+            'phone' => 'required| numeric | min:0 | max:9999999999999',
+            'tax_code' => 'required| numeric | min:0 | max:9999999999999',
         ]);
         $producer = Producer::findOrfail($id);
         $producer->name = $request->name;

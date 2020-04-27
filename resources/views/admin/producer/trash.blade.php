@@ -12,7 +12,7 @@
         <a href="{{ route('producer.index') }}" class="btn btn-primary">Home page producers</a>
 
         <a href="{{ route('producer.delete-all') }}" class="btn btn-danger float-right"
-            onclick="return confirm('Do you want destroy all? All data can\'t be restore!')">Delete all</a>
+        onclick="return confirm('Are you sure to delete all?')">Delete all</a>
 
         <a href="{{ route('producer.restore-all') }}" class="btn btn-warning float-right mr-2"
             onclick="return confirm('Do you want restore all data?')">Restore all</a>
@@ -75,7 +75,7 @@
                             <td>
                                 {{-- <a href="{{ route('producer.show', $value->id) }}" class="btn btn-primary">Show</a>
                                 --}}
-                                <a href="{{ route('producer.edit', $value->id) }}" class="btn btn-primary"><i
+                                <a href="{{ route('producer.edit', $value->id) }}" class="btn btn-primary" onclick="return confirm('Are you sure to update {{ $value->name }}?')"><i
                                         class="fa fa-edit" title="Edit"></i></a>
                             </td>
 

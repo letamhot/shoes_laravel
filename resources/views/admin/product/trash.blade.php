@@ -3,6 +3,7 @@
 @section('title', 'Garbage can products')
 
 @section('content')
+@include('partials.message')
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -12,7 +13,7 @@
         <a href="{{ route('product.index') }}" class="btn btn-primary">Home page products</a>
 
         <a href="{{ route('product.delete-all') }}" class="btn btn-danger float-right"
-            onclick="return confirm('Do you want destroy all? All data can\'t be restore!')">Delete all</a>
+        onclick="return confirm('Are you sure to delete all?')">Delete all</a>
 
         <a href="{{ route('product.restore-all') }}" class="btn btn-warning float-right mr-2"
             onclick="return confirm('Do you want restore all data?')">Restore all</a>
@@ -106,7 +107,7 @@
 
                             <td><a href="{{ route('product.newTrash', $value->id) }}"
                                     style="color:red; font-weight: bold"
-                                    onclick="return confirm('Do you want change news column of this product?')">No</a>
+                                    onclick="return confirm('Do you want change news column of this product {{ $value->name }}?')">No</a>
                             </td>
 
                             @endif
@@ -119,8 +120,8 @@
                             <td>
                                 {{-- <a href="{{ route('product.show', $value->id) }}" class="btn btn-primary">Show</a>
                                 --}}
-                                <a href="{{ route('product.edit', $value->id) }}" class="btn btn-primary"><i
-                                        class="fa fa-edit" title="Edit"></i></a>
+                                <a href="{{ route('product.edit', $value->id) }}" class="btn btn-primary"onclick="return confirm('Are you sure to update {{ $value->name }}')"><i
+                                        class="fa fa-edit" title="Edit" ></i></a>
                             </td>
 
                             <td><a href="{{ route('product.restore', $value->id) }}" class="btn btn-warning"

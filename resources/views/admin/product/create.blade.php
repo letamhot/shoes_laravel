@@ -7,6 +7,7 @@
 @section('title', 'Product')
 
 @section('content')
+@include('partials.message')
 <div class="container">
     <div class="row">
         <div class="col-lg-12 margin-tb" style="margin-top: 20px;">

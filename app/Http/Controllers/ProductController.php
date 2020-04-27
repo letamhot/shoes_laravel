@@ -60,7 +60,8 @@ class ProductController extends Controller
             'type' => 'required',
             'producer' => 'required',
             'image' => 'image | mimes:png,jpg,jpeg',
-            'price_input' => 'required | numeric | min:0',
+            'price_input' => 'required | numeric | min:0 | max:300000000',
+            'promotion_price' => 'required | numeric | max:300000000',
             'description' => 'required | string',
 
         ]);
@@ -74,13 +75,12 @@ class ProductController extends Controller
         if (request('image')) {
             $product->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
         }
-        if($product->price_input > 0){
             $product->price_input = $request->price_input;
-             }
-            if ($request->promotion_price > 0 && $request->promotion_price <= 300000000 && $request->promotion_price <  $product->price_input) {
+        if ($request->promotion_price >= 0 && $request->promotion_price <  $product->price_input) {
                 $product->promotion_price = $request->promotion_price;
-            }else{
-                $product->promotion_price = null;
+            }
+            else{
+                return back()->with('error', 'Do not enter a negative number');
             }
         $product->new = $request->new;
         $product->description = $request->description;
@@ -141,6 +141,7 @@ class ProductController extends Controller
             'producer' => 'required',
             'image' => 'image | mimes:png,jpg,jpeg',
             'price_input' => 'required | numeric | min:0 | max:300000000',
+            'promotion_price' => 'required | numeric | max:300000000',
             'description' => 'required | string',
 
         ]);
@@ -153,13 +154,14 @@ class ProductController extends Controller
         if (request('image')) {
             $product->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
         }
-        if($product->price_input > 0){
+
         $product->price_input = $request->price_input;
-         }
-        if ($request->promotion_price > 0 && $request->promotion_price <= 300000000 && $request->promotion_price <  $product->price_input) {
+
+        if ( $request->promotion_price >= 0 && $request->promotion_price <  $product->price_input) {
             $product->promotion_price = $request->promotion_price;
         }else{
-            $product->promotion_price = 0;
+            return back()->with('error', '
+            Do not enter a negative number');
         }
         $product->new = $request->new;
 
@@ -215,7 +217,6 @@ class ProductController extends Controller
     public function delete($id)
     {
         $product = Product::onlyTrashed()->findOrFail($id);
-        $product->size_product()->forceDelete();
         $product->forceDelete();
 
         return back()->with('delete', "Product $product->name deleted!");
@@ -228,7 +229,6 @@ class ProductController extends Controller
         if (count($product) == 0) {
             return back()->with('delete', 'Clean trash, nothing to delete!');
         } else {
-            $product->size_product()->forceDelete();
 
             Product::onlyTrashed()->forceDelete();
 

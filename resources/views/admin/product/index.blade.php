@@ -11,7 +11,7 @@
     <div class="col-lg-12 margin-tb" style="margin-top: 20px;">
         <div class="pull-right">
             <a href="{{route('product.create')}}" class="btn btn-success">Create New Product</a>
-            <a href="{{ route('product.trash') }}" class="btn btn-danger" style="float:right">Garbage can</a>
+            <a href="{{ route('product.trash') }}" class="btn btn-danger" style="float:right" >Garbage can</a>
 
         </div>
         <br />

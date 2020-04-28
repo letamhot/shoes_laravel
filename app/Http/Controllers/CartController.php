@@ -232,12 +232,17 @@ class CartController extends Controller
         }
 
         if ($request->ajax()) {
-            if (($qty > $size_product->qty) || $bool == false || $qty < 1) {
+            if (($qty > $size_product->qty) || $bool == false) {
                 return response()->json([
                     'status' => 'Wrong',
                     'msg' => 'Error'
                 ]);
             }
+        }
+
+        if ($qty < 1) {
+            $amount = Cart::instance(Auth::user()->id)->get($id);
+            $qty = $amount->qty;
         }
         Cart::instance(Auth::user()->id)->update($id, $qty);
 
@@ -269,7 +274,7 @@ class CartController extends Controller
         return back()->with('success', "Cart $cart->name delete!");
     }
 
-    
+
     public function addCartPost($id, $qty, $check, $size, Request $request)
     {
         if (Auth::user()) {

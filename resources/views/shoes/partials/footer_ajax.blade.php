@@ -97,7 +97,7 @@
 </script>
 <script>
     //Save Cart
-    $("#list-cart").on("click", ".cart_update i", function(){
+    $("#list-cart").on("change", ".qty", function(){
         let y = $(this).data("id");
         let x = document.getElementById("quantityItem" + $(this).data("id")).value;
         $.ajax({

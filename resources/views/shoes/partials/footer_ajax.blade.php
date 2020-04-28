@@ -96,6 +96,12 @@
     });
 </script>
 <script>
+    $('.qty').on('keyup keydown', function(e){
+        var KeysPressedTrue = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 46, 8, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 9, 16, 17, 18, 91, 36, 35, 37, 38, 39, 40].indexOf(e.which) > -1;
+        if(!KeysPressedTrue) {
+            return false;
+        }
+    });
     //Save Cart
     $("#list-cart").on("change", ".qty", function(){
         let y = $(this).data("id");

@@ -114,4 +114,18 @@
             }
         });
     });
+    //Save Cart
+    $("#list-cart").on("change", ".qty", function(){
+        let y = $(this).data("id");
+        let x = document.getElementById("quantityItem" + $(this).data("id")).value;
+        $.ajax({
+            url : '/updatedeleteCart',
+            type : 'GET',
+        }).done(function(res1){
+            // console.log(res1);
+                $("#list-cart").empty();
+                $("#list-cart").html(res1);
+
+        });
+    });
 </script>

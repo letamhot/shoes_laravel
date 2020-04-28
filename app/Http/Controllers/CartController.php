@@ -214,25 +214,10 @@ class CartController extends Controller
         $id_cart = Cart::instance(Auth::user()->id)->get($id);
         $id_product = Product::findOrFail($id_cart->id);
         $size_product = Size_product::where('id_size', $id_cart->options->size)->where('id_product', $id_product->id)->first();
-        $total = 0;
-        $bool = true;
-        foreach (Cart::instance(Auth::user()->id)->content() as $item) {
-            if ($item->options->size == $size_product->id_size) {
-                $total += $item->qty;
-            }
-        }
-        if ($qty > $id_cart->qty) {
-            $total += ($qty - $id_cart->qty);
-        } else {
-            $total += ($qty - $id_cart->qty);
-        }
-
-        if ($total > $size_product->qty) {
-            $bool = false;
-        }
 
         if ($request->ajax()) {
-            if (($qty > $size_product->qty) || $bool == false) {
+            if (($qty > $size_product->qty)) {
+                Cart::instance(Auth::user()->id)->update($id, $size_product->qty);
                 return response()->json([
                     'status' => 'Wrong',
                     'msg' => 'Error'
@@ -242,9 +227,12 @@ class CartController extends Controller
 
         if ($qty < 1) {
             $amount = Cart::instance(Auth::user()->id)->get($id);
-            $qty = $amount->qty;
+            $qtyy = $amount->qty;
+            Cart::instance(Auth::user()->id)->update($id, $qtyy);
+        }else{
+            Cart::instance(Auth::user()->id)->update($id, $qty);
+
         }
-        Cart::instance(Auth::user()->id)->update($id, $qty);
 
         $size_product = Size_product::all();
         $product = null;
@@ -365,11 +353,13 @@ class CartController extends Controller
     {
         $product = null;
         $size_product = null;
+        $amount_product = null;
         foreach (Cart::instance(Auth::user()->id)->content() as $cart) {
             $check = $product[] = Product::find($cart->id);
             $size_product[] = Size_product::where('id_size', $cart->options->size)->where('id_product', $check->id)->first();
+            $amount_product[] = Size_product::where('id_size', $cart->options->size)->where('id_product', $cart->id)->sum('qty');
         }
-        return view('shoes.cartajax', compact('product', 'size_product'));
+        return view('shoes.cartajax', compact('product', 'size_product', 'amount_product'));
     }
 
     public function checkout(Request $request)

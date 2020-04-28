@@ -56,7 +56,7 @@ Route::post('/checkout1', 'CartController@checkout')->name('checkoutPost');
 Route::get('/addCartPost/{id}/{qty}/{check}/{size}', 'CartController@addCartPost')->name('addCartPost');
 Route::get('/saveCart/{id}/{quantity}', 'CartController@saveListItemCart')->name('saveListItemCart');
 Route::get('/deleteListCart/{id}', 'CartController@deleteListCart')->name('deleteListCart');
-Route::get('/updateDeleteListCart', 'CartController@updateDeleteListCart')->name('updateDeleteListCart');
+Route::get('/updatedeleteCart', 'CartController@updatedeleteCart')->name('updatedeleteCart');
 
 //login-shoes
 Route::get('/loginshoes', 'Auth\LoginController@showLogin')->name('loginshoes');

@@ -91,7 +91,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Total Product</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total_product }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total_product - $product }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class=" fa fa-shoe-prints fa-2x text-gray-300"></i>

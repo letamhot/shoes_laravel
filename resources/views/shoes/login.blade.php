@@ -112,7 +112,7 @@
                     </form>
                     <br>
                     <div class="text-center">
-                        <a class="btn btn-dark" class="small" href="password/reset/">Forgot
+                        <a  class="small" href="password/reset/">Forgot
                             Password?</a>
                     </div>
                 </div>

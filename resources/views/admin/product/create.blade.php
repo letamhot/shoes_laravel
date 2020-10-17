@@ -50,9 +50,6 @@
                     {{-- <textarea name="producer" id="producer" rows="10" placeholder="producer"
                     class="form-control"></textarea> --}}
                     <select class="form-control input-width" name="producer">
-                        {{-- @foreach($producer as $producers)
-                    <option value="{{ $producers->id }}">{{ $producers->name }}</option>
-                        @endforeach --}}
                         @foreach ($producer as $producers)
                         <option value="{{ $producers->id }}" @if(old('producer')==$producers->id)
                             {{ "selected" }}

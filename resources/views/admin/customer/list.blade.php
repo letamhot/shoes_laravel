@@ -94,7 +94,7 @@
                                 {{ $value->updated_at }}
                             </td>
 
-                            <td><a href="{{ route('details.profile', $value->id) }}" class="btn btn-info btn-sm">
+                            <td><a href="{{ route('customer.edit', $value->id) }}" class="btn btn-info btn-sm">
                                     <i class="fa fa-edit" title="Edit"></i></a>
                             </td>
                             <td>

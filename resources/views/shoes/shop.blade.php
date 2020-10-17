@@ -66,7 +66,7 @@
                             <div class="single-products">
                                 <div class="productinfo text-center">
                                     <a href="{{ route('productdetail', $product->id) }}">
-                                        @if($product->size_product->sum('qty') > 0)
+                                    @if($product->size_product->sum('qty') > 0)
                                         <img src="data:image;base64, {{ $product->image }}" alt="" height="180px" /></a>
                                     @else
                                     <img src="data:image;base64, {{ $product->image }}" alt="" height="180px"

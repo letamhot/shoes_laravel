@@ -170,7 +170,7 @@ class ProductController extends Controller
         $product->save();
         $product->size()->sync(request('size'));
 
-        return redirect()->route('product.index')->with('success', 'Product Created successfully');
+        return redirect()->route('product.index')->with('success', 'Product Updated successfully');
     }
 
     /**
@@ -183,8 +183,6 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        // $product->size_product()->delete();
-        // $product->bill_detail()->delete();
         $product->delete();
         return back()->with('success', "Product $product->name delete!");
     }

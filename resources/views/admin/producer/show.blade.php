@@ -25,32 +25,26 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Type:</strong>
-                {{$producer->type}}
+                <strong>Address:</strong>
+                {{$producer->address}}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Producer: </strong>
-                {{$producer->producer}}
+                <strong>Phone: </strong>
+                {{$producer->phone}}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Amount: </strong>
-                {{$producer->amount}}
+                <strong>Tax_code: </strong>
+                {{$producer->tax_code}}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Image: </strong>
                 <img src="data:image;base64,{{$producer->image}}" width="60px" height="60px">
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Price_input: </strong>
-                {{$producer->price_input}}
             </div>
         </div>
     </div>

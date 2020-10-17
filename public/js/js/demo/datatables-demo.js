@@ -26,3 +26,6 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#dataTable9').DataTable();
 });
+$(document).ready(function() {
+    $('#dataTable10').DataTable();
+});
